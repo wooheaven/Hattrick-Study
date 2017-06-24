@@ -4,7 +4,7 @@
 
 [20170513 Player](00_Data/00_Player/20170513/player.txt), [20170520 Player](00_Data/00_Player/20170520/player.txt), [20170527 Player](00_Data/00_Player/20170527/player.txt)
 
-[20170603 Player](00_Data/00_Player/20170603/player.txt), [20170610 Player](00_Data/00_Player/20170610/player.txt), [20170617 Player](00_Data/00_Player/20170617/player.txt)
+[20170603 Player](00_Data/00_Player/20170603/player.txt), [20170610 Player](00_Data/00_Player/20170610/player.txt), [20170617 Player](00_Data/00_Player/20170617/player.txt), [20170624 Player](00_Data/00_Player/20170624/player.txt)
 
 # How to use python3 with jupyter for Hattric analysis
 
