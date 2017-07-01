@@ -6,6 +6,8 @@
 
 [20170603 Player](00_Data/00_Player/20170603/player.txt), [20170610 Player](00_Data/00_Player/20170610/player.txt), [20170617 Player](00_Data/00_Player/20170617/player.txt), [20170625 Player](00_Data/00_Player/20170625/player.txt), [20170628 Player](00_Data/00_Player/20170628/player.txt)
 
+[20170701 Player](00_Data/00_Player/20170701/firefox_player_skill_table.txt)
+
 # How to use python3 with jupyter for Hattric analysis
 
 [Details of use python3 with jupyter for Hattric analysis](01_use/01_use_python3_on_jupyternotebook.md)
