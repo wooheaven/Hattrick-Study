@@ -42,6 +42,8 @@ awk 'BEGIN{FS=OFS=","} {if ( length($14) > 1 && $14 != "MB" ) $14="True"; print 
 mv $tmpFile $targetFile
 fi
 
+cat $targetFile
+
 unset targetFile
 unset tmpFile
 unset isReady
