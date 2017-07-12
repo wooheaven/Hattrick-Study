@@ -8,7 +8,7 @@ if [[ -e $1 ]];
 then 
 echo "Ready to parsing firefox_player_skill_table.txt";
 
-targetFile="$1/firefox_player_skill_table.txt"
+targetFile="$1/player_skill_table.txt"
 tmpFile="$1/tmpFile.txt"
 isReady="true"
 
@@ -32,14 +32,23 @@ sed -i 's/\[\/tr\]//g' $targetFile
     
 sed -i 's/#/Number/' $targetFile
     
-awk 'BEGIN{FS=OFS=","} {if ( NF == 5 ) printf "%s", $0; else if ( NF == 35 ) print substr($0,38); else print $0}' $targetFile > $tmpFile
+awk 'BEGIN{FS=OFS=","} {if ( NF == 5 ) printf "%s", $0; else if ( NF == 36 ) print substr($0,38); else print $0}' $targetFile > $tmpFile
 mv $tmpFile $targetFile
     
 awk 'BEGIN{FS=OFS=","} {print $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$300,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39}' $targetFile > $tmpFile
 mv $tmpFile $targetFile
-    
-awk 'BEGIN{FS=OFS=","} {if ( length($14) > 1 && $14 != "MB" ) $14="True"; print }' $targetFile > $tmpFile
+
+awk 'BEGIN{FS=OFS=","} {if ( length($15) > 1 && $15 != "MB" ) $15="True"; print }' $targetFile > $tmpFile
 mv $tmpFile $targetFile
+
+awk 'BEGIN{FS=OFS=","} {if ( length($15) == 0 ) $15="False"; print }' $targetFile > $tmpFile
+mv $tmpFile $targetFile
+
+sed -i '1s/Player/Player,PlayerID/' $targetFile
+awk 'BEGIN{FS=OFS=","} {if ( length($3) > 7 && $3 != "Player" ) $3=substr($3,1,index($3," [")-1)","substr($30,11,9); print }' $targetFile > $tmpFile
+#substr($3,index($3,"id="),index($3,"]"))
+mv $tmpFile $targetFile
+
 fi
 
 cat $targetFile

@@ -6,9 +6,9 @@ unset isReady
 
 if [[ -e $1 ]];
 then 
-echo "Ready to parsing chrome_match.txt";
+echo "Ready to parsing match.txt";
 
-targetFile="$1/chrome_match.txt"
+targetFile="$1/match.txt"
 tmpFile="$1/tmpFile.txt"
 isReady="true"
 
