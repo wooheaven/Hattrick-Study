@@ -2,11 +2,11 @@
 
 [Player Parser](00_Data/00_Player/htmlToObject.ipynb)
 
-[20170513 Player](00_Data/00_Player/20170513/player.txt), [20170520 Player](00_Data/00_Player/20170520/player.txt), [20170527 Player](00_Data/00_Player/20170527/player.txt)
+[20170513 Player](00_Data/00_Player/2017/05/13/player.txt), [20170520 Player](00_Data/00_Player/2017/05/20/player.txt), [20170527 Player](00_Data/00_Player/2017/05/27/player.txt)
 
-[20170603 Player](00_Data/00_Player/20170603/player.txt), [20170610 Player](00_Data/00_Player/20170610/player.txt), [20170617 Player](00_Data/00_Player/20170617/player.txt), [20170625 Player](00_Data/00_Player/20170625/player.txt), [20170628 Player](00_Data/00_Player/20170628/player.txt)
+[20170603 Player](00_Data/00_Player/2017/06/03/player.txt), [20170610 Player](00_Data/00_Player/2017/06/10/player.txt), [20170617 Player](00_Data/00_Player/2017/06/17/player.txt), [20170625 Player](00_Data/00_Player/2017/06/25/player.txt), [20170628 Player](00_Data/00_Player/2017/06/28/player.txt)
 
-[20170701 Player](00_Data/00_Player/20170701/firefox_player_skill_table.txt), [20170702 Player](00_Data/00_Player/20170702/firefox_player_skill_table.txt), [20170705 Player](00_Data/00_Player/20170705/firefox_player_skill_table.txt), [20170709 Player](00_Data/00_Player/20170709/firefox_player_skill_table.txt)
+[20170701 Player](00_Data/00_Player/2017/07/01/player_skill_table.txt), [20170702 Player](00_Data/00_Player/2017/07/02/player_skill_table.txt), [20170705 Player](00_Data/00_Player/2017/07/05/player_skill_table.txt), [20170709 Player](00_Data/00_Player/2017/07/09/player_skill_table.txt), [20170712 Player](00_Data/00_Player/2017/07/12/player_skill_table.txt)
 
 # How to use python3 with jupyter for Hattric analysis
 
