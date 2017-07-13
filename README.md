@@ -1,14 +1,31 @@
 # Hattric Team : LastKeeper (Korean 1944941)
 
-## Parser
-[Player Parser](00_Data/00_Player/htmlToObject.ipynb)
+## Player Parsing
+[parsing_player_skill_table](00_Data/00_Player/parsing_player_skill_table.sh)
 
-## Player
-[20170513](00_Data/00_Player/2017/05/13/player.txt), [20170520](00_Data/00_Player/2017/05/20/player.txt), [20170527](00_Data/00_Player/2017/05/27/player.txt)
+## Player Data
 
-[20170603](00_Data/00_Player/2017/06/03/player.txt), [20170610](00_Data/00_Player/2017/06/10/player.txt), [20170617](00_Data/00_Player/2017/06/17/player.txt), [20170625](00_Data/00_Player/2017/06/25/player.txt), [20170628](00_Data/00_Player/2017/06/28/player.txt)
+2017
 
-[20170701](00_Data/00_Player/2017/07/01/player_skill_table.txt), [20170702](00_Data/00_Player/2017/07/02/player_skill_table.txt), [20170705](00_Data/00_Player/2017/07/05/player_skill_table.txt), [20170709](00_Data/00_Player/2017/07/09/player_skill_table.txt), [20170712](00_Data/00_Player/2017/07/12/player_skill_table.txt)
+05 [13](00_Data/00_Player/2017/05/13/player.txt), [20](00_Data/00_Player/2017/05/20/player.txt), [27](00_Data/00_Player/2017/05/27/player.txt)
+
+06 [03](00_Data/00_Player/2017/06/03/player.txt), [10](00_Data/00_Player/2017/06/10/player.txt), [17](00_Data/00_Player/2017/06/17/player.txt), [25](00_Data/00_Player/2017/06/25/player.txt), [28](00_Data/00_Player/2017/06/28/player.txt)
+
+07 [01](00_Data/00_Player/2017/07/01/player_skill_table.txt), [02](00_Data/00_Player/2017/07/02/player_skill_table.txt), [05](00_Data/00_Player/2017/07/05/player_skill_table.txt), [09](00_Data/00_Player/2017/07/09/player_skill_table.txt), [12](00_Data/00_Player/2017/07/12/player_skill_table.txt)
+
+## Match Parsing
+[parsing_match](00_Data/00_Player/parsing_match.sh)
+
+## Match Data
+
+2017
+
+05
+
+06
+
+07 [02](00_Data/00_Player/2017/07/02/match.txt), [05](00_Data/00_Player/2017/07/05/match.txt), [09](00_Data/00_Player/2017/07/09/match.txt), [12](00_Data/00_Player/2017/07/12/match.txt)
+
 
 # How to use python3 with jupyter for Hattric analysis
 
