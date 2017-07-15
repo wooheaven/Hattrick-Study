@@ -46,7 +46,19 @@ mv $tmpFile $targetFile
 
 sed -i '1s/Player/Player,PlayerID/' $targetFile
 awk 'BEGIN{FS=OFS=","} {if ( length($3) > 7 && $3 != "Player" ) $3=substr($3,1,index($3," [")-1)","substr($30,11,9); print }' $targetFile > $tmpFile
-#substr($3,index($3,"id="),index($3,"]"))
+mv $tmpFile $targetFile
+
+awk 'BEGIN{FS=OFS=","} {if ( $8 != "Since") sub(" 주  ", "주", $8) ; print }' $targetFile > $tmpFile
+mv $tmpFile $targetFile
+awk 'BEGIN{FS=OFS=","} {if ( $8 != "Since") sub(" 일", "일", $8) ; print }' $targetFile > $tmpFile
+mv $tmpFile $targetFile
+
+awk 'BEGIN{FS=OFS=","} {if ( $25 != "Last" && length($25) > 10 ) $25=substr($25, 1, 10) ; print}' $targetFile > $tmpFile
+mv $tmpFile $targetFile
+
+awk 'BEGIN{FS=OFS=","} {if ( $31 != "TC") $31="" ; print }' $targetFile > $tmpFile
+mv $tmpFile $targetFile
+awk 'BEGIN{FS=OFS=","} {if ( $32 != "PH") $32="" ; print }' $targetFile > $tmpFile
 mv $tmpFile $targetFile
 
 fi
