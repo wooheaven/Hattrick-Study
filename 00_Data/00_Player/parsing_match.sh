@@ -13,7 +13,7 @@ tmpFile="$1/tmpFile.txt"
 isReady="true"
 
 else 
-echo "Not ready to parsing chrome_match.txt";
+echo "Not ready to parsing match.txt";
 fi
 
 if [[ $isReady -eq "true" ]];
@@ -107,6 +107,8 @@ mv $tmpFile $targetFile
 sort -t, -k1n,1 -k4,4 $targetFile > $tmpFile
 mv $tmpFile $targetFile
 
+echo "PO,Number,Star,FromMin,ToMin" >> $tmpFile
+echo "" >> $tmpFile
 awk 'BEGIN{FS=OFS=","} {if( $1 == "0" ) print "CO",$2,$3,$4,$5; else}' $targetFile >> $tmpFile
 echo "" >> $tmpFile
 awk 'BEGIN{FS=OFS=","} {if( $1 == "100" ) print "KP",$2,$3,$4,$5; else}' $targetFile >> $tmpFile
@@ -125,7 +127,21 @@ awk 'BEGIN{FS=OFS=","} {if( $1 == "109" ) print "IM",$2,$3,$4,$5; else}' $target
 echo "" >> $tmpFile
 awk 'BEGIN{FS=OFS=","} {if( $1 == "111" ) print "FW",$2,$3,$4,$5; else}' $targetFile >> $tmpFile
 awk 'BEGIN{FS=OFS=","} {if( $1 == "113" ) print "FW",$2,$3,$4,$5; else}' $targetFile >> $tmpFile
+mv $tmpFile $targetFile
 
+awk 'BEGIN{FS=OFS=","} {if ( length($3) >= 9 ) $3=substr($3,9); print}' $targetFile > $tmpFile
+mv $tmpFile $targetFile
+
+awk 'BEGIN{FS=OFS=","} {if ( length($4) >= 11 ) $4=substr($4,11); print}' $targetFile > $tmpFile
+mv $tmpFile $targetFile
+
+awk 'BEGIN{FS=OFS=","} {if ( length($5) >= 9 ) $5=substr($5,9); print}' $targetFile > $tmpFile
+mv $tmpFile $targetFile
+
+awk 'BEGIN{FS=OFS=","} {if ( $4 == "-1" ) $4="0"; print}' $targetFile > $tmpFile
+mv $tmpFile $targetFile
+
+awk 'BEGIN{FS=OFS=","} {if ( $5 == "-1" ) $5="0"; print}' $targetFile > $tmpFile
 mv $tmpFile $targetFile
 
 echo ""
