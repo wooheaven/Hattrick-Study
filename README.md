@@ -26,6 +26,9 @@
 
 07 [02](00_Data/00_Player/2017/07/02/match.txt), [05](00_Data/00_Player/2017/07/05/match.txt), [09](00_Data/00_Player/2017/07/09/match.txt), [12](00_Data/00_Player/2017/07/12/match.txt), [16](00_Data/00_Player/2017/07/16/match.txt)
 
+## Line Up
+
+[KP](00_Data/00_Player/01_KP_table.md)
 
 # How to use python3 with jupyter for Hattric analysis
 
