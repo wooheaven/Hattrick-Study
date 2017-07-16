@@ -6,7 +6,7 @@ unset isReady
 
 if [[ -e $1 ]]; 
 then 
-echo "Ready to parsing firefox_player_skill_table.txt";
+echo "Ready to parsing player_skill_table.txt";
 
 targetFile="$1/player_skill_table.txt"
 tmpFile="$1/tmpFile.txt"
