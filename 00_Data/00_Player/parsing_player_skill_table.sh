@@ -62,6 +62,8 @@ mv -f $tmpFile $targetFile
 awk 'BEGIN{FS=OFS=","} {if ( $30 != "PH") $30="" ; print }' $targetFile > $tmpFile
 mv -f $tmpFile $targetFile
 
+#sed -i 's/,/\t/g' $targetFile
+
 fi
 
 cat $targetFile
