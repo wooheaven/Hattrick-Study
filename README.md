@@ -14,7 +14,7 @@
 07 [01](00_Data/00_Player/2017/07/01/player_skill_table.txt), [02](00_Data/00_Player/2017/07/02/player_skill_table.txt), [05](00_Data/00_Player/2017/07/05/player_skill_table.txt), [09](00_Data/00_Player/2017/07/09/player_skill_table.txt), [12](00_Data/00_Player/2017/07/12/player_skill_table.txt), [15](00_Data/00_Player/2017/07/15/player_skill_table.txt), [16](00_Data/00_Player/2017/07/16/player_skill_table.txt), [19](00_Data/00_Player/2017/07/19/player_skill_table.txt), [22](00_Data/00_Player/2017/07/22/player_skill_table.txt), [23](00_Data/00_Player/2017/07/23/player_skill_table.txt), [26](00_Data/00_Player/2017/07/26/player_skill_table.txt), [29](00_Data/00_Player/2017/07/29/player_skill_table.txt)
 
 ## Match Parsing
-[parsing_match](00_Data/00_Player/htmlToObject.ipynb)
+[parsing_match](00_Data/00_Player/parsing_match.ipynb)
 
 ## Match Data
 
@@ -24,11 +24,13 @@
 
 06
 
-07 [02](00_Data/00_Player/2017/07/02/match.txt), [05](00_Data/00_Player/2017/07/05/match.txt), [09](00_Data/00_Player/2017/07/09/match.txt), [12](00_Data/00_Player/2017/07/12/match.txt), [16](00_Data/00_Player/2017/07/16/match.txt), [19](00_Data/00_Player/2017/07/19/match.txt), [23](00_Data/00_Player/2017/07/23/match.txt), [26](00_Data/00_Player/2017/07/26/match.txt)
+07 [02](00_Data/00_Player/2017/07/02/match.txt), [05](00_Data/00_Player/2017/07/05/match.txt), [09](00_Data/00_Player/2017/07/09/match.txt), [12](00_Data/00_Player/2017/07/12/match.txt), [16](00_Data/00_Player/2017/07/16/match.txt), [19](00_Data/00_Player/2017/07/19/match.txt), [23](00_Data/00_Player/2017/07/23/match.txt), [26](00_Data/00_Player/2017/07/26/match.txt), [30](00_Data/00_Player/2017/07/30/match.txt)
 
 ## Line Up
 
 [KP](00_Data/00_Player/01_KP_table.md)
+
+[WB](00_Data/00_Player/02_WB_table.md)
 
 # How to use python3 with jupyter for Hattric analysis
 
