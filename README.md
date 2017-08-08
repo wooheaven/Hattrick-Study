@@ -38,6 +38,8 @@
 
 [CD](00_Data/00_Player/03_CD_table.md)
 
+[W](00_Data/00_Player/04_W_table.md)
+
 # How to use python3 with jupyter for Hattric analysis
 
 [Details of use python3 with jupyter for Hattric analysis](01_use/01_use_python3_on_jupyternotebook.md)
