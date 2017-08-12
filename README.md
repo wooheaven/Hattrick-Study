@@ -42,6 +42,8 @@
 
 [IM](00_Data/00_Player/05_IM_table.md)
 
+[FW](00_Data/00_Player/06_FW_table.md)
+
 # How to use python3 with jupyter for Hattric analysis
 
 [Details of use python3 with jupyter for Hattric analysis](01_use/01_use_python3_on_jupyternotebook.md)
