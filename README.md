@@ -44,15 +44,22 @@
 
 [FW](00_Data/00_Player/06_FW_table.md)
 
-# How to use python3 with jupyter for Hattric analysis
+# Hattric Team : HeavyDefence (Korean )
 
-[Details of use python3 with jupyter for Hattric analysis](01_use/01_use_python3_on_jupyternotebook.md)
+## Player Parsing
 
-```{bash}
-$ conda info --envs
-$ source activate python3
-$ conda info --envs
-$ jupyter notebook --notebook-dir=`pwd` --no-browser --ip=0.0.0.0
-$ source deactivate python3
-$ conda info --envs
-```
+## Player Data
+
+2017
+
+08
+
+## Match Parsing
+
+## Match Data
+
+2017 
+
+08
+
+## Line Up
