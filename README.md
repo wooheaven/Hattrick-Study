@@ -62,7 +62,7 @@
 
 2017 
 
-08 [13](01_Heavy2Defence/2017/08/13/match.txt)
+08 [13](01_Heavy2Defence/2017/08/13/match.txt), [16](01_Heavy2Defence/2017/08/16/match.txt)
 
 ## Line Up
 
