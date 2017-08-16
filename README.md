@@ -53,7 +53,7 @@
 
 2017
 
-08 [13](01_Heavy2Defence/2017/08/13/player.txt)
+08 [13](01_Heavy2Defence/2017/08/13/player.txt), [16](01_Heavy2Defence/2017/08/16/player.txt)
 
 ## Match Parsing
 [parsing match](01_Heavy2Defence/parsing_match.ipynb)
