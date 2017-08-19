@@ -30,6 +30,7 @@
 
 08 [06](00_LastKeeper/2017/08/06/match.txt), [09](00_LastKeeper/2017/08/09/match.txt), [13](00_LastKeeper/2017/08/13/match.txt), [16](00_LastKeeper/2017/08/16/match.txt)
 
+
 ## Line Up
 
 [KP](00_LastKeeper/01_KP_table.md)
@@ -50,10 +51,10 @@
 [parsing player](01_Heavy2Defence/parsing_player.ipynb)
 
 ## Player Data
-
-2017
-
-08 [13](01_Heavy2Defence/2017/08/13/player.txt), [16](01_Heavy2Defence/2017/08/16/player.txt)
+|   |   |   |
+|---|---|---|
+| 2017 | 08 | [13](01_Heavy2Defence/2017/08/13/player.txt) |
+[16](01_Heavy2Defence/2017/08/16/player.txt), [19](01_Heavy2Defence/2017/08/19/player.txt)
 
 ## Match Parsing
 [parsing match](01_Heavy2Defence/parsing_match.ipynb)
