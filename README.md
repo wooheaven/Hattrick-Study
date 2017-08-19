@@ -13,7 +13,7 @@
 
 07 [01](00_LastKeeper/2017/07/01/player_skill_table.txt), [02](00_LastKeeper/2017/07/02/player_skill_table.txt), [05](00_LastKeeper/2017/07/05/player_skill_table.txt), [09](00_LastKeeper/2017/07/09/player_skill_table.txt), [12](00_LastKeeper/2017/07/12/player_skill_table.txt), [15](00_LastKeeper/2017/07/15/player_skill_table.txt), [16](00_LastKeeper/2017/07/16/player_skill_table.txt), [19](00_LastKeeper/2017/07/19/player_skill_table.txt), [22](00_LastKeeper/2017/07/22/player_skill_table.txt), [23](00_LastKeeper/2017/07/23/player_skill_table.txt), [26](00_LastKeeper/2017/07/26/player_skill_table.txt), [29](00_LastKeeper/2017/07/29/player_skill_table.txt), [30](00_LastKeeper/2017/07/30/player_skill_table.txt)
 
-08 [05](00_LastKeeper/2017/08/05/player_skill_table.txt), [06](00_LastKeeper/2017/08/06/player_skill_table.txt), [09](00_LastKeeper/2017/08/09/player_skill_table.txt), [12](00_LastKeeper/2017/08/12/player.txt), [13](00_LastKeeper/2017/08/13/player.txt), [16](00_LastKeeper/2017/08/16/player.txt)
+08 [05](00_LastKeeper/2017/08/05/player_skill_table.txt), [06](00_LastKeeper/2017/08/06/player_skill_table.txt), [09](00_LastKeeper/2017/08/09/player_skill_table.txt), [12](00_LastKeeper/2017/08/12/player.txt), [13](00_LastKeeper/2017/08/13/player.txt), [16](00_LastKeeper/2017/08/16/player.txt), [19](00_LastKeeper/2017/08/19/player.txt)
 
 ## Match Parsing
 [parsing match](00_LastKeeper/parsing_match.ipynb)
