@@ -34,7 +34,7 @@
 ## [Match Parsing](01_Heavy2Defence/parsing_match.ipynb) and Match Data
 | Year | Month | Date |
 |---|---|---|
-| 2017 | 08 | [13](01_Heavy2Defence/2017/08/13/match.txt), [16](01_Heavy2Defence/2017/08/16/match.txt) |
+| 2017 | 08 | [13](01_Heavy2Defence/2017/08/13/match.txt), [16](01_Heavy2Defence/2017/08/16/match.txt) , [19](01_Heavy2Defence/2017/08/19/match.txt) |
 
 ## Line Up
 |   |   |   |   |   |
