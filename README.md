@@ -37,15 +37,9 @@
 | 2017 | 08 | [13](01_Heavy2Defence/2017/08/13/match.txt), [16](01_Heavy2Defence/2017/08/16/match.txt) |
 
 ## Line Up
-
-[KP](01_Heavy2Defence/01_KP_table.md)
-
-[WB](01_Heavy2Defence/02_WB_table.md)
-
-[CD](01_Heavy2Defence/03_CD_table.md)
-
-[W](01_Heavy2Defence/04_W_table.md)
-
-[IM](01_Heavy2Defence/05_IM_table.md)
-
-[FW](01_Heavy2Defence/06_FW_table.md)
+|   |   |   |   |   |
+|---|---|---|---|---|
+| | | [KP](01_Heavy2Defence/01_KP_table.md) | | |
+| [WB](01_Heavy2Defence/02_WB_table.md) | | [CD](01_Heavy2Defence/03_CD_table.md) | | |
+| [W](01_Heavy2Defence/04_W_table.md) | | [IM](01_Heavy2Defence/05_IM_table.md) | | |
+| | | [FW](01_Heavy2Defence/06_FW_table.md) | | |
