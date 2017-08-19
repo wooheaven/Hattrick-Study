@@ -19,17 +19,12 @@
 [parsing match](00_LastKeeper/parsing_match.ipynb)
 
 ## Match Data
-
-2017
-
-05
-
-06
-
-07 [02](00_LastKeeper/2017/07/02/match.txt), [05](00_LastKeeper/2017/07/05/match.txt), [09](00_LastKeeper/2017/07/09/match.txt), [12](00_LastKeeper/2017/07/12/match.txt), [16](00_LastKeeper/2017/07/16/match.txt), [19](00_LastKeeper/2017/07/19/match.txt), [23](00_LastKeeper/2017/07/23/match.txt), [26](00_LastKeeper/2017/07/26/match.txt), [30](00_LastKeeper/2017/07/30/match.txt)
-
-08 [06](00_LastKeeper/2017/08/06/match.txt), [09](00_LastKeeper/2017/08/09/match.txt), [13](00_LastKeeper/2017/08/13/match.txt), [16](00_LastKeeper/2017/08/16/match.txt)
-
+| Year | Month | Date |
+|---|---|---|
+| 2017 | 05 | |
+| | 06 | |
+| | 07 | [02](00_LastKeeper/2017/07/02/match.txt), [05](00_LastKeeper/2017/07/05/match.txt), [09](00_LastKeeper/2017/07/09/match.txt), [12](00_LastKeeper/2017/07/12/match.txt), [16](00_LastKeeper/2017/07/16/match.txt), [19](00_LastKeeper/2017/07/19/match.txt), [23](00_LastKeeper/2017/07/23/match.txt), [26](00_LastKeeper/2017/07/26/match.txt), [30](00_LastKeeper/2017/07/30/match.txt) |
+| | 08 | [06](00_LastKeeper/2017/08/06/match.txt), [09](00_LastKeeper/2017/08/09/match.txt), [13](00_LastKeeper/2017/08/13/match.txt), [16](00_LastKeeper/2017/08/16/match.txt) |
 
 ## Line Up
 
