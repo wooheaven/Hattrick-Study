@@ -17,33 +17,21 @@
 | | 08 | [06](00_LastKeeper/2017/08/06/match.txt), [09](00_LastKeeper/2017/08/09/match.txt), [13](00_LastKeeper/2017/08/13/match.txt), [16](00_LastKeeper/2017/08/16/match.txt) |
 
 ## Line Up
-
-[KP](00_LastKeeper/01_KP_table.md)
-
-[WB](00_LastKeeper/02_WB_table.md)
-
-[CD](00_LastKeeper/03_CD_table.md)
-
-[W](00_LastKeeper/04_W_table.md)
-
-[IM](00_LastKeeper/05_IM_table.md)
-
-[FW](00_LastKeeper/06_FW_table.md)
+|   |   |   |   |   |
+|---|---|---|---|---|
+| | | [KP](00_LastKeeper/01_KP_table.md) | | |
+| [WB](00_LastKeeper/02_WB_table.md) | | [CD](00_LastKeeper/03_CD_table.md) | | |
+| [W](00_LastKeeper/04_W_table.md) | | [IM](00_LastKeeper/05_IM_table.md) | | |
+| | | [FW](00_LastKeeper/06_FW_table.md) | | |
 
 # Hattric Team : HeavyDefence (Korean )
 
-## Player Parsing
-[parsing player](01_Heavy2Defence/parsing_player.ipynb)
-
-## Player Data
+## [Player Parsing](01_Heavy2Defence/parsing_player.ipynb) and Player Data
 | Year | Month | Date |
 |---|---|---|
 | 2017 | 08 | [13](01_Heavy2Defence/2017/08/13/player.txt), [16](01_Heavy2Defence/2017/08/16/player.txt), [19](01_Heavy2Defence/2017/08/19/player.txt) |
 
-## Match Parsing
-[parsing match](01_Heavy2Defence/parsing_match.ipynb)
-
-## Match Data
+## [Match Parsing](01_Heavy2Defence/parsing_match.ipynb) and Match Data
 | Year | Month | Date |
 |---|---|---|
 | 2017 | 08 | [13](01_Heavy2Defence/2017/08/13/match.txt), [16](01_Heavy2Defence/2017/08/16/match.txt) |
