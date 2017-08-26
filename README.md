@@ -29,7 +29,7 @@
 ## [Player Parsing](01_Heavy2Defence/parsing_player.ipynb) and Player Data
 | Year | Month | Date |
 |---|---|---|
-| 2017 | 08 | [13](01_Heavy2Defence/2017/08/13/player.txt), [16](01_Heavy2Defence/2017/08/16/player.txt), [19](01_Heavy2Defence/2017/08/19/player.txt), [23](01_Heavy2Defence/2017/08/23/player.txt) |
+| 2017 | 08 | [13](01_Heavy2Defence/2017/08/13/player.txt), [16](01_Heavy2Defence/2017/08/16/player.txt), [19](01_Heavy2Defence/2017/08/19/player.txt), [23](01_Heavy2Defence/2017/08/23/player.txt), [26](01_Heavy2Defence/2017/08/26/player.txt) |
 
 ## [Match Parsing](01_Heavy2Defence/parsing_match.ipynb) and Match Data
 | Year | Month | Date |
