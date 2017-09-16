@@ -28,10 +28,10 @@ def clickEmpty(y):
 	# move and click
 	moveAndClick(moveX, moveY)
 
-def clickHattrickLogin():
+def clickFacebookLogin():
 	# define position of Hattrick's Login
-	moveX = screenX / 1100 * 693
-	moveY = screenY / 300 * 119
+	moveX = screenX / 110 * 70
+	moveY = screenY / 300 * 135
 
 	# move and click
 	moveAndClick(moveX, moveY)
