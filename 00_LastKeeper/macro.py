@@ -72,6 +72,18 @@ def clickSkillTable():
 	# wait
 	time.sleep(3.8)
 
+def clickSince(y):
+	# define position of Hattrick's Login
+	moveX = screenX / 1200 * 831
+	moveY = screenY * y
+
+	# move and click
+	moveAndClick(moveX, moveY)
+
+	# wait
+	time.sleep(4)
+	
+
 def moveAndClick(moveX, moveY):
 	pyautogui.moveTo(moveX, moveY, duration=0.2)
 	pyautogui.click()
