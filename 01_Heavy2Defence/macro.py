@@ -6,7 +6,7 @@ def whereIsMouse():
 	print("(" + str(currentMouseX) + "," + str(currentMouseY) + ") / (" + str(screenX) + "," + str(screenY) + ")")
 
 def clickTabOfFireFox(n):
-	# define position of FireFox's 1st tab
+	# define position
 	moveX = screenX / 100 * 51
 	moveY = screenY / 30 * 1
 
@@ -21,7 +21,7 @@ def clickTabOfFireFox(n):
 	pyautogui.keyUp('ctrl')
 
 def clickEmpty(y):
-	# define position of empty
+	# define position
 	moveX = screenX / 110 * 65
 	moveY = screenY * y
 
@@ -29,7 +29,7 @@ def clickEmpty(y):
 	moveAndClick(moveX, moveY)
 
 def clickHattrickLogin():
-	# define position of Hattrick's Login
+	# define position
 	moveX = screenX / 1100 * 693
 	moveY = screenY / 300 * 119
 
@@ -40,7 +40,7 @@ def clickHattrickLogin():
 	time.sleep(12)
 
 def clickMyClub():
-	# define position of Hattrick's Login
+	# define position
 	moveX = screenX / 140 * 90
 	moveY = screenY / 300 * 90
 
@@ -51,7 +51,7 @@ def clickMyClub():
 	time.sleep(2.5)
 
 def clickPlayer():
-	# define position of Hattrick's Login
+	# define position
 	moveX = screenX / 110 * 67
 	moveY = screenY / 300 * 183
 
@@ -62,7 +62,7 @@ def clickPlayer():
 	time.sleep(2.5)
 
 def clickSkillTable():
-	# define position of Hattrick's Login
+	# define position
 	moveX = screenX / 1400 * 1102
 	moveY = screenY / 300 * 155
 
@@ -73,7 +73,7 @@ def clickSkillTable():
 	time.sleep(3.8)
 
 def clickSince(y):
-	# define position of Hattrick's Login
+	# define position
 	moveX = screenX / 1200 * 831
 	moveY = screenY * y
 
@@ -81,7 +81,18 @@ def clickSince(y):
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(4)
+	time.sleep(8)
+
+def clickCopy():
+	# define position
+	moveX = screenX / 1400 * 1099
+	moveY = screenY / 3000 * 911
+
+	# move and click
+	moveAndClick(moveX, moveY)
+
+	# wait
+	time.sleep(1)
 
 def moveAndClick(moveX, moveY):
 	pyautogui.moveTo(moveX, moveY, duration=0.2)
