@@ -25,6 +25,9 @@ def clickEmpty(y):
 	moveX = screenX / 110 * 65
 	moveY = screenY * y
 
+	# wait
+	time.sleep(0.5)
+
 	# move and click
 	moveAndClick(moveX, moveY)
 
@@ -66,11 +69,11 @@ def clickSkillTable():
 	moveX = screenX / 1400 * 1102
 	moveY = screenY / 300 * 155
 
-	# move and click
-	moveAndClick(moveX, moveY)
-
 	# wait
 	time.sleep(3.8)
+	
+	# move and click
+	moveAndClick(moveX, moveY)
 
 def clickSince(y):
 	# define position
@@ -94,9 +97,24 @@ def clickCopy():
 	# wait
 	time.sleep(0.5)
 
+def clickClose():
+	# define position
+	moveX = screenX / 2100 * 2019
+	moveY = screenY / 3100 * 1078
+
+	# move and click
+	moveAndClick(moveX, moveY)
+
+	# wait
+	time.sleep(0.5)
+
 def moveAndClick(moveX, moveY):
 	pyautogui.moveTo(moveX, moveY, duration=0.2)
 	pyautogui.click()
 
 def moveScroll(y):
+	# wait
+	time.sleep(0.5)
+
+	# move scroll
 	pyautogui.scroll(y)

@@ -76,27 +76,45 @@ def clickSince(y):
 	# define position
 	moveX = screenX / 1200 * 831
 	moveY = screenY * y
+	
+	# wait
+	time.sleep(0.5)
 
 	# move and click
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(8)
+	time.sleep(7.5)
 
 def clickCopy():
 	# define position
 	moveX = screenX / 1400 * 1099
 	moveY = screenY / 3000 * 911
 
+	# wait
+	time.sleep(1)
+	
 	# move and click
 	moveAndClick(moveX, moveY)
 
+def clickClose():
+	# define position
+	moveX = screenX / 2100 * 1992
+	moveY = screenY / 310 * 121
+	
 	# wait
 	time.sleep(1)
+
+	# move and click
+	moveAndClick(moveX, moveY)
 
 def moveAndClick(moveX, moveY):
 	pyautogui.moveTo(moveX, moveY, duration=0.2)
 	pyautogui.click()
 
 def moveScroll(y):
+	# wait
+	time.sleep(0.3)
+	
+	# move scroll
 	pyautogui.scroll(y)
