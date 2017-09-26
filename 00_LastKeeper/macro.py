@@ -22,7 +22,7 @@ def clickTabOfFireFox(n):
 
 def clickEmpty(y):
 	# define position
-	moveX = screenX / 110 * 65
+	moveX = screenX / 110 * 66
 	moveY = screenY * y
 
 	# wait
@@ -30,6 +30,9 @@ def clickEmpty(y):
 
 	# move and click
 	moveAndClick(moveX, moveY)
+
+	# wait
+	time.sleep(0.5)
 
 def clickFacebookLogin():
 	# define position
@@ -80,11 +83,14 @@ def clickSince(y):
 	moveX = screenX / 1200 * 831
 	moveY = screenY * y
 
+	# wait
+	time.sleep(1)
+
 	# move and click
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(8)
+	time.sleep(8.5)
 
 def clickCopy():
 	# define position
@@ -107,6 +113,43 @@ def clickClose():
 
 	# wait
 	time.sleep(0.5)
+
+def clickFacebookLogout():
+	# define position
+	moveX = screenX / 110 * 92
+	moveY = screenY / 300 * 93
+
+	# wait
+	time.sleep(0.5)
+
+	# move and click
+	moveAndClick(moveX, moveY)
+
+	# wait
+	time.sleep(3)
+
+def clickURL():
+	# define position
+	moveX = screenX / 110 * 63
+	moveY = screenY / 300 * 19
+
+	# wait
+	time.sleep(0.3)
+
+	# move and click
+	moveAndClick(moveX, moveY)
+
+	# wait
+	time.sleep(0.3)
+
+	for _ in range(13):
+		pyautogui.press('left')
+	
+	pyautogui.typewrite('74', interval=0.05)
+	time.sleep(0.7)
+	
+	pyautogui.press('enter')
+	time.sleep(1.7)
 
 def moveAndClick(moveX, moveY):
 	pyautogui.moveTo(moveX, moveY, duration=0.2)
