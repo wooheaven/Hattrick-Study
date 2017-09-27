@@ -10,13 +10,16 @@ def clickTabOfFireFox(n):
 	moveX = screenX / 100 * 51
 	moveY = screenY / 30 * 1
 
+	# wait
+	time.sleep(0.1)
+
 	# move and click
 	moveAndClick(moveX, moveY)
 
 	# CTRL + TAB * n
 	pyautogui.keyDown('ctrl')
 	for i in range(n-1):
-		time.sleep(0.1)
+		time.sleep(0.2)
 		pyautogui.press('tab')
 	pyautogui.keyUp('ctrl')
 
@@ -70,7 +73,7 @@ def clickSkillTable():
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(0.5)
+	time.sleep(0.4)
 
 def clickSince(y):
 	# define position
@@ -120,7 +123,7 @@ def clickHattrickLogout():
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(10)
+	time.sleep(8.5)
 
 def clickURL():
 	# define position
@@ -128,22 +131,22 @@ def clickURL():
 	moveY = screenY / 300 * 19
 
 	# wait
-	time.sleep(0.3)
+	time.sleep(0.2)
 
 	# move and click
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(0.3)
+	time.sleep(0.2)
 
 	for _ in range(13):
 		pyautogui.press('left')
 	
 	pyautogui.typewrite('91', interval=0.05)
-	time.sleep(0.7)
+	time.sleep(0.6)
 	
 	pyautogui.press('enter')
-	time.sleep(1.7)
+	time.sleep(1.6)
 
 def moveAndClick(moveX, moveY):
 	pyautogui.moveTo(moveX, moveY, duration=0.2)
@@ -151,7 +154,10 @@ def moveAndClick(moveX, moveY):
 
 def moveScroll(y):
 	# wait
-	time.sleep(0.3)
+	time.sleep(0.1)
 	
 	# move scroll
 	pyautogui.scroll(y)
+
+	# wait
+	time.sleep(0.1)
