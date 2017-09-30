@@ -40,7 +40,7 @@ def clickHattrickLogin():
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(12)
+	time.sleep(11.9)
 
 def clickMyClub():
 	# define position
@@ -127,7 +127,7 @@ def clickHattrickLogout():
 
 def clickURL():
 	# define position
-	moveX = screenX / 110 * 63
+	moveX = screenX / 110 * 81
 	moveY = screenY / 300 * 19
 
 	# wait
