@@ -134,7 +134,7 @@ def modifySince(inputList, targetStr, nowStr):
             nowDay = datetime.strptime(nowStr, '%Y/%m/%d').date()
             diffDay = relativedelta(nowDay, targetDay)
             
-            #print(col[7])
+	    #print(col[7])
 
             modifySinceStr = SeasonWeekDay(col[7])
             modifySinceStr.modify(int(diffDay.days))
