@@ -139,7 +139,7 @@ def modifySince(inputList, targetStr, nowStr):
             modifySinceStr = SeasonWeekDay(col[7])
             modifySinceStr.modify(int(diffDay.days))
             
-            print(int(diffDay.days), col[7], modifySinceStr.display())
+            #print(int(diffDay.days), col[7], modifySinceStr.display())
             col[7] = modifySinceStr.display()
             
             tmpStr = col[0]
