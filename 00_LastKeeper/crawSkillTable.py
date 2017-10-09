@@ -114,7 +114,7 @@ def clickCopy():
 
 def clickClose():
 	# define position
-	moveX = screenX / 2100 * 2019
+	moveX = screenX / 2100 * 2021
 	moveY = screenY / 3100 * 1078
 
 	# move and click
@@ -143,7 +143,7 @@ def clickURL():
 	moveY = screenY / 300 * 19
 
 	# wait
-	time.sleep(0.3)
+	time.sleep(0.35)
 
 	# move and click
 	moveAndClick(moveX, moveY)
