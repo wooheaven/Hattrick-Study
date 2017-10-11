@@ -57,7 +57,7 @@ def clickMyClub():
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(2)
+	time.sleep(2.2)
 
 def clickPlayer():
 	# define position
