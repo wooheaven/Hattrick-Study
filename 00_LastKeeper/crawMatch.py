@@ -89,7 +89,7 @@ def clickFirefoxFile():
 	moveY = screenY / 70 * 1
 
 	# wait
-	time.sleep(0.3)
+	time.sleep(1)
 
 	# move and click
 	moveAndClick(moveX, moveY)
