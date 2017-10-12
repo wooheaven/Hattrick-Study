@@ -36,13 +36,50 @@ def clickEmpty(y):
 def clickLogin():
 	# define position
 	moveX = screenX / 1100 * 693
-	moveY = screenY / 300 * 119
+	moveY = screenY / 300 * 79
+
+	# move and click
+	moveAndClick(moveX, moveY)
+	moveAndClick(moveX, moveY)
+
+	# wait
+	time.sleep(0.7)
+	
+	# define position
+	moveY = screenY / 300 * 85
+	
+	# move and click
+	moveAndClick(moveX, moveY)
+	
+	# wait
+	time.sleep(0.7)
+	
+	# define position
+	moveY = screenY / 300 * 93
+	
+	# move and click
+	moveAndClick(moveX, moveY)
+	
+	# wait
+	time.sleep(0.7)
+	
+	# define position
+	moveY = screenY / 300 * 99
+	
+	# move and click
+	moveAndClick(moveX, moveY)
+	
+	# wait
+	time.sleep(0.7)
+	
+	# define position
+	moveY = screenY / 300 * 102
 
 	# move and click
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(12)
+	time.sleep(11.9)
 
 def clickMyClub():
 	# define position

@@ -56,11 +56,8 @@ def changedPlayer(inputList):
     oldPO = ""
     oldFromMin = ""
     oldToMin = ""
-    for line in inputList:
+    for line in reversed(inputList):
         col = line.split(",")
-        #PO,Number,Star,FromMin,ToMin
-        #FW,17, 4.5,38,90
-        #-1,16,-1.0, 0,38
         if ( oldPO != "CO" and col[0] == "-1" and ( oldFromMin == col[4] or oldToMin == col[3] ) ) :
             col[0] = oldPO
         else :
@@ -75,11 +72,6 @@ def changedPlayer(inputList):
     oldToMin = ""
     for line in reversed(tmpList):
         col = line.split(",")
-        #PO,Number,Star,FromMin,ToMin
-        # IM,26,5.0,40,90
-        # -1,11,-1.0,0,40
-        # W,22,4.0,0,50
-        # -1,24,-1.0,50,90
         if ( oldPO != "CO" and col[0] == "-1" and ( oldFromMin == col[4] or oldToMin == col[3] ) ) :
             col[0] = oldPO
         else :
@@ -129,4 +121,3 @@ def sortByPO(inputList):
     inputList, outputList = pickUpByKeyword(inputList, outputList, "FW")
 
     return outputList
-
