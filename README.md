@@ -21,7 +21,7 @@
 | | | | 10 | [04](01_Heavy2Defence/2017/10/04/player.txt), [08](01_Heavy2Defence/2017/10/08/player.txt), [11](01_Heavy2Defence/2017/10/11/player.txt) |
 | | [Match](01_Heavy2Defence/parsing_match.ipynb) | 2017 | 08 | [13](01_Heavy2Defence/2017/08/13/match.txt), [16](01_Heavy2Defence/2017/08/16/match.txt), [19](01_Heavy2Defence/2017/08/19/match.txt), [23](01_Heavy2Defence/2017/08/23/match.txt), [27](01_Heavy2Defence/2017/08/27/match.txt), [30](01_Heavy2Defence/2017/08/30/match.txt) |
 | | | | 09 | [03](01_Heavy2Defence/2017/09/03/match.txt), [06](01_Heavy2Defence/2017/09/06/match.txt), [10](01_Heavy2Defence/2017/09/10/match.txt), [13](01_Heavy2Defence/2017/09/13/match.txt), [17](01_Heavy2Defence/2017/09/17/match.txt), [20](01_Heavy2Defence/2017/09/20/match.txt), [24](01_Heavy2Defence/2017/09/24/match.txt), [27](01_Heavy2Defence/2017/09/27/match.txt) |
-| | | | 10 | [04](01_Heavy2Defence/2017/10/04/match.txt), [08](01_Heavy2Defence/2017/10/08/match.txt) |
+| | | | 10 | [04](01_Heavy2Defence/2017/10/04/match.txt), [08](01_Heavy2Defence/2017/10/08/match.txt), [11](01_Heavy2Defence/2017/10/11/match.txt) |
 | | | [KP](01_Heavy2Defence/01_KP_table.md) | | |
 | [WB](01_Heavy2Defence/02_WB_table.md) | | [CD](01_Heavy2Defence/03_CD_table.md) | | |
 | [W](01_Heavy2Defence/04_W_table.md) | | [IM](01_Heavy2Defence/05_IM_table.md) | | |
