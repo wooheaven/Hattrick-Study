@@ -11,7 +11,7 @@
 | | | | 07 | [02](00_LastKeeper/2017/07/02/match.txt), [05](00_LastKeeper/2017/07/05/match.txt), [09](00_LastKeeper/2017/07/09/match.txt), [12](00_LastKeeper/2017/07/12/match.txt), [16](00_LastKeeper/2017/07/16/match.txt), [19](00_LastKeeper/2017/07/19/match.txt), [23](00_LastKeeper/2017/07/23/match.txt), [26](00_LastKeeper/2017/07/26/match.txt), [30](00_LastKeeper/2017/07/30/match.txt) |
 | | | | 08 | [06](00_LastKeeper/2017/08/06/match.txt), [09](00_LastKeeper/2017/08/09/match.txt), [13](00_LastKeeper/2017/08/13/match.txt), [16](00_LastKeeper/2017/08/16/match.txt), [20](00_LastKeeper/2017/08/20/match.txt), [23](00_LastKeeper/2017/08/23/match.txt), [27](00_LastKeeper/2017/08/27/match.txt), [30](00_LastKeeper/2017/08/30/match.txt) |
 | | | | 09 | [03](00_LastKeeper/2017/09/03/match.txt), [06](00_LastKeeper/2017/09/06/match.txt), [10](00_LastKeeper/2017/09/10/match.txt), [13](00_LastKeeper/2017/09/13/match.txt), [17](00_LastKeeper/2017/09/17/match.txt), [20](00_LastKeeper/2017/09/20/match.txt), [24](00_LastKeeper/2017/09/24/match.txt), [27](00_LastKeeper/2017/09/27/match.txt) |
-| | | | 10 | [04](00_LastKeeper/2017/10/04/match.txt), [08](00_LastKeeper/2017/10/08/match.txt), [11](00_LastKeeper/2017/10/11/match.txt) |
+| | | | 10 | [04](00_LastKeeper/2017/10/04/match.txt), [08](00_LastKeeper/2017/10/08/match.txt), [11](00_LastKeeper/2017/10/11/match.txt), [15](00_LastKeeper/2017/10/15/match.txt) |
 | | | [KP](00_LastKeeper/01_KP_table.md) | | |
 | [WB](00_LastKeeper/02_WB_table.md) | | [CD](00_LastKeeper/03_CD_table.md) | | |
 | [W](00_LastKeeper/04_W_table.md) | | [IM](00_LastKeeper/05_IM_table.md) | | |

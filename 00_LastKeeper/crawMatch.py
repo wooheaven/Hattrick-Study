@@ -36,7 +36,7 @@ def clickEmpty(y):
 def clickFacebookLogin():
 	# define position
 	moveX = screenX / 110 * 70
-	moveY = screenY / 300 * 135
+	moveY = screenY / 300 * 117
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -266,7 +266,7 @@ def clickFacebookLogout():
 
 def clickURL():
 	# define position
-	moveX = screenX / 110 * 83
+	moveX = screenX / 110 * 77
 	moveY = screenY / 300 * 19
 
 	# wait
