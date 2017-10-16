@@ -55,7 +55,7 @@ def clickLogin():
 	time.sleep(0.7)
 	
 	# define position
-	moveY = screenY / 300 * 93
+	moveY = screenY / 300 * 92
 	
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -64,7 +64,7 @@ def clickLogin():
 	time.sleep(0.7)
 	
 	# define position
-	moveY = screenY / 300 * 99
+	moveY = screenY / 300 * 98
 	
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -73,7 +73,7 @@ def clickLogin():
 	time.sleep(0.7)
 	
 	# define position
-	moveY = screenY / 300 * 102
+	moveY = screenY / 300 * 101
 
 	# move and click
 	moveAndClick(moveX, moveY)
