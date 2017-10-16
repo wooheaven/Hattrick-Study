@@ -56,7 +56,7 @@ def changedPlayer(inputList):
     oldPO = ""
     oldFromMin = ""
     oldToMin = ""
-    for line in reversed(inputList):
+    for line in inputList:
         col = line.split(",")
         if ( oldPO != "CO" and col[0] == "-1" and ( oldFromMin == col[4] or oldToMin == col[3] ) ) :
             col[0] = oldPO

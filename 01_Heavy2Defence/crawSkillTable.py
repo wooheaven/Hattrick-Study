@@ -53,7 +53,7 @@ def clickHattrickLogin():
 	time.sleep(0.7)
 	
 	# define position
-	moveY = screenY / 300 * 93
+	moveY = screenY / 300 * 92
 	
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -62,7 +62,7 @@ def clickHattrickLogin():
 	time.sleep(0.7)
 	
 	# define position
-	moveY = screenY / 300 * 99
+	moveY = screenY / 300 * 98
 	
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -71,7 +71,7 @@ def clickHattrickLogin():
 	time.sleep(0.7)
 	
 	# define position
-	moveY = screenY / 300 * 102
+	moveY = screenY / 300 * 101
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -114,7 +114,7 @@ def clickSkillTable():
 
 def clickSince(y):
 	# define position
-	moveX = screenX / 1200 * 831
+	moveX = screenX / 1200 * 821
 	moveY = screenY * y
 	
 	# wait
@@ -164,17 +164,17 @@ def clickHattrickLogout():
 
 def clickURL():
 	# define position
-	moveX = screenX / 110 * 75
+	moveX = screenX / 110 * 66
 	moveY = screenY / 300 * 19
 
 	# wait
-	time.sleep(0.3)
+	time.sleep(0.1)
 
 	# move and click
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(0.2)
+	time.sleep(0.1)
 
 	for _ in range(13):
 		pyautogui.press('left')
@@ -191,10 +191,10 @@ def moveAndClick(moveX, moveY):
 
 def moveScroll(y):
 	# wait
-	time.sleep(0.1)
+	time.sleep(0.09)
 	
 	# move scroll
 	pyautogui.scroll(y)
 
 	# wait
-	time.sleep(0.1)
+	time.sleep(0.09)
