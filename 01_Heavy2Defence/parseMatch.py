@@ -1,4 +1,5 @@
 import re
+import psycopg2
 
 def removeFirstChrLastChr(inputList):
     outputList = list();
@@ -84,6 +85,57 @@ def changedPlayer(inputList):
     for line in reversed(outputList):
         lastList.append(line)
     return lastList
+
+def selectPlayer(SelectString, WhereString):
+    outputList = list();
+    sql = ""
+    conn = None
+    try:
+        conn = psycopg2.connect("dbname='mydatabase2' user='myuser' host='localhost' port='65432' password='123qwe'")
+        cur = conn.cursor()
+        sql = SelectString + "\nFROM player" + WhereString + "\n"
+        print(sql)
+        
+        cur.execute(sql)
+        row = cur.fetchone()
+        while row is not None:
+            #print(row)
+            outputList.append(row)
+            row = cur.fetchone()
+    except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+            print(sql)
+    finally:
+        if conn is not None:
+            conn.close()
+    return outputList
+
+def renameNumber(inputList, folder):
+    data={}
+    SelectString = ""
+    SelectString += "\n" + "SELECT "
+    SelectString += "\n" + "    num, playerid --01 02 "
+    WhereString = ""
+    WhereString += "\n" + "WHERE "
+    WhereString += "\n" + "    date = '" + folder.replace('/','-') + "' "
+    WhereString += "\n" + "    order by num "
+    numPlayerIDtupleList = selectPlayer(SelectString, WhereString)
+    for tuple in numPlayerIDtupleList:
+        data[str(tuple[1])]=str(tuple[0])
+    #print(data)
+    #print(data.keys())
+    
+    outputList = list();
+    for line in inputList:
+        col = line.split(",")
+
+        #print(col[1] in data.keys())
+        if col[1] in data.keys():
+            col[1] = data[col[1]]            
+        
+        newLine = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
+        outputList.append(newLine)
+    return outputList
 
 def removeRows(inputList):
     outputList = list();
