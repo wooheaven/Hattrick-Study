@@ -137,17 +137,6 @@ def clickCopy():
 	# move and click
 	moveAndClick(moveX, moveY)
 
-def clickClose():
-	# define position
-	moveX = screenX / 2100 * 1992
-	moveY = screenY / 310 * 121
-	
-	# wait
-	time.sleep(1)
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
 def clickHattrickLogout():
 	# define position
 	moveX = screenX / 1100 * 915
