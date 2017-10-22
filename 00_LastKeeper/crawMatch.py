@@ -238,8 +238,8 @@ def clickLastDay():
 
 def clickSave():
 	# define position
-	moveX = screenX / 1000 * 852
-	moveY = screenY / 2000 * 1485
+	moveX = screenX / 1000 * 853
+	moveY = screenY / 2000 * 1486
 	
 	# wait
 	time.sleep(0.3)
