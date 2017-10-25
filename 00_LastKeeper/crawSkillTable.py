@@ -112,17 +112,6 @@ def clickCopy():
 	# wait
 	time.sleep(0.5)
 
-def clickClose():
-	# define position
-	moveX = screenX / 2100 * 2021
-	moveY = screenY / 3100 * 1078
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
-	# wait
-	time.sleep(0.5)
-
 def clickFacebookLogout():
 	# define position
 	moveX = screenX / 110 * 92
