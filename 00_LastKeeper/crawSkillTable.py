@@ -128,7 +128,7 @@ def clickFacebookLogout():
 
 def clickURL():
 	# define position
-	moveX = screenX / 110 * 75
+	moveX = screenX / 110 * 73
 	moveY = screenY / 300 * 19
 
 	# wait
