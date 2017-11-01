@@ -149,7 +149,7 @@ def clickHattrickLogout():
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(8.5)
+	time.sleep(8.4)
 
 def clickURL():
 	# define position
