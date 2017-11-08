@@ -75,7 +75,7 @@ def clickPlayer():
 
 def clickSkillTable():
 	# define position
-	moveX = screenX / 1400 * 1102
+	moveX = screenX / 1400 * 930
 	moveY = screenY / 300 * 155
 
 	# wait

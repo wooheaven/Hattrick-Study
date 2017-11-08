@@ -108,7 +108,7 @@ def clickMatch():
 
 def clickLastMatch():
 	# define position
-	moveX = screenX / 1800 * 1262
+	moveX = screenX / 1800 * 1264
 	moveY = screenY / 410 * 290
 
 	# wait
