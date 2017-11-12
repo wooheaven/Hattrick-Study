@@ -3,7 +3,7 @@ screenX, screenY = pyautogui.size()
 
 def clickTabOfFireFox(n):
 	# define position
-	moveX = screenX / 100 * 51
+	moveX = screenX / 100 * 53
 	moveY = screenY / 30 * 1
 
 	# wait
