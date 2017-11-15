@@ -40,7 +40,7 @@ def clickEmpty(y):
 def clickFacebookLogin():
 	# define position
 	moveX = screenX / 110 * 70
-	moveY = screenY / 300 * 117
+	moveY = screenY / 300 * 128
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -48,10 +48,10 @@ def clickFacebookLogin():
 	# wait
 	time.sleep(12)
 
-def clickMyClub():
+def clickMyClub(y):
 	# define position
 	moveX = screenX / 140 * 90
-	moveY = screenY / 300 * 90
+	moveY = screenY * y
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -59,10 +59,10 @@ def clickMyClub():
 	# wait
 	time.sleep(2.2)
 
-def clickPlayer():
+def clickPlayer(y):
 	# define position
 	moveX = screenX / 110 * 67
-	moveY = screenY / 300 * 183
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.4)
@@ -73,10 +73,10 @@ def clickPlayer():
 	# wait
 	time.sleep(2.5)
 
-def clickSkillTable():
+def clickSkillTable(y):
 	# define position
 	moveX = screenX / 1400 * 932
-	moveY = screenY / 300 * 155
+	moveY = screenY * y
 
 	# wait
 	time.sleep(2)
@@ -101,10 +101,10 @@ def clickSince(y):
 	# wait
 	time.sleep(8.5)
 
-def clickCopy():
+def clickCopy(y):
 	# define position
 	moveX = screenX / 1400 * 1100
-	moveY = screenY / 310 * 80
+	moveY = screenY * y
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -112,10 +112,10 @@ def clickCopy():
 	# wait
 	time.sleep(0.5)
 
-def clickFacebookLogout():
+def clickFacebookLogout(y):
 	# define position
 	moveX = screenX / 110 * 92
-	moveY = screenY / 300 * 93
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.5)
@@ -126,10 +126,10 @@ def clickFacebookLogout():
 	# wait
 	time.sleep(3)
 
-def clickURL():
+def clickURL(y):
 	# define position
 	moveX = screenX / 110 * 73
-	moveY = screenY / 300 * 19
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.35)
