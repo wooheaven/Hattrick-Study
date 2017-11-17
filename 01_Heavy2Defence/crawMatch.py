@@ -33,10 +33,10 @@ def clickEmpty(y):
 	# wait
 	time.sleep(0.3)
 
-def clickLogin():
+def clickLogin(y):
 	# define position
 	moveX = screenX / 1100 * 693
-	moveY = screenY / 300 * 79
+	moveY = screenY * y
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -46,7 +46,7 @@ def clickLogin():
 	time.sleep(0.7)
 	
 	# define position
-	moveY = screenY / 300 * 85
+	moveY = screenY * (y+(6/300))
 	
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -55,7 +55,7 @@ def clickLogin():
 	time.sleep(0.7)
 	
 	# define position
-	moveY = screenY / 300 * 92
+	moveY = screenY * (y+(16/300))
 	
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -64,7 +64,7 @@ def clickLogin():
 	time.sleep(0.7)
 	
 	# define position
-	moveY = screenY / 300 * 98
+	moveY = screenY * (y+(21/300))
 	
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -73,7 +73,7 @@ def clickLogin():
 	time.sleep(0.7)
 	
 	# define position
-	moveY = screenY / 300 * 101
+	moveY = screenY * (y+(27/300))
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -81,10 +81,10 @@ def clickLogin():
 	# wait
 	time.sleep(11.9)
 
-def clickMyClub():
+def clickMyClub(y):
 	# define position
-	moveX = screenX / 140 * 90
-	moveY = screenY / 300 * 90
+	moveX = screenX / 140 * 91
+	moveY = screenY * y
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -92,10 +92,10 @@ def clickMyClub():
 	# wait
 	time.sleep(3)
 
-def clickMatch():
+def clickMatch(y):
 	# define position
 	moveX = screenX / 110 * 67
-	moveY = screenY / 300 * 190
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.4)
@@ -106,10 +106,10 @@ def clickMatch():
 	# wait
 	time.sleep(2)
 
-def clickLastMatch():
+def clickLastMatch(y):
 	# define position
-	moveX = screenX / 1800 * 1264
-	moveY = screenY / 410 * 290
+	moveX = screenX / 1800 * 1265
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.8)
@@ -157,10 +157,10 @@ def typeFileName():
 	# wait
 	time.sleep(0.3)
 
-def clickHome():
+def clickHome(y):
 	# define position
 	moveX = screenX / 50 * 32
-	moveY = screenY / 200 * 53
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.2)
@@ -172,10 +172,10 @@ def clickHome():
 	# wait
 	time.sleep(0.3)
 
-def click02_workspace():
+def click02_workspace(y):
 	# define position
 	moveX = screenX / 50 * 34
-	moveY = screenY / 1000 * 331
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.3)
@@ -187,10 +187,10 @@ def click02_workspace():
 	# wait
 	time.sleep(0.3)
 
-def click02_Hattrick():
+def click02_Hattrick(y):
 	# define position
 	moveX = screenX / 50 * 34
-	moveY = screenY / 1000 * 331
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.3)
@@ -202,10 +202,10 @@ def click02_Hattrick():
 	# wait
 	time.sleep(0.3)
 
-def clickHattrickStudy():
+def clickHattrickStudy(y):
 	# define position
 	moveX = screenX / 100 * 68
-	moveY = screenY / 200 * 62
+	moveY = screenY * y 
 
 	# wait
 	time.sleep(0.3)
@@ -217,10 +217,10 @@ def clickHattrickStudy():
 	# wait
 	time.sleep(0.3)
 
-def click01_Heavy2Defence():
+def click01_Heavy2Defence(y):
 	# define position
 	moveX = screenX / 100 * 68
-	moveY = screenY / 2000 * 653
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.2)

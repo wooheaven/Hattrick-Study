@@ -31,10 +31,10 @@ def clickEmpty(y):
 	# move and click
 	moveAndClick(moveX, moveY)
 
-def clickHattrickLogin():
+def clickHattrickLogin(y):
 	# define position
 	moveX = screenX / 1100 * 693
-	moveY = screenY / 300 * 79
+	moveY = screenY * y
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -44,7 +44,7 @@ def clickHattrickLogin():
 	time.sleep(0.7)
 	
 	# define position
-	moveY = screenY / 300 * 85
+	moveY = screenY * (y+(6/300))
 	
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -53,7 +53,7 @@ def clickHattrickLogin():
 	time.sleep(0.7)
 	
 	# define position
-	moveY = screenY / 300 * 92
+	moveY = screenY * (y+(16/300))
 	
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -62,7 +62,7 @@ def clickHattrickLogin():
 	time.sleep(0.7)
 	
 	# define position
-	moveY = screenY / 300 * 98
+	moveY = screenY * (y+(19/300))
 	
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -71,7 +71,7 @@ def clickHattrickLogin():
 	time.sleep(0.7)
 	
 	# define position
-	moveY = screenY / 300 * 101
+	moveY = screenY * (y+(25/300))
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -79,10 +79,10 @@ def clickHattrickLogin():
 	# wait
 	time.sleep(11.9)
 
-def clickMyClub():
+def clickMyClub(y):
 	# define position
 	moveX = screenX / 140 * 90
-	moveY = screenY / 300 * 90
+	moveY = screenY * y
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -90,10 +90,10 @@ def clickMyClub():
 	# wait
 	time.sleep(2.5)
 
-def clickPlayer():
+def clickPlayer(y):
 	# define position
 	moveX = screenX / 110 * 67
-	moveY = screenY / 300 * 183
+	moveY = screenY * y
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -101,10 +101,10 @@ def clickPlayer():
 	# wait
 	time.sleep(3)
 
-def clickSkillTable():
+def clickSkillTable(y):
 	# define position
 	moveX = screenX / 1400 * 932
-	moveY = screenY / 300 * 155
+	moveY = screenY * y
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -126,10 +126,10 @@ def clickSince(y):
 	# wait
 	time.sleep(7.5)
 
-def clickCopy():
+def clickCopy(y):
 	# define position
 	moveX = screenX / 1400 * 1099
-	moveY = screenY / 3000 * 911
+	moveY = screenY * y
 
 	# wait
 	time.sleep(1)
@@ -137,10 +137,10 @@ def clickCopy():
 	# move and click
 	moveAndClick(moveX, moveY)
 
-def clickHattrickLogout():
+def clickHattrickLogout(y):
 	# define position
 	moveX = screenX / 1100 * 915
-	moveY = screenY / 300 * 89
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.5)
@@ -151,10 +151,10 @@ def clickHattrickLogout():
 	# wait
 	time.sleep(8.4)
 
-def clickURL():
+def clickURL(y):
 	# define position
 	moveX = screenX / 110 * 66
-	moveY = screenY / 300 * 19
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.1)
