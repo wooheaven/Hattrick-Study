@@ -232,10 +232,10 @@ def click01_Heavy2Defence(y):
 	# wait
 	time.sleep(0.2)
 
-def click2017():
+def click2017(y):
 	# define position
 	moveX = screenX / 100 * 68
-	moveY = screenY / 200 * 62
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.2)
@@ -273,10 +273,10 @@ def clickLastDay():
 	# wait
 	time.sleep(0.2)
 
-def clickSave():
+def clickSave(y):
 	# define position
 	moveX = screenX / 1000 * 852
-	moveY = screenY / 2000 * 1485
+	moveY = screenY * y
 	
 	# wait
 	time.sleep(0.3)
