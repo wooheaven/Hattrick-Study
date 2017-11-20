@@ -33,10 +33,10 @@ def clickEmpty(y):
 	# wait
 	time.sleep(0.3)
 
-def clickFacebookLogin():
+def clickFacebookLogin(y):
 	# define position
 	moveX = screenX / 110 * 70
-	moveY = screenY / 300 * 117
+	moveY = screenY * y
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -44,10 +44,10 @@ def clickFacebookLogin():
 	# wait
 	time.sleep(12)
 
-def clickMyClub():
+def clickMyClub(y):
 	# define position
 	moveX = screenX / 140 * 90
-	moveY = screenY / 300 * 90
+	moveY = screenY * y
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -55,10 +55,10 @@ def clickMyClub():
 	# wait
 	time.sleep(3)
 
-def clickMatch():
+def clickMatch(y):
 	# define position
 	moveX = screenX / 18 * 11
-	moveY = screenY / 3600 * 2285
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.4)
@@ -69,10 +69,10 @@ def clickMatch():
 	# wait
 	time.sleep(2)
 
-def clickLastMatch():
+def clickLastMatch(y):
 	# define position
 	moveX = screenX / 180 * 127
-	moveY = screenY / 410 * 290
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.8)
@@ -120,10 +120,10 @@ def typeFileName():
 	# wait
 	time.sleep(0.3)
 
-def clickHome():
+def clickHome(y):
 	# define position
 	moveX = screenX / 50 * 32
-	moveY = screenY / 200 * 53
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.2)
@@ -135,10 +135,10 @@ def clickHome():
 	# wait
 	time.sleep(0.3)
 
-def click02_workspace():
+def click02_workspace(y):
 	# define position
 	moveX = screenX / 50 * 34
-	moveY = screenY / 1000 * 331
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.3)
@@ -150,10 +150,10 @@ def click02_workspace():
 	# wait
 	time.sleep(0.3)
 
-def click02_Hattrick():
+def click02_Hattrick(y):
 	# define position
 	moveX = screenX / 50 * 34
-	moveY = screenY / 1000 * 331
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.3)
@@ -165,10 +165,10 @@ def click02_Hattrick():
 	# wait
 	time.sleep(0.3)
 
-def clickHattrickStudy():
+def clickHattrickStudy(y):
 	# define position
 	moveX = screenX / 100 * 68
-	moveY = screenY / 200 * 62
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.3)
@@ -180,10 +180,10 @@ def clickHattrickStudy():
 	# wait
 	time.sleep(0.3)
 
-def click01_LastKeeper():
+def click00_LastKeeper(y):
 	# define position
 	moveX = screenX / 100 * 68
-	moveY = screenY / 200 * 62
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.2)
@@ -195,10 +195,10 @@ def click01_LastKeeper():
 	# wait
 	time.sleep(0.2)
 
-def click2017():
+def click2017(y):
 	# define position
 	moveX = screenX / 100 * 68
-	moveY = screenY / 200 * 62
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.2)
@@ -236,10 +236,10 @@ def clickLastDay():
 	# wait
 	time.sleep(0.2)
 
-def clickSave():
+def clickSave(y):
 	# define position
 	moveX = screenX / 1000 * 853
-	moveY = screenY / 2000 * 1486
+	moveY = screenY * y
 	
 	# wait
 	time.sleep(0.3)
@@ -250,10 +250,10 @@ def clickSave():
 	# wait
 	time.sleep(0.2)
 
-def clickFacebookLogout():
+def clickFacebookLogout(y):
 	# define position
 	moveX = screenX / 110 * 92
-	moveY = screenY / 300 * 93
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.8)
@@ -264,10 +264,10 @@ def clickFacebookLogout():
 	# wait
 	time.sleep(3.7)
 
-def clickURL():
+def clickURL(y):
 	# define position
 	moveX = screenX / 110 * 73
-	moveY = screenY / 300 * 19
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.3)
