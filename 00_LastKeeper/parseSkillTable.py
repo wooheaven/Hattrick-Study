@@ -89,43 +89,49 @@ import re
 class SeasonWeekDay:
     
     def __init__(self, timeStr):
+        self.seasonInt = 0
+        self.weekInt = 0
+        self.dayInt = 0
         for myStr in timeStr.split(' '):
-            if ( re.search('시즌', myStr) ):
+            if re.search('시즌', myStr):
                 self.seasonInt = int(myStr[:-2])
-            if ( re.search('주', myStr) ):
+                #print(myStr, self.seasonInt, sep='\t')
+            if re.search('주', myStr):
                 self.weekInt = int(myStr[:-1])
-            if ( re.search('일', myStr) ):
+                #print(myStr, self.weekInt, sep='\t')
+            if re.search('일', myStr):
                 self.dayInt = int(myStr[:-1])
-    
+                #print(myStr, self.dayInt, sep='\t')
+
     def display(self):
         outStr = ''
-        if (hasattr(self, 'seasonInt')):
-            if (self.seasonInt > 0):
+        if self.dayInt > 0 or self.weekInt > 0 or self.seasonInt > 0:
+            if hasattr(self, 'seasonInt') and self.seasonInt > 0:
                 outStr += str(self.seasonInt) + '시즌 '
-        if (hasattr(self, 'weekInt')):
-            outStr += str(self.weekInt) + '주 '
-        if (hasattr(self, 'dayInt')):
-            outStr += str(self.dayInt) + '일'
+            if hasattr(self, 'weekInt') and self.weekInt > 0:
+                outStr += str(self.weekInt) + '주 '
+            if hasattr(self, 'dayInt'):
+                outStr += str(self.dayInt) + '일'
         return outStr
     
     def modify(self, diffDayInt):
-        if (self.dayInt >= diffDayInt):
-            self.dayInt = self.dayInt - diffDayInt
-        else :
-            if (self.weekInt > 0):
+        self.dayInt -= diffDayInt
+        if None != self.weekInt: 
+            if self.weekInt > 0 and self.dayInt < 0:
                 self.weekInt -= 1
-                self.dayInt = self.dayInt - diffDayInt + 7
-            else :
-                if (self.weekInt == 0):
+                self.dayInt += 7
+        else:
+            if None != self.seasonInt: 
+                if self.seasonInt > 0 and self.dayInt < 0:
                     self.seasonInt -= 1
                     self.weekInt = 15
-                    self.dayInt = self.dayInt - diffDayInt + 7
+                    self.dayInt += 7
 
 def modifySince(inputList, targetStr, nowStr):   
     outputList = list();
     for line in inputList:
         col = line.split(",")
-        if col[7] != "Since":            
+        if col[7] != "Since":
             col[7] = col[7].replace(" 시즌", "시즌", 1).replace("시즌 ", "시즌", 1).replace("시즌 ", "시즌", 1)
             col[7] = col[7].replace(" 주", "주", 1).replace("주 ", "주", 1).replace("주 ", "주", 1)
             col[7] = col[7].replace(" 일", "일", 1)
@@ -134,19 +140,19 @@ def modifySince(inputList, targetStr, nowStr):
             nowDay = datetime.strptime(nowStr, '%Y/%m/%d').date()
             diffDay = relativedelta(nowDay, targetDay)
             
-	    #print(col[7])
-
+            #print('col[0]', col[7], sep='\t')
             modifySinceStr = SeasonWeekDay(col[7])
+            #print('before modify', modifySinceStr.display(), sep='\t')
             modifySinceStr.modify(int(diffDay.days))
+            #print('after modify',  modifySinceStr.display(), '\n', sep='\t')
             
-            #print(int(diffDay.days), col[7], modifySinceStr.display())
             col[7] = modifySinceStr.display()
-            
-            tmpStr = col[0]
-            for i in range(1, len(col)):
-                tmpStr += "," + col[i]
-            
-            outputList.append(tmpStr)
+
+            if len(col[7]) > 0 :
+                tmpStr = col[0]
+                for i in range(1, len(col)):
+                    tmpStr += "," + col[i]
+                outputList.append(tmpStr)
         else:
             outputList.append(line)
     return outputList
