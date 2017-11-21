@@ -287,10 +287,10 @@ def clickSave(y):
 	# wait
 	time.sleep(0.2)
 
-def clickLogout():
+def clickLogout(y):
 	# define position
 	moveX = screenX / 110 * 92
-	moveY = screenY / 300 * 90
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.8)
@@ -301,10 +301,10 @@ def clickLogout():
 	# wait
 	time.sleep(3.7)
 
-def clickURL():
+def clickURL(y):
 	# define position
 	moveX = screenX / 110 * 63
-	moveY = screenY / 300 * 19
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.3)

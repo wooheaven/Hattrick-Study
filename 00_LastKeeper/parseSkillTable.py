@@ -116,12 +116,12 @@ class SeasonWeekDay:
     
     def modify(self, diffDayInt):
         self.dayInt -= diffDayInt
-        if None != self.weekInt: 
+        if None != self.weekInt:
             if self.weekInt > 0 and self.dayInt < 0:
                 self.weekInt -= 1
                 self.dayInt += 7
         else:
-            if None != self.seasonInt: 
+            if None != self.seasonInt:
                 if self.seasonInt > 0 and self.dayInt < 0:
                     self.seasonInt -= 1
                     self.weekInt = 15
@@ -144,11 +144,11 @@ def modifySince(inputList, targetStr, nowStr):
             modifySinceStr = SeasonWeekDay(col[7])
             #print('before modify', modifySinceStr.display(), sep='\t')
             modifySinceStr.modify(int(diffDay.days))
-            #print('after modify',  modifySinceStr.display(), '\n', sep='\t')
-            
+            #print('after modify', modifySinceStr.display(), '\n', sep='\t')
+
             col[7] = modifySinceStr.display()
 
-            if len(col[7]) > 0 :
+            if len(col[7]) > 0:
                 tmpStr = col[0]
                 for i in range(1, len(col)):
                     tmpStr += "," + col[i]
@@ -305,5 +305,3 @@ def removeLastString(inputList):
     for line in inputList:
         outputList.append( line[0:-1] )
     return outputList
-
-
