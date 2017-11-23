@@ -74,6 +74,54 @@ def renamePO(inputList):
 
     return outputList
 
+def renameMin(inputList):
+    outputList = list();
+    for line in inputList:
+        col = line.split(",")
+        if col[3] == "-1" : col[3] = "0"
+        if col[4] == "-1" : col[4] = "0"
+        if col[4] == "91" : col[4] = "90"
+        if col[4] == "92" : col[4] = "90"
+        if col[4] == "93" : col[4] = "90"
+        if col[4] == "94" : col[4] = "90"
+        newLine = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
+        outputList.append(newLine)
+    return outputList
+
+def changedPlayer(inputList):
+    tmpList = list();
+    oldPO = ""
+    oldFromMin = ""
+    oldToMin = ""
+    for line in inputList:
+        col = line.split(",")
+        if ( oldPO != "CO" and col[0] == "-1" and ( oldFromMin == col[4] or oldToMin == col[3] ) ) :
+            col[0] = oldPO
+        else :
+            oldPO = col[0]
+            oldFromMin = col[3]
+            oldToMin = col[4]
+        newLine = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
+        tmpList.append(newLine)
+    outputList = list();
+    oldPO = ""
+    oldFromMin = ""
+    oldToMin = ""
+    for line in reversed(tmpList):
+        col = line.split(",")
+        if ( oldPO != "CO" and col[0] == "-1" and ( oldFromMin == col[4] or oldToMin == col[3] ) ) :
+            col[0] = oldPO
+        else :
+            oldPO = col[0]
+            oldFromMin = col[3]
+            oldToMin = col[4]
+        newLine = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
+        outputList.append(newLine)
+    lastList = list();
+    for line in reversed(outputList):
+        lastList.append(line)
+    return lastList
+
 def selectPlayer(SelectString, WhereString):
     outputList = list();
     sql = ""
@@ -125,70 +173,6 @@ def renameNumber(inputList, folder):
         outputList.append(newLine)
     return outputList
 
-def renameMin(inputList):
-    outputList = list();
-    for line in inputList:
-        col = line.split(",")
-        if col[3] == "-1" : col[3] = "0"
-        if col[4] == "-1" : col[4] = "0"
-        if col[4] == "91" : col[4] = "90"
-        if col[4] == "92" : col[4] = "90"
-        if col[4] == "93" : col[4] = "90"
-        if col[4] == "94" : col[4] = "90"
-        newLine = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
-        outputList.append(newLine)
-    return outputList
-
-def changedPlayer(inputList):
-    tmpList = list();
-    
-    oldPO = ""
-    oldFromMin = ""
-    oldToMin = ""
-    for line in inputList:
-        col = line.split(",")
-        #PO,Number,Star,FromMin,ToMin
-        # W,22,4.0,0,50
-        # -1,24,-1.0,50,90
-        if ( oldPO != "CO" and col[0] == "-1" and ( oldFromMin == col[4] or oldToMin == col[3] ) ) :
-            #print(oldPO, oldFromMin, oldToMin, sep="\t")
-            #print(col[0], col[3], col[4], sep="\t")
-            col[0] = oldPO
-        else :
-            oldPO = col[0]
-            oldFromMin = col[3]
-            oldToMin = col[4]
-        newLine = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
-        tmpList.append(newLine)
-    outputList = list();
-    
-    oldPO = ""
-    oldFromMin = ""
-    oldToMin = ""
-    for line in reversed(tmpList):
-        col = line.split(",")
-        #PO,Number,Star,FromMin,ToMin
-        # IM,26,5.0,40,90
-        # -1,11,-1.0,0,40
-        # W,22,4.0,0,50
-        # -1,24,-1.0,50,90
-        if ( oldPO != "CO" and col[0] == "-1" and ( oldFromMin == col[4] or oldToMin == col[3] ) ) :
-            #print(oldPO, oldFromMin, oldToMin, sep="\t")
-            #print(col[0], col[3], col[4], sep="\t")
-            col[0] = oldPO
-        else :
-            oldPO = col[0]
-            oldFromMin = col[3]
-            oldToMin = col[4]
-        newLine = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
-        outputList.append(newLine)
-    
-    lastList = list();
-    for line in reversed(outputList):
-        lastList.append(line)
-    
-    return lastList
-
 def removeRows(inputList):
     outputList = list();
     for line in inputList:
@@ -213,6 +197,7 @@ def pickUpByKeyword(inputList, outputList, keyword):
 
 def sortByPO(inputList):
     inputList.sort(key = lambda x: ( x.split(",")[0], -int(x.split(",")[3]), int(x.split(",")[4])))   
+
     outputList = list();
     outputList.append("po,num,rt,sMin,eMin")
 
