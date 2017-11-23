@@ -26,16 +26,52 @@ def renamePO(inputList):
     outputList = list();
     for line in inputList:
         col = line.split(",")
-        if col[0] == "0" : col[0] = "CO"
+        if (col[0] == "0" or col[0] == "114" or col[0] == "118" or col[0] == "119") : col[0] = ""
         if col[0] == "100" : col[0] = "KP"
         if ( col[0] == "101" or col[0] == "105" ) : col[0] = "WB"
         if ( col[0] == "102" or col[0] == "103" or col[0] == "104" ) : col[0] = "CD"
         if ( col[0] == "106" or col[0] == "110" ) : col[0] = "W"
-        if ( col[0] == "107" or col[0] == "109" ) : col[0] = "IM"
+        if ( col[0] == "107" or col[0] == "108" or col[0] == "109" ) : col[0] = "IM"
         if ( col[0] == "111" or col[0] == "112" or col[0] == "113" ) : col[0] = "FW"
         
-        newLine = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
-        outputList.append(newLine)
+        if len(col[0]) > 0:
+            newLine = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
+            outputList.append(newLine)
+
+    oldPo=""
+    oldNum=""
+    oldStartMin=""
+    oldEndMin=""
+    for i in range(0, len(outputList)):
+        col = outputList[i].split(",")
+        if col[0] == "-1" and col[3] == oldEndMin:
+            col[0] = oldPo
+            outputList[i] = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
+        oldPo = col[0]
+        oldNum = col[1]
+        oldStartMin = col[3]
+        oldEndMin = col[4]
+
+    countOfPo={}
+    for i in range(0, len(outputList)):
+        col = outputList[i].split(",")
+        if col[0] in countOfPo:
+            countOfPo[col[0]] += 1
+        else:
+            countOfPo[col[0]] = 1
+
+    if countOfPo['WB'] == 1 and countOfPo['-1'] == 1:
+        for i in range(0, len(outputList)):
+            print(i, outputList[i], sep='\t')
+        print(countOfPo)
+        for i in range(0, len(outputList)):
+            col = outputList[i].split(",")
+            if col[0] == "-1":
+                col[0] = "WB"
+                outputList[i] = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
+        for i in range(0, len(outputList)):
+            print(i, outputList[i], sep='\t')
+
     return outputList
 
 def selectPlayer(SelectString, WhereString):
