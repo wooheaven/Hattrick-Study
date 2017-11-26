@@ -37,10 +37,10 @@ def clickEmpty(y):
 	# wait
 	time.sleep(0.4)
 
-def clickFacebookLogin():
+def clickFacebookLogin(y):
 	# define position
 	moveX = screenX / 110 * 70
-	moveY = screenY / 300 * 128
+	moveY = screenY * y
 
 	# move and click
 	moveAndClick(moveX, moveY)
