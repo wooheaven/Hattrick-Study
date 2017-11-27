@@ -7,7 +7,7 @@ def clickTabOfFireFox(n):
 	moveY = screenY / 30 * 1
 
 	# wait
-	time.sleep(0.5)
+	time.sleep(0.2)
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -30,9 +30,6 @@ def clickEmpty(y):
 	# move and click
 	moveAndClick(moveX, moveY)
 
-	# wait
-	time.sleep(0.3)
-
 def clickLogin(y):
 	# define position
 	moveX = screenX / 1100 * 693
@@ -40,13 +37,18 @@ def clickLogin(y):
 
 	# move and click
 	moveAndClick(moveX, moveY)
-	moveAndClick(moveX, moveY)
 
 	# wait
 	time.sleep(0.7)
 	
+	# type id
+	pyautogui.typewrite('heavy2defence', interval=0.05)
+	
+	# wait
+	time.sleep(0.7)
+	
 	# define position
-	moveY = screenY * (y+(6/300))
+	moveY = screenY * (y+(11/300))
 	
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -54,26 +56,14 @@ def clickLogin(y):
 	# wait
 	time.sleep(0.7)
 	
-	# define position
-	moveY = screenY * (y+(16/300))
-	
-	# move and click
-	moveAndClick(moveX, moveY)
+	# type password
+	pyautogui.typewrite('h1324d3546', interval=0.05)
 	
 	# wait
 	time.sleep(0.7)
 	
 	# define position
-	moveY = screenY * (y+(21/300))
-	
-	# move and click
-	moveAndClick(moveX, moveY)
-	
-	# wait
-	time.sleep(0.7)
-	
-	# define position
-	moveY = screenY * (y+(27/300))
+	moveY = screenY * (y+(14/300))
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -83,14 +73,14 @@ def clickLogin(y):
 
 def clickMyClub(y):
 	# define position
-	moveX = screenX / 140 * 91
+	moveX = screenX / 140 * 90
 	moveY = screenY * y
 
 	# move and click
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(3)
+	time.sleep(2.5)
 
 def clickMatch(y):
 	# define position
@@ -157,9 +147,9 @@ def typeFileName():
 	# wait
 	time.sleep(0.3)
 
-def clickHome(y):
+def clickRwoo(x,y):
 	# define position
-	moveX = screenX / 50 * 32
+	moveX = screenX * x
 	moveY = screenY * y
 
 	# wait
@@ -172,9 +162,9 @@ def clickHome(y):
 	# wait
 	time.sleep(0.3)
 
-def click02_workspace(y):
+def click02_workspace(x,y):
 	# define position
-	moveX = screenX / 50 * 34
+	moveX = screenX * x
 	moveY = screenY * y
 
 	# wait
@@ -187,9 +177,9 @@ def click02_workspace(y):
 	# wait
 	time.sleep(0.3)
 
-def click02_Hattrick(y):
+def click02_Hattrick(x,y):
 	# define position
-	moveX = screenX / 50 * 34
+	moveX = screenX * x
 	moveY = screenY * y
 
 	# wait
@@ -202,10 +192,10 @@ def click02_Hattrick(y):
 	# wait
 	time.sleep(0.3)
 
-def clickHattrickStudy(y):
+def clickHattrickStudy(x,y):
 	# define position
-	moveX = screenX / 100 * 68
-	moveY = screenY * y 
+	moveX = screenX * x
+	moveY = screenY * y
 
 	# wait
 	time.sleep(0.3)
@@ -217,9 +207,9 @@ def clickHattrickStudy(y):
 	# wait
 	time.sleep(0.3)
 
-def click01_Heavy2Defence(y):
+def click01_Heavy2Defence(x,y):
 	# define position
-	moveX = screenX / 100 * 68
+	moveX = screenX * x
 	moveY = screenY * y
 
 	# wait
@@ -232,9 +222,9 @@ def click01_Heavy2Defence(y):
 	# wait
 	time.sleep(0.2)
 
-def click2017(y):
+def click2017(x,y):
 	# define position
-	moveX = screenX / 100 * 68
+	moveX = screenX * x
 	moveY = screenY * y
 
 	# wait
@@ -273,9 +263,9 @@ def clickLastDay():
 	# wait
 	time.sleep(0.2)
 
-def clickSave(y):
+def clickSave(x,y):
 	# define position
-	moveX = screenX / 1000 * 852
+	moveX = screenX * x
 	moveY = screenY * y
 	
 	# wait
@@ -287,9 +277,9 @@ def clickSave(y):
 	# wait
 	time.sleep(0.2)
 
-def clickLogout(y):
+def clickLogout(x,y):
 	# define position
-	moveX = screenX / 110 * 92
+	moveX = screenX * x
 	moveY = screenY * y
 
 	# wait
@@ -303,7 +293,7 @@ def clickLogout(y):
 
 def clickURL(y):
 	# define position
-	moveX = screenX / 110 * 63
+	moveX = screenX / 110 * 73
 	moveY = screenY * y
 
 	# wait

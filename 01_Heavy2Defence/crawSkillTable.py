@@ -1,10 +1,6 @@
 import pyautogui, time
 screenX, screenY = pyautogui.size()
 
-def whereIsMouse():
-	currentMouseX, currentMouseY = pyautogui.position()
-	print("(" + str(currentMouseX) + "," + str(currentMouseY) + ") / (" + str(screenX) + "," + str(screenY) + ")")
-
 def clickTabOfFireFox(n):
 	# define position
 	moveX = screenX / 100 * 53
@@ -19,7 +15,7 @@ def clickTabOfFireFox(n):
 	# CTRL + TAB * n
 	pyautogui.keyDown('ctrl')
 	for i in range(n-1):
-		time.sleep(0.21)
+		time.sleep(0.2)
 		pyautogui.press('tab')
 	pyautogui.keyUp('ctrl')
 
@@ -27,6 +23,9 @@ def clickEmpty(y):
 	# define position
 	moveX = screenX / 110 * 65
 	moveY = screenY * y
+
+	# wait
+	time.sleep(0.3)
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -38,13 +37,18 @@ def clickHattrickLogin(y):
 
 	# move and click
 	moveAndClick(moveX, moveY)
-	moveAndClick(moveX, moveY)
 
 	# wait
 	time.sleep(0.7)
 	
+	# type id
+	pyautogui.typewrite('heavy2defence', interval=0.05)
+	
+	# wait
+	time.sleep(0.7)
+	
 	# define position
-	moveY = screenY * (y+(6/300))
+	moveY = screenY * (y+(11/300))
 	
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -52,26 +56,14 @@ def clickHattrickLogin(y):
 	# wait
 	time.sleep(0.7)
 	
-	# define position
-	moveY = screenY * (y+(16/300))
-	
-	# move and click
-	moveAndClick(moveX, moveY)
+	# type password
+	pyautogui.typewrite('h1324d3546', interval=0.05)
 	
 	# wait
 	time.sleep(0.7)
 	
 	# define position
-	moveY = screenY * (y+(19/300))
-	
-	# move and click
-	moveAndClick(moveX, moveY)
-	
-	# wait
-	time.sleep(0.7)
-	
-	# define position
-	moveY = screenY * (y+(25/300))
+	moveY = screenY * (y+(14/300))
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -99,7 +91,7 @@ def clickPlayer(y):
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(3)
+	time.sleep(2)
 
 def clickSkillTable(y):
 	# define position
