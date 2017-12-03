@@ -37,10 +37,14 @@ def clickEmpty(y):
 	# wait
 	time.sleep(0.4)
 
-def clickFacebookLogin(y):
-	# define position
-	moveX = screenX / 110 * 70
-	moveY = screenY * y
+def clickFacebookLogin():
+	# locateOnScreen
+	faceBookLogin = pyautogui.locateOnScreen('screen-FacebookLogin.png')
+	if None == faceBookLogin:
+		faceBookLogin = pyautogui.locateOnScreen('screen-FacebookLogin.png')
+	print(faceBookLogin)
+	moveX = faceBookLogin[0] + faceBookLogin[2]/2
+	moveY = faceBookLogin[1] + faceBookLogin[3]/2
 
 	# move and click
 	moveAndClick(moveX, moveY)
