@@ -115,17 +115,15 @@ class SeasonWeekDay:
         return outStr
     
     def modify(self, diffDayInt):
+        #print('modify input =', self.seasonInt, self.weekInt, self.dayInt, sep='\t')
         self.dayInt -= diffDayInt
-        if None != self.weekInt:
-            if self.weekInt > 0 and self.dayInt < 0:
-                self.weekInt -= 1
-                self.dayInt += 7
-        else:
-            if None != self.seasonInt:
-                if self.seasonInt > 0 and self.dayInt < 0:
-                    self.seasonInt -= 1
-                    self.weekInt = 15
-                    self.dayInt += 7
+        if self.dayInt < 0:
+            self.weekInt -= 1
+            self.dayInt += 7
+        if self.weekInt < 0:
+            self.seasonInt -= 1
+            self.weekInt += 16
+        #print('modify output', self.seasonInt, self.weekInt, self.dayInt, sep='\t')
 
 def modifySince(inputList, targetStr, nowStr):   
     outputList = list();
@@ -139,8 +137,9 @@ def modifySince(inputList, targetStr, nowStr):
             targetDay = datetime.strptime(targetStr, '%Y/%m/%d').date()
             nowDay = datetime.strptime(nowStr, '%Y/%m/%d').date()
             diffDay = relativedelta(nowDay, targetDay)
+            #print('diffDay', diffDay)
             
-            #print('col[0]', col[7], sep='\t')
+            #print('col[7]', col[7], sep='\t')
             modifySinceStr = SeasonWeekDay(col[7])
             #print('before modify', modifySinceStr.display(), sep='\t')
             modifySinceStr.modify(int(diffDay.days))
