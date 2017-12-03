@@ -1,14 +1,18 @@
 import pyautogui, time
 screenX, screenY = pyautogui.size()
-
-def whereIsMouse():
-	currentMouseX, currentMouseY = pyautogui.position()
-	print("(" + str(currentMouseX) + "," + str(currentMouseY) + ") / (" + str(screenX) + "," + str(screenY) + ")")
+if 1920 == screenX and 1080 == screenY:
+	isDualMonitor = False
+	print('use 1 monitor =', screenX, 'x', screenY, 'isDualMonitor=', isDualMonitor)
+else:
+	isDualMonitor = True
+	print('use 2 monitor =', screenX, 'x', screenY, 'isDualMonitor=', isDualMonitor)
 
 def clickTabOfFireFox(n):
 	# define position
-	moveX = screenX / 100 * 53
-	moveY = screenY / 30 * 1
+	moveX = screenX / 100 * 3
+	if isDualMonitor:
+		moveX += 1920
+	moveY = screenY / 100 * 3
 
 	# wait
 	time.sleep(0.5)
@@ -19,13 +23,15 @@ def clickTabOfFireFox(n):
 	# CTRL + TAB * n
 	pyautogui.keyDown('ctrl')
 	for i in range(n-1):
-		time.sleep(0.2)
+		time.sleep(0.25)
 		pyautogui.press('tab')
 	pyautogui.keyUp('ctrl')
 
 def clickEmpty(y):
 	# define position
-	moveX = screenX / 110 * 66
+	moveX = screenX / 100 * 18
+	if isDualMonitor:
+		moveX += 1920
 	moveY = screenY * y
 
 	# wait
@@ -38,14 +44,25 @@ def clickEmpty(y):
 	time.sleep(0.4)
 
 def clickFacebookLogin():
-	# locateOnScreen
-	faceBookLogin = pyautogui.locateOnScreen('screen-FacebookLogin.png')
+	# find locateOnScreen
+	moveX, moveY = 484, 405
+	if isDualMonitor:
+		moveX += 1920
+	pyautogui.moveTo(moveX, moveY, duration=0.15)
+
+	faceBookLogin = pyautogui.locateOnScreen('screen-FacebookLogin.png', region=(moveX, moveY, 77, 33), grayscale=True)
+	print('1st faceBookLogin location with region =', faceBookLogin)
 	if None == faceBookLogin:
 		faceBookLogin = pyautogui.locateOnScreen('screen-FacebookLogin.png')
-	print(faceBookLogin)
-	moveX = faceBookLogin[0] + faceBookLogin[2]/2
-	moveY = faceBookLogin[1] + faceBookLogin[3]/2
+		print('2nd faceBookLogin location =', faceBookLogin)
+		faceBookLogin = pyautogui.locateCenterOnScreen('screen-FacebookLogin.png')
+		print('2nd faceBookLogin location of Center =', faceBookLogin)
+	else:
+		faceBookLogin = pyautogui.locateCenterOnScreen('screen-FacebookLogin.png', region=(moveX, moveY, 77, 33), grayscale=True)
+		print('1st faceBookLogin location of Center with region =', faceBookLogin)
 
+	moveX = faceBookLogin[0]
+	moveY = faceBookLogin[1]
 	# move and click
 	moveAndClick(moveX, moveY)
 
@@ -54,7 +71,9 @@ def clickFacebookLogin():
 
 def clickMyClub(y):
 	# define position
-	moveX = screenX / 140 * 90
+	moveX = screenX / 100 * 29
+	if isDualMonitor:
+		moveX += 1920
 	moveY = screenY * y
 
 	# move and click
@@ -65,7 +84,9 @@ def clickMyClub(y):
 
 def clickPlayer(y):
 	# define position
-	moveX = screenX / 110 * 67
+	moveX = screenX / 100 * 22
+	if isDualMonitor:
+		moveX += 1920
 	moveY = screenY * y
 
 	# wait
@@ -79,7 +100,9 @@ def clickPlayer(y):
 
 def clickSkillTable(y):
 	# define position
-	moveX = screenX / 1400 * 932
+	moveX = screenX / 100 * 32
+	if isDualMonitor:
+		moveX += 1920
 	moveY = screenY * y
 
 	# wait
@@ -93,7 +116,9 @@ def clickSkillTable(y):
 
 def clickSince(y):
 	# define position
-	moveX = screenX / 1200 * 831
+	moveX = screenX / 100 * 32
+	if isDualMonitor:
+		moveX += 1920
 	moveY = screenY * y
 
 	# wait
@@ -107,7 +132,9 @@ def clickSince(y):
 
 def clickCopy(y):
 	# define position
-	moveX = screenX / 1400 * 1100
+	moveX = screenX / 100 * 57
+	if isDualMonitor:
+		moveX += 1920
 	moveY = screenY * y
 
 	# move and click
@@ -117,9 +144,27 @@ def clickCopy(y):
 	time.sleep(0.5)
 
 def clickFacebookLogout(y):
+	# find locateOnScreen
+	moveX, moveY = 1258, 336
+	if isDualMonitor:
+		moveX += 1920
+
+	pyautogui.moveTo(moveX, moveY, duration=0.15)
+	
+	faceBookLogout = pyautogui.locateOnScreen('screen-FacebookLogout.png', region=(moveX, moveY, 69, 51), grayscale=True)
+	print('1st faceBookLogout location with region =', faceBookLogout)
+	if None == faceBookLogout:
+		faceBookLogout = pyautogui.locateOnScreen('screen-FacebookLogout.png')
+		print('2nd faceBookLogout location =', faceBookLogout)
+		faceBookLogout = pyautogui.locateCenterOnScreen('screen-FacebookLogout.png')
+		print('2nd faceBookLogout location of Center =', faceBookLogout)
+	else:
+		faceBookLogout = pyautogui.locateCenterOnScreen('screen-FacebookLogout.png', region=(moveX, moveY, 69, 51), grayscale=True)
+		print('1st faceBookLogout location of Center with region =', faceBookLogout)
+
 	# define position
-	moveX = screenX / 110 * 92
-	moveY = screenY * y
+	moveX = faceBookLogout[0]
+	moveY = faceBookLogout[1]
 
 	# wait
 	time.sleep(0.5)
@@ -132,7 +177,9 @@ def clickFacebookLogout(y):
 
 def clickURL(y):
 	# define position
-	moveX = screenX / 110 * 73
+	moveX = screenX / 100 * 25
+	if isDualMonitor:
+		moveX += 1920
 	moveY = screenY * y
 
 	# wait
