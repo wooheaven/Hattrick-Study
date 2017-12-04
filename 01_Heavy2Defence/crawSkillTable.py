@@ -40,18 +40,19 @@ def clickHattrickLogin(y):
 
 	# wait
 	time.sleep(0.7)
+
+	# delete previous id
+	for _ in range(15):
+		pyautogui.press('delete')
 	
 	# type id
 	pyautogui.typewrite('heavy2defence', interval=0.05)
 	
 	# wait
 	time.sleep(0.7)
-	
-	# define position
-	moveY = screenY * (y+(11/300))
-	
-	# move and click
-	moveAndClick(moveX, moveY)
+
+	# next cell
+	pyautogui.press('tab')
 	
 	# wait
 	time.sleep(0.7)
@@ -63,7 +64,7 @@ def clickHattrickLogin(y):
 	time.sleep(0.7)
 	
 	# define position
-	moveY = screenY * (y+(14/300))
+	moveY = screenY * (y+(15/300))
 
 	# move and click
 	moveAndClick(moveX, moveY)
