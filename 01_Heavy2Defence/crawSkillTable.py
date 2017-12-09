@@ -1,10 +1,18 @@
 import pyautogui, time
 screenX, screenY = pyautogui.size()
+if 1920 == screenX and 1080 == screenY:
+	isDualMonitor = False
+	print('use 1 monitor =', screenX, 'x', screenY, 'isDualMonitor=', isDualMonitor)
+else:
+	isDualMonitor = True
+	print('use 2 monitor =', screenX, 'x', screenY, 'isDualMonitor=', isDualMonitor)
 
 def clickTabOfFireFox(n):
 	# define position
-	moveX = screenX / 100 * 53
-	moveY = screenY / 30 * 1
+	moveX = screenX / 100 * 3
+	if isDualMonitor:
+		moveX += 1920
+	moveY = screenY / 100 * 3
 
 	# wait
 	time.sleep(0.2)
@@ -15,24 +23,28 @@ def clickTabOfFireFox(n):
 	# CTRL + TAB * n
 	pyautogui.keyDown('ctrl')
 	for i in range(n-1):
-		time.sleep(0.2)
+		time.sleep(0.25)
 		pyautogui.press('tab')
 	pyautogui.keyUp('ctrl')
 
 def clickEmpty(y):
 	# define position
-	moveX = screenX / 110 * 65
+	moveX = screenX / 100 * 18
+	if isDualMonitor:
+		moveX += 1920
 	moveY = screenY * y
 
 	# wait
-	time.sleep(0.3)
+	time.sleep(0.4)
 
 	# move and click
 	moveAndClick(moveX, moveY)
 
 def clickHattrickLogin(y):
 	# define position
-	moveX = screenX / 1100 * 693
+	moveX = screenX / 100 * 3
+	if isDualMonitor:
+		moveX += 1920
 	moveY = screenY * y
 
 	# move and click
@@ -42,12 +54,13 @@ def clickHattrickLogin(y):
 	time.sleep(0.7)
 
 	# delete previous id
-	for _ in range(15):
+	for _ in range(30):
 		pyautogui.press('delete')
-	
+		pyautogui.press('blackspace')
+
 	# type id
 	pyautogui.typewrite('heavy2defence', interval=0.05)
-	
+
 	# wait
 	time.sleep(0.7)
 
@@ -59,12 +72,12 @@ def clickHattrickLogin(y):
 	
 	# type password
 	pyautogui.typewrite('h1324d3546', interval=0.05)
-	
+
 	# wait
 	time.sleep(0.7)
-	
+
 	# define position
-	moveY = screenY * (y+(15/300))
+	moveY = screenY * (y+(11/200))
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -74,7 +87,9 @@ def clickHattrickLogin(y):
 
 def clickMyClub(y):
 	# define position
-	moveX = screenX / 140 * 90
+	moveX = screenX / 100 * 29
+	if isDualMonitor:
+		moveX += 1920
 	moveY = screenY * y
 
 	# move and click
@@ -85,7 +100,9 @@ def clickMyClub(y):
 
 def clickPlayer(y):
 	# define position
-	moveX = screenX / 110 * 67
+	moveX = screenX / 100 * 22
+	if isDualMonitor:
+		moveX += 1920
 	moveY = screenY * y
 
 	# move and click
@@ -96,7 +113,9 @@ def clickPlayer(y):
 
 def clickSkillTable(y):
 	# define position
-	moveX = screenX / 1400 * 932
+	moveX = screenX / 100 * 32
+	if isDualMonitor:
+		moveX += 1920
 	moveY = screenY * y
 
 	# move and click
@@ -107,9 +126,11 @@ def clickSkillTable(y):
 
 def clickSince(y):
 	# define position
-	moveX = screenX / 1200 * 821
+	moveX = screenX / 100 * 32
+	if isDualMonitor:
+		moveX += 1920
 	moveY = screenY * y
-	
+
 	# wait
 	time.sleep(3.5)
 
@@ -121,19 +142,22 @@ def clickSince(y):
 
 def clickCopy(y):
 	# define position
-	moveX = screenX / 1400 * 1099
+	moveX = screenX / 100 * 57
+	if isDualMonitor:
+		moveX += 1920
 	moveY = screenY * y
 
 	# wait
 	time.sleep(1)
-	
+
 	# move and click
 	moveAndClick(moveX, moveY)
 
 def clickHattrickLogout(y):
 	# define position
-	moveX = screenX / 1100 * 915
-	moveY = screenY * y
+	moveX, moveY = 1258, screenY * y
+	if isDualMonitor:
+		moveX += 1920
 
 	# wait
 	time.sleep(0.5)
@@ -146,7 +170,9 @@ def clickHattrickLogout(y):
 
 def clickURL(y):
 	# define position
-	moveX = screenX / 110 * 66
+	moveX = screenX / 100 * 25
+	if isDualMonitor:
+		moveX += 1920
 	moveY = screenY * y
 
 	# wait
