@@ -145,7 +145,7 @@ def clickCopy(y):
 
 def clickFacebookLogout(y):
 	# find locateOnScreen
-	moveX, moveY = 1258, 336
+	moveX, moveY = 1258, 338
 	if isDualMonitor:
 		moveX += 1920
 

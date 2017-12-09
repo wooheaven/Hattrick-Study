@@ -45,7 +45,7 @@ def clickEmpty(y):
 
 def clickFacebookLogin():
 	# find locateOnScreen
-	moveX, moveY = 484, 405
+	moveX, moveY = 484, 407
 	if isDualMonitor:
 		moveX += 1920
 	pyautogui.moveTo(moveX, moveY, duration=0.15)
