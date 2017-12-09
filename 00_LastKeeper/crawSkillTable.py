@@ -107,7 +107,7 @@ def clickSkillTable(y):
 
 	# wait
 	time.sleep(2)
-	
+
 	# move and click
 	moveAndClick(moveX, moveY)
 
