@@ -9,10 +9,10 @@ else:
 
 def clickTabOfFireFox(n):
 	# define position
-	moveX = screenX / 100 * 3
+	moveX = 170
 	if isDualMonitor:
 		moveX += 1920
-	moveY = screenY / 30 * 1
+	moveY = screenY / 100 * 3
 
 	# wait
 	time.sleep(0.2)
@@ -29,7 +29,7 @@ def clickTabOfFireFox(n):
 
 def clickEmpty(y):
 	# define position
-	moveX = screenX / 100 * 19
+	moveX = 430
 	if isDualMonitor:
 		moveX += 1920
 	moveY = screenY * y
@@ -40,9 +40,12 @@ def clickEmpty(y):
 	# move and click
 	moveAndClick(moveX, moveY)
 
+	# wait
+	time.sleep(0.4)
+
 def clickHattrickLogin(y):
 	# define position
-	moveX = screenX / 100 * 28
+	moveX = 500
 	if isDualMonitor:
 		moveX += 1920
 	moveY = screenY * y
@@ -54,9 +57,9 @@ def clickHattrickLogin(y):
 	time.sleep(0.7)
 
 	# delete previous id
-	for _ in range(15):
+	for _ in range(30):
 		pyautogui.press('delete')
-		pyautogui.press('blackspace')    
+		pyautogui.press('blackspace')
 
 	# type id
 	pyautogui.typewrite('heavy2defence', interval=0.05)
@@ -66,10 +69,10 @@ def clickHattrickLogin(y):
 
 	# next cell
 	pyautogui.press('tab')
-
+	
 	# wait
 	time.sleep(0.7)
-
+	
 	# type password
 	pyautogui.typewrite('h1324d3546', interval=0.05)
 
@@ -77,7 +80,7 @@ def clickHattrickLogin(y):
 	time.sleep(0.7)
 
 	# define position
-	moveY = screenY * (y+(16/300))
+	moveY = screenY * (y+(11/200))
 
 	# move and click
 	moveAndClick(moveX, moveY)

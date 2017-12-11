@@ -9,7 +9,7 @@ else:
 
 def clickTabOfFireFox(n):
 	# define position
-	moveX = screenX / 100 * 3
+	moveX = 170
 	if isDualMonitor:
 		moveX += 1920
 	moveY = screenY / 100 * 3
@@ -29,7 +29,7 @@ def clickTabOfFireFox(n):
 
 def clickEmpty(y):
 	# define position
-	moveX = screenX / 100 * 18
+	moveX = 430
 	if isDualMonitor:
 		moveX += 1920
 	moveY = screenY * y
@@ -40,9 +40,12 @@ def clickEmpty(y):
 	# move and click
 	moveAndClick(moveX, moveY)
 
+	# wait
+	time.sleep(0.4)
+
 def clickHattrickLogin(y):
 	# define position
-	moveX = screenX / 100 * 3
+	moveX = 500
 	if isDualMonitor:
 		moveX += 1920
 	moveY = screenY * y
