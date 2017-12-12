@@ -12,7 +12,7 @@ def clickTabOfFireFox(n):
 	moveX = 170
 	if isDualMonitor:
 		moveX += 1920
-	moveY = screenY / 100 * 3
+	moveY = screenY / 200 * 7
 
 	# wait
 	time.sleep(0.5)
@@ -88,7 +88,7 @@ def clickMyClub(y):
 
 def clickPlayer(y):
 	# define position
-	moveX = 417
+	moveX = 418
 	if isDualMonitor:
 		moveX += 1920
 	moveY = screenY * y
