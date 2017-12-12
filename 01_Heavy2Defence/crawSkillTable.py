@@ -12,7 +12,7 @@ def clickTabOfFireFox(n):
 	moveX = 170
 	if isDualMonitor:
 		moveX += 1920
-	moveY = screenY / 100 * 3
+	moveY = screenY / 200 * 7
 
 	# wait
 	time.sleep(0.2)
@@ -90,7 +90,7 @@ def clickHattrickLogin(y):
 
 def clickMyClub(y):
 	# define position
-	moveX = screenX / 100 * 29
+	moveX = 550
 	if isDualMonitor:
 		moveX += 1920
 	moveY = screenY * y
@@ -171,30 +171,35 @@ def clickHattrickLogout(y):
 	# wait
 	time.sleep(8.4)
 
-def clickURL(y):
-	# define position
-	moveX = screenX / 100 * 25
+def clickFacebookLogout(y):
+	# find locateOnScreen
+	moveX, moveY = 1260, 338
 	if isDualMonitor:
 		moveX += 1920
-	moveY = screenY * y
 
-	# wait
-	time.sleep(0.1)
+	# move
+	pyautogui.moveTo(moveX, moveY, duration=0.15)
+
+	# find faceBookLogin
+	faceBookLogout = pyautogui.locateOnScreen('screen-FacebookLogout.png', region=(moveX, moveY, 69, 51), grayscale=True)
+	if None == faceBookLogout:
+		faceBookLogout = pyautogui.locateOnScreen('screen-FacebookLogout.png')
+		if None == faceBookLogout:
+			print('1st 2nd faceBookLogin is None')
+		else:
+			print('2nd faceBookLogout location =', faceBookLogout)
+			moveX = faceBookLogout[0] + faceBookLogout[2]/2
+			moveY = faceBookLogout[1] + faceBookLogout[3]/2
+	else:
+		print('1st faceBookLogout location with region =', faceBookLogout)
+		moveX = faceBookLogout[0] + faceBookLogout[2]/2
+		moveY = faceBookLogout[1] + faceBookLogout[3]/2
 
 	# move and click
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(0.1)
-
-	for _ in range(13):
-		pyautogui.press('left')
-	
-	pyautogui.typewrite('91', interval=0.05)
-	time.sleep(0.6)
-	
-	pyautogui.press('enter')
-	time.sleep(1.6)
+	time.sleep(3)
 
 def moveAndClick(moveX, moveY):
 	pyautogui.moveTo(moveX, moveY, duration=0.2)
