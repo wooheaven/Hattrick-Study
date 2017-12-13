@@ -29,7 +29,7 @@ def clickTabOfFireFox(n):
 
 def clickEmpty(y):
 	# define position
-	moveX = 430
+	moveX = 350
 	if isDualMonitor:
 		moveX += 1920
 	moveY = screenY * y
@@ -101,12 +101,29 @@ def clickMyClub(y):
 	# wait
 	time.sleep(2.5)
 
-def clickPlayer(y):
-	# define position
-	moveX = screenX / 100 * 22
+def clickPlayer():
+	# initial position
+	moveX,moveY  = 370, 700
 	if isDualMonitor:
 		moveX += 1920
-	moveY = screenY * y
+
+	# move
+	pyautogui.moveTo(moveX, moveY, duration=0.15)
+
+	# find player
+	player = pyautogui.locateOnScreen('screen-player.png', region=(moveX, moveY, 105, 66), grayscale=True)
+	if None == player:
+		player = pyautogui.locateOnScreen('screen-player.png')
+		if None == player:
+			print('1st 2nd player is None')
+		else:
+			print('2nd player location =', player)
+			moveX = player[0] + player[2]/2
+			moveY = player[1] + player[3]/2
+	else:
+		print('1st player location with region=', player)
+		moveX = player[0] + player[2]/2
+		moveY = player[1] + player[3]/2
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -116,10 +133,10 @@ def clickPlayer(y):
 
 def clickSkillTable(y):
 	# define position
-	moveX = screenX / 100 * 32
+	moveX = 600
 	if isDualMonitor:
 		moveX += 1920
-	moveY = screenY * y
+	moveY = y
 
 	# move and click
 	moveAndClick(moveX, moveY)

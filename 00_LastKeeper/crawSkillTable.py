@@ -29,7 +29,7 @@ def clickTabOfFireFox(n):
 
 def clickEmpty(y):
 	# define position
-	moveX = 350
+	moveX = 351
 	if isDualMonitor:
 		moveX += 1920
 	moveY = screenY * y
@@ -179,7 +179,7 @@ def clickFacebookLogout(y):
 
 def clickURL(y):
 	# define position
-	moveX = 700
+	moveX = 690
 	if isDualMonitor:
 		moveX += 1920
 	moveY = screenY * y
