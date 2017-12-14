@@ -29,7 +29,7 @@ def clickTabOfFireFox(n):
 
 def clickEmpty(y):
 	# define position
-	moveX = 430
+	moveX = 360
 	if isDualMonitor:
 		moveX += 1920
 	moveY = screenY * y
@@ -115,8 +115,9 @@ def clickMatch(y):
 
 def clickLastMatch(y):
 	# define position
-	moveX = screenX / 1800 * 1265
-	moveY = screenY * y
+	moveX, moveY = 779, y
+	if isDualMonitor:
+		moveX += 1920
 
 	# wait
 	time.sleep(0.8)
