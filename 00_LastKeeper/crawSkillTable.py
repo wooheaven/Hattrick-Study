@@ -179,13 +179,12 @@ def clickFacebookLogout(y):
 
 def clickURL(y):
 	# define position
-	moveX = 690
+	moveX, moveY = 690, y
 	if isDualMonitor:
 		moveX += 1920
-	moveY = screenY * y
 
 	# wait
-	time.sleep(0.35)
+	time.sleep(0.4)
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -194,11 +193,12 @@ def clickURL(y):
 	time.sleep(0.3)
 
 	for _ in range(13):
+		time.sleep(0.01)
 		pyautogui.press('left')
-	
+
 	pyautogui.typewrite('74', interval=0.05)
 	time.sleep(0.7)
-	
+
 	pyautogui.press('enter')
 	time.sleep(1.7)
 
