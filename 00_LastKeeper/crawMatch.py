@@ -303,9 +303,9 @@ def clickSave(x,y):
 	# wait
 	time.sleep(1)
 
-def clickFacebookLogout(y):
+def clickFacebookLogout(x,y):
 	# find locateOnScreen
-	moveX, moveY = 1258, 338
+	moveX, moveY = x, y
 	if isDualMonitor:
 		moveX += 1920
 

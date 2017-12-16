@@ -32,7 +32,7 @@ def clickEmpty(y):
 	moveX = 350
 	if isDualMonitor:
 		moveX += 1920
-	moveY = screenY * y
+	moveY = y
 
 	# wait
 	time.sleep(0.4)
@@ -43,12 +43,11 @@ def clickEmpty(y):
 	# wait
 	time.sleep(0.4)
 
-def clickHattrickLogin(y):
+def clickHattrickLogin(x, y):
 	# define position
-	moveX = 500
+	moveX, moveY = x, y
 	if isDualMonitor:
 		moveX += 1920
-	moveY = screenY * y
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -69,31 +68,28 @@ def clickHattrickLogin(y):
 
 	# next cell
 	pyautogui.press('tab')
-	
+
 	# wait
 	time.sleep(0.7)
-	
+
 	# type password
 	pyautogui.typewrite('h1324d3546', interval=0.05)
 
 	# wait
 	time.sleep(0.7)
 
-	# define position
-	moveY = screenY * (y+(11/200))
-
-	# move and click
-	moveAndClick(moveX, moveY)
+	# Login
+	pyautogui.press('tab')
+	pyautogui.press('enter')
 
 	# wait
 	time.sleep(11.9)
 
 def clickMyClub(y):
 	# define position
-	moveX = 550
+	moveX, moveY = 550, y
 	if isDualMonitor:
 		moveX += 1920
-	moveY = screenY * y
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -101,14 +97,17 @@ def clickMyClub(y):
 	# wait
 	time.sleep(2.5)
 
-def clickPlayer():
+def clickPlayer(x, y):
 	# initial position
-	moveX,moveY  = 370, 700
+	moveX,moveY  = x, y
 	if isDualMonitor:
 		moveX += 1920
 
 	# move
 	pyautogui.moveTo(moveX, moveY, duration=0.15)
+
+	# wait
+	time.sleep(1)
 
 	# find player
 	player = pyautogui.locateOnScreen('screen-player.png', region=(moveX, moveY, 105, 66), grayscale=True)
@@ -129,14 +128,13 @@ def clickPlayer():
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(2)
+	time.sleep(3)
 
-def clickSkillTable(y):
+def clickSkillTable(x, y):
 	# define position
-	moveX = 600
+	moveX, moveY = x, y
 	if isDualMonitor:
 		moveX += 1920
-	moveY = y
 
 	# move and click
 	moveAndClick(moveX, moveY)
