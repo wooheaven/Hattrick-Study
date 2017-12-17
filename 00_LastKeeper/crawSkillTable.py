@@ -100,7 +100,7 @@ def clickPlayer(y):
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(2.5)
+	time.sleep(3)
 
 def clickSkillTable(y):
 	# define position
@@ -179,7 +179,7 @@ def clickFacebookLogout(y):
 
 def clickURL(y):
 	# define position
-	moveX, moveY = 690, y
+	moveX, moveY = 650, y
 	if isDualMonitor:
 		moveX += 1920
 
