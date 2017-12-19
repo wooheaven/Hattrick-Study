@@ -142,12 +142,11 @@ def clickSkillTable(x, y):
 	# wait
 	time.sleep(0.4)
 
-def clickSince(y):
+def clickSince(x, y):
 	# define position
-	moveX = screenX / 100 * 32
+	moveX, moveY = x, y
 	if isDualMonitor:
 		moveX += 1920
-	moveY = screenY * y
 
 	# wait
 	time.sleep(3.5)

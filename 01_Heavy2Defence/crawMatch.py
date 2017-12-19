@@ -128,10 +128,10 @@ def clickLastMatch(y):
 	# wait
 	time.sleep(5.8)
 
-def clickFirefoxFile():
+def clickFirefoxFile(x, y):
 	# define position
-	moveX = screenX / 50 * 26
-	moveY = screenY / 70 * 1
+	moveX = x
+	moveY = y
 
 	# wait
 	time.sleep(0.3)
