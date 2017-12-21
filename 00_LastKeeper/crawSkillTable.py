@@ -70,21 +70,34 @@ def clickFacebookLogin():
 	# move and click
 	moveAndClick(moveX, moveY)
 
+def clickMyClub(x, y):
 	# wait
-	time.sleep(12)
+	time.sleep(10)
 
-def clickMyClub(y):
-	# define position
-	moveX = 550
+	# initial region
+	moveX, moveY = x, y
 	if isDualMonitor:
 		moveX += 1920
-	moveY = screenY * y
+
+	# move
+	pyautogui.moveTo(moveX, moveY, duration=0.15)
+
+	# find myClub
+	myClub = None
+	while(None == myClub):
+		myClub = pyautogui.locateOnScreen('screen-MyClub.png', region=(moveX, moveY, 77, 42), grayscale=True)
+		time.sleep(5)
+	print('find myClub =', myClub)
+
+	# define position
+	moveX = myClub[0] + myClub[2]/2
+	moveY = myClub[1] + myClub[3]/2
 
 	# move and click
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(2.2)
+	time.sleep(5)
 
 def clickPlayer(y):
 	# define position
@@ -100,7 +113,7 @@ def clickPlayer(y):
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(3)
+	time.sleep(5)
 
 def clickSkillTable(y):
 	# define position
@@ -110,7 +123,7 @@ def clickSkillTable(y):
 	moveY = screenY * y
 
 	# wait
-	time.sleep(2)
+	time.sleep(4)
 
 	# move and click
 	moveAndClick(moveX, moveY)
@@ -132,7 +145,7 @@ def clickSince(y):
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(8.5)
+	time.sleep(9)
 
 def clickCopy(y):
 	# define position
@@ -176,31 +189,6 @@ def clickFacebookLogout(y):
 
 	# wait
 	time.sleep(3)
-
-def clickURL(y):
-	# define position
-	moveX, moveY = 650, y
-	if isDualMonitor:
-		moveX += 1920
-
-	# wait
-	time.sleep(0.4)
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
-	# wait
-	time.sleep(0.3)
-
-	for _ in range(13):
-		time.sleep(0.01)
-		pyautogui.press('left')
-
-	pyautogui.typewrite('74', interval=0.05)
-	time.sleep(0.7)
-
-	pyautogui.press('enter')
-	time.sleep(1.7)
 
 def moveAndClick(moveX, moveY):
 	pyautogui.moveTo(moveX, moveY, duration=0.2)
