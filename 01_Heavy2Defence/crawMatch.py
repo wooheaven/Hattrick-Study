@@ -142,10 +142,11 @@ def clickFirefoxFile(x, y):
 	# wait
 	time.sleep(0.3)
 
-def clickSavePageAs():
+def clickSavePageAs(x, y):
 	# define position
-	moveX = screenX / 50 * 26
-	moveY = screenY / 100 * 12
+	moveX = x
+	moveY = y
+	print('clickSavePageAs', moveX, moveY)
 
 	# wait
 	time.sleep(0.3)
