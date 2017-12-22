@@ -157,12 +157,13 @@ def clickSince(x, y):
 	# wait
 	time.sleep(7.5)
 
-def clickCopy(y):
+def clickCopy(x, y):
 	# define position
-	moveX = screenX / 100 * 57
+	moveX = x
 	if isDualMonitor:
 		moveX += 1920
-	moveY = screenY * y
+	moveY = y
+	print('clickCopy', moveX, moveY)
 
 	# wait
 	time.sleep(1)
