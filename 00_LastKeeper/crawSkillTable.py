@@ -87,7 +87,7 @@ def clickMyClub(x, y):
 	while(None == myClub):
 		myClub = pyautogui.locateOnScreen('screen-MyClub.png', region=(moveX, moveY, 77, 42), grayscale=True)
 		time.sleep(5)
-	print('find myClub =', myClub)
+	print('clickMyClub =', myClub)
 
 	# define position
 	moveX = myClub[0] + myClub[2]/2
@@ -99,15 +99,25 @@ def clickMyClub(x, y):
 	# wait
 	time.sleep(5)
 
-def clickPlayer(y):
-	# define position
-	moveX = 418
+def clickPlayer(x, y):
+	# initial region
+	moveX, moveY = x, y
 	if isDualMonitor:
 		moveX += 1920
-	moveY = screenY * y
 
-	# wait
-	time.sleep(0.4)
+	# move
+	pyautogui.moveTo(moveX, moveY, duration=0.15)
+
+	# find Player
+	player = None
+	while(None == player):
+		player = pyautogui.locateOnScreen('screen-Player.png', region=(moveX, moveY, 72, 59), grayscale=True)
+		time.sleep(3)
+	print('Player =', player)
+
+	# define position
+	moveX = player[0] + player[2]/2
+	moveY = player[1] + player[3]/2
 
 	# move and click
 	moveAndClick(moveX, moveY)
