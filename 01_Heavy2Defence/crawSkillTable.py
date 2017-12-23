@@ -9,7 +9,7 @@ else:
 
 def clickTabOfFireFox(n):
 	# define position
-	moveX = 170
+	moveX = 150
 	if isDualMonitor:
 		moveX += 1920
 	moveY = screenY / 200 * 7
@@ -56,9 +56,9 @@ def clickHattrickLogin(x, y):
 	time.sleep(0.7)
 
 	# delete previous id
-	for _ in range(30):
-		pyautogui.press('delete')
-		pyautogui.press('blackspace')
+	pyautogui.click(clicks=2)
+	pyautogui.press('delete')
+	pyautogui.press('blackspace')
 
 	# type id
 	pyautogui.typewrite('heavy2defence', interval=0.05)
@@ -79,29 +79,44 @@ def clickHattrickLogin(x, y):
 	time.sleep(0.7)
 
 	# Login
-	pyautogui.press('tab')
-	pyautogui.press('enter')
+	moveY += 55
+	moveAndClick(moveX, moveY)
 
+def clickMyClub(x, y):
 	# wait
-	time.sleep(11.9)
+	time.sleep(10)
 
-def clickMyClub(y):
-	# define position
-	moveX, moveY = 550, y
+	# initial region
+	moveX, moveY = x, y
 	if isDualMonitor:
 		moveX += 1920
+
+	# move
+	pyautogui.moveTo(moveX, moveY, duration=0.15)
+
+	# find myClub
+	myClub = None
+	while(None == myClub):
+		myClub = pyautogui.locateOnScreen('screen-MyClub.png', region=(moveX, moveY, 77, 42), grayscale=True)
+		time.sleep(5)
+	print('clickMyClub =', myClub)
+
+	# define position
+	moveX = myClub[0] + myClub[2]/2
+	moveY = myClub[1] + myClub[3]/2
 
 	# move and click
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(2.5)
+	time.sleep(5)
 
 def clickPlayer(x, y):
 	# initial position
 	moveX,moveY  = x, y
 	if isDualMonitor:
 		moveX += 1920
+	print('clickPlayer =', moveX, moveY)
 
 	# move
 	pyautogui.moveTo(moveX, moveY, duration=0.15)
@@ -135,27 +150,40 @@ def clickSkillTable(x, y):
 	moveX, moveY = x, y
 	if isDualMonitor:
 		moveX += 1920
+	print('clickSkillTable =', moveX, moveY)
 
 	# move and click
 	moveAndClick(moveX, moveY)
 
-	# wait
-	time.sleep(0.4)
-
 def clickSince(x, y):
-	# define position
-	moveX, moveY = x, y
+	# initial position
+	moveX,moveY  = x, y
 	if isDualMonitor:
 		moveX += 1920
 
+	# move
+	pyautogui.moveTo(moveX, moveY, duration=0.15)
+
 	# wait
-	time.sleep(3.5)
+	time.sleep(2)
+
+	# find Since
+	since = None
+	while(None == since):
+		since = pyautogui.locateOnScreen('screen-Since.png', region=(moveX, moveY, 168, 25), grayscale=True)
+		time.sleep(1.5)
+		if(None == since):
+			since = pyautogui.locateOnScreen('screen-Since.png')
+		time.sleep(1.5)
+	moveX = since[0] + since[2]/2
+	moveY = since[1] + since[3]/2
+	print('clickSince =', since)
 
 	# move and click
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(7.5)
+	time.sleep(3)
 
 def clickCopy(x, y):
 	# define position
@@ -163,7 +191,7 @@ def clickCopy(x, y):
 	if isDualMonitor:
 		moveX += 1920
 	moveY = y
-	print('clickCopy', moveX, moveY)
+	print('clickCopy =', moveX, moveY)
 
 	# wait
 	time.sleep(1)
@@ -171,9 +199,9 @@ def clickCopy(x, y):
 	# move and click
 	moveAndClick(moveX, moveY)
 
-def clickHattrickLogout(y):
+def clickHattrickLogout(x, y):
 	# define position
-	moveX, moveY = 1258, screenY * y
+	moveX, moveY = x, y
 	if isDualMonitor:
 		moveX += 1920
 
@@ -186,11 +214,12 @@ def clickHattrickLogout(y):
 	# wait
 	time.sleep(8.4)
 
-def clickFacebookLogout(y):
+def clickFacebookLogout():
 	# find locateOnScreen
 	moveX, moveY = 1260, 338
 	if isDualMonitor:
 		moveX += 1920
+	print('clickFacebookLogout =', moveX, moveY)
 
 	# move
 	pyautogui.moveTo(moveX, moveY, duration=0.15)
