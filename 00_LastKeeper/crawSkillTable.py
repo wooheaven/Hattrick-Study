@@ -23,7 +23,7 @@ def clickTabOfFireFox(n):
 	# CTRL + TAB * n
 	pyautogui.keyDown('ctrl')
 	for i in range(n-1):
-		time.sleep(0.25)
+		time.sleep(0.3)
 		pyautogui.press('tab')
 	pyautogui.keyUp('ctrl')
 
