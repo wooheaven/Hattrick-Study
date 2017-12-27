@@ -98,7 +98,10 @@ def clickMyClub(x, y):
 	myClub = None
 	while(None == myClub):
 		myClub = pyautogui.locateOnScreen('screen-MyClub.png', region=(moveX, moveY, 77, 42), grayscale=True)
-		time.sleep(5)
+		time.sleep(2)
+		if(None == myClub):
+			myClub = pyautogui.locateOnScreen('screen-MyClub.png')
+		time.sleep(2)
 	print('clickMyClub =', myClub)
 
 	# define position
