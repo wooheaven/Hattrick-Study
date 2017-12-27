@@ -146,7 +146,7 @@ def clickSavePageAs(x, y):
 	# define position
 	moveX = x
 	moveY = y
-	print('clickSavePageAs', moveX, moveY)
+	print('clickSavePageAs =', moveX, moveY)
 
 	# wait
 	time.sleep(0.3)
@@ -168,8 +168,10 @@ def typeFileName():
 
 def clickRwoo(x,y):
 	# define position
-	moveX = screenX * x
-	moveY = screenY * y
+	moveX, moveY = x, y
+	if isDualMonitor:
+		moveX += 1920
+	print('clickRwoo =', moveX, moveY)
 
 	# wait
 	time.sleep(0.2)
