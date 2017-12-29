@@ -7,26 +7,6 @@ else:
 	isDualMonitor = True
 	print('use 2 monitor =', screenX, 'x', screenY, 'isDualMonitor=', isDualMonitor)
 
-def clickTabOfFireFox(n):
-	# define position
-	moveX = 170
-	if isDualMonitor:
-		moveX += 1920
-	moveY = screenY / 100 * 3
-
-	# wait
-	time.sleep(0.2)
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
-	# CTRL + TAB * n
-	pyautogui.keyDown('ctrl')
-	for i in range(n-1):
-		time.sleep(0.25)
-		pyautogui.press('tab')
-	pyautogui.keyUp('ctrl')
-
 def clickEmpty(y):
 	# define position
 	moveX = 360
@@ -42,51 +22,6 @@ def clickEmpty(y):
 
 	# wait
 	time.sleep(0.4)
-
-def clickHattrickLogin(y):
-	# define position
-	moveX = 500
-	if isDualMonitor:
-		moveX += 1920
-	moveY = screenY * y
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
-	# wait
-	time.sleep(0.7)
-
-	# delete previous id
-	for _ in range(30):
-		pyautogui.press('delete')
-		pyautogui.press('blackspace')
-
-	# type id
-	pyautogui.typewrite('heavy2defence', interval=0.05)
-
-	# wait
-	time.sleep(0.7)
-
-	# next cell
-	pyautogui.press('tab')
-	
-	# wait
-	time.sleep(0.7)
-	
-	# type password
-	pyautogui.typewrite('h1324d3546', interval=0.05)
-
-	# wait
-	time.sleep(0.7)
-
-	# define position
-	moveY = screenY * (y+(11/200))
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
-	# wait
-	time.sleep(11.9)
 
 def clickMyClub(y):
 	# define position
@@ -297,20 +232,6 @@ def clickSave(x,y):
 
 	# wait
 	time.sleep(0.2)
-
-def clickLogout(x,y):
-	# define position
-	moveX = screenX * x
-	moveY = screenY * y
-
-	# wait
-	time.sleep(0.8)
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
-	# wait
-	time.sleep(3.7)
 
 def clickURL(y):
 	# define position

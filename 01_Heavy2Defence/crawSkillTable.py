@@ -7,26 +7,6 @@ else:
 	isDualMonitor = True
 	print('use 2 monitor =', screenX, 'x', screenY, 'isDualMonitor=', isDualMonitor)
 
-def clickTabOfFireFox(n):
-	# define position
-	moveX = 150
-	if isDualMonitor:
-		moveX += 1920
-	moveY = screenY / 200 * 7
-
-	# wait
-	time.sleep(0.2)
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
-	# CTRL + TAB * n
-	pyautogui.keyDown('ctrl')
-	for i in range(n-1):
-		time.sleep(0.25)
-		pyautogui.press('tab')
-	pyautogui.keyUp('ctrl')
-
 def clickEmpty(y):
 	# define position
 	moveX = 350
