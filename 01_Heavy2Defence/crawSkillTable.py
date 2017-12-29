@@ -43,45 +43,6 @@ def clickEmpty(y):
 	# wait
 	time.sleep(0.4)
 
-def clickHattrickLogin(x, y):
-	# define position
-	moveX, moveY = x, y
-	if isDualMonitor:
-		moveX += 1920
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
-	# wait
-	time.sleep(0.7)
-
-	# delete previous id
-	pyautogui.click(clicks=2)
-	pyautogui.press('delete')
-	pyautogui.press('blackspace')
-
-	# type id
-	pyautogui.typewrite('heavy2defence', interval=0.05)
-
-	# wait
-	time.sleep(0.7)
-
-	# next cell
-	pyautogui.press('tab')
-
-	# wait
-	time.sleep(0.7)
-
-	# type password
-	pyautogui.typewrite('h1324d3546', interval=0.05)
-
-	# wait
-	time.sleep(0.7)
-
-	# Login
-	moveY += 55
-	moveAndClick(moveX, moveY)
-
 def clickMyClub(x, y):
 	# wait
 	time.sleep(10)
@@ -201,52 +162,6 @@ def clickCopy(x, y):
 
 	# move and click
 	moveAndClick(moveX, moveY)
-
-def clickHattrickLogout(x, y):
-	# define position
-	moveX, moveY = x, y
-	if isDualMonitor:
-		moveX += 1920
-
-	# wait
-	time.sleep(0.5)
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
-	# wait
-	time.sleep(8.4)
-
-def clickFacebookLogout():
-	# find locateOnScreen
-	moveX, moveY = 1260, 338
-	if isDualMonitor:
-		moveX += 1920
-	print('clickFacebookLogout =', moveX, moveY)
-
-	# move
-	pyautogui.moveTo(moveX, moveY, duration=0.15)
-
-	# find faceBookLogin
-	faceBookLogout = pyautogui.locateOnScreen('screen-FacebookLogout.png', region=(moveX, moveY, 69, 51), grayscale=True)
-	if None == faceBookLogout:
-		faceBookLogout = pyautogui.locateOnScreen('screen-FacebookLogout.png')
-		if None == faceBookLogout:
-			print('1st 2nd faceBookLogin is None')
-		else:
-			print('2nd faceBookLogout location =', faceBookLogout)
-			moveX = faceBookLogout[0] + faceBookLogout[2]/2
-			moveY = faceBookLogout[1] + faceBookLogout[3]/2
-	else:
-		print('1st faceBookLogout location with region =', faceBookLogout)
-		moveX = faceBookLogout[0] + faceBookLogout[2]/2
-		moveY = faceBookLogout[1] + faceBookLogout[3]/2
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
-	# wait
-	time.sleep(3)
 
 def moveAndClick(moveX, moveY):
 	pyautogui.moveTo(moveX, moveY, duration=0.2)
