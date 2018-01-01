@@ -1,13 +1,6 @@
 import pyautogui, time
-screenX, screenY = pyautogui.size()
-if 1920 == screenX and 1080 == screenY:
-	isDualMonitor = False
-	print('use 1 monitor =', screenX, 'x', screenY, 'isDualMonitor=', isDualMonitor)
-else:
-	isDualMonitor = True
-	print('use 2 monitor =', screenX, 'x', screenY, 'isDualMonitor=', isDualMonitor)
 
-def clickTabOfFireFox(n):
+def clickTabOfFireFox(n, isDualMonitor):
 	# define position
 	x = 130
 	if isDualMonitor:
@@ -27,3 +20,13 @@ def clickTabOfFireFox(n):
 		time.sleep(0.3)
 		pyautogui.press('tab')
 	pyautogui.keyUp('ctrl')
+
+def getIsDualMonitor():
+	screenX, screenY = pyautogui.size()
+	if 1920 == screenX and 1080 == screenY:
+		isDualMonitor = False
+		print('use 1 monitor =', screenX, 'x', screenY, 'isDualMonitor=', isDualMonitor)
+	else:
+		isDualMonitor = True
+		print('use 2 monitor =', screenX, 'x', screenY, 'isDualMonitor=', isDualMonitor)
+	return isDualMonitor

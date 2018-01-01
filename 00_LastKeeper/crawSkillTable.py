@@ -1,32 +1,21 @@
 import pyautogui, time
-screenX, screenY = pyautogui.size()
-if 1920 == screenX and 1080 == screenY:
-	isDualMonitor = False
-	print('use 1 monitor =', screenX, 'x', screenY, 'isDualMonitor=', isDualMonitor)
-else:
-	isDualMonitor = True
-	print('use 2 monitor =', screenX, 'x', screenY, 'isDualMonitor=', isDualMonitor)
 
-def clickEmpty(y):
+def clickEmpty(y, isDualMonitor):
 	# define position
-	moveX = 351
+	x = 300
 	if isDualMonitor:
-		moveX += 1920
-	moveY = screenY * y
+		x += 1920
 
 	# wait
 	time.sleep(0.4)
 
 	# move and click
-	moveAndClick(moveX, moveY)
+	moveAndClick(x, y)
 
 	# wait
 	time.sleep(0.4)
 
-def clickMyClub(x, y):
-	# wait
-	time.sleep(10)
-
+def clickMyClub(x, y, isDualMonitor):
 	# initial region
 	moveX, moveY = x, y
 	if isDualMonitor:
@@ -52,7 +41,7 @@ def clickMyClub(x, y):
 	# wait
 	time.sleep(5)
 
-def clickPlayer(x, y):
+def clickPlayer(x, y, isDualMonitor):
 	# initial region
 	moveX, moveY = x, y
 	if isDualMonitor:
@@ -78,47 +67,44 @@ def clickPlayer(x, y):
 	# wait
 	time.sleep(5)
 
-def clickSkillTable(y):
+def clickSkillTable(y, isDualMonitor):
 	# define position
-	moveX = 600
+	x = 600
 	if isDualMonitor:
-		moveX += 1920
-	moveY = screenY * y
+		x += 1920
 
 	# wait
 	time.sleep(4)
 
 	# move and click
-	moveAndClick(moveX, moveY)
+	moveAndClick(x, y)
 
 	# wait
 	time.sleep(1)
 
-def clickSince(y):
+def clickSince(y, isDualMonitor):
 	# define position
-	moveX = 600
+	x = 600
 	if isDualMonitor:
-		moveX += 1920
-	moveY = screenY * y
+		x += 1920
 
 	# wait
 	time.sleep(1.1)
 
 	# move and click
-	moveAndClick(moveX, moveY)
+	moveAndClick(x, y)
 
 	# wait
 	time.sleep(9)
 
-def clickCopy(y):
+def clickCopy(y, isDualMonitor):
 	# define position
-	moveX = 1095
+	x = 1095
 	if isDualMonitor:
-		moveX += 1920
-	moveY = screenY * y
+		x += 1920
 
 	# move and click
-	moveAndClick(moveX, moveY)
+	moveAndClick(x, y)
 
 	# wait
 	time.sleep(0.5)
