@@ -28,7 +28,10 @@ def clickMyClub(x, y, isDualMonitor):
 	myClub = None
 	while(None == myClub):
 		myClub = pyautogui.locateOnScreen('screen-MyClub.png', region=(moveX, moveY, 77, 42), grayscale=True)
-		time.sleep(5)
+		time.sleep(2.5)
+		if(None == myClub):
+			myClub = pyautogui.locateOnScreen('screen-MyClub.png')
+		time.sleep(2.5)
 	print('clickMyClub =', myClub)
 
 	# define position
@@ -54,7 +57,10 @@ def clickPlayer(x, y, isDualMonitor):
 	player = None
 	while(None == player):
 		player = pyautogui.locateOnScreen('screen-Player.png', region=(moveX, moveY, 72, 59), grayscale=True)
-		time.sleep(3)
+		time.sleep(2.5)
+		if(None == player):
+			player = pyautogui.locateOnScreen('screen-Player.png')
+		time.sleep(2.5)
 	print('Player =', player)
 
 	# define position
@@ -78,36 +84,51 @@ def clickSkillTable(y, isDualMonitor):
 
 	# move and click
 	moveAndClick(x, y)
+	print('SkilTable =', x, y)
 
 	# wait
 	time.sleep(1)
 
-def clickSince(y, isDualMonitor):
-	# define position
-	x = 600
+def clickSince(x, y, isDualMonitor):
+	# initial position
 	if isDualMonitor:
 		x += 1920
 
+	# move
+	pyautogui.moveTo(x, y, duration=0.15)
+
 	# wait
-	time.sleep(1.1)
+	time.sleep(2)
+
+	# find Since
+	since = None
+	while(None == since):
+		since = pyautogui.locateOnScreen('screen-Since.png', region=(x, y, 168, 25), grayscale=True)
+		time.sleep(1.5)
+		if(None == since):
+			since = pyautogui.locateOnScreen('screen-Since.png')
+		time.sleep(1.5)
+	x = since[0] + since[2]/2
+	y = since[1] + since[3]/2
+	print('clickSince =', since)
 
 	# move and click
 	moveAndClick(x, y)
 
 	# wait
-	time.sleep(9)
+	time.sleep(3)
 
-def clickCopy(y, isDualMonitor):
+def clickCopy(x, y, isDualMonitor):
 	# define position
-	x = 1095
 	if isDualMonitor:
 		x += 1920
+	print('clickCopy =', x, y)
+
+	# wait
+	time.sleep(1)
 
 	# move and click
 	moveAndClick(x, y)
-
-	# wait
-	time.sleep(0.5)
 
 def moveAndClick(moveX, moveY):
 	pyautogui.moveTo(moveX, moveY, duration=0.2)

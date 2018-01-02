@@ -1,32 +1,21 @@
 import pyautogui, time
-screenX, screenY = pyautogui.size()
-if 1920 == screenX and 1080 == screenY:
-	isDualMonitor = False
-	print('use 1 monitor =', screenX, 'x', screenY, 'isDualMonitor=', isDualMonitor)
-else:
-	isDualMonitor = True
-	print('use 2 monitor =', screenX, 'x', screenY, 'isDualMonitor=', isDualMonitor)
 
-def clickEmpty(y):
+def clickEmpty(y, isDualMonitor):
 	# define position
-	moveX = 350
+	x = 300
 	if isDualMonitor:
-		moveX += 1920
-	moveY = y
+		x += 1920
 
 	# wait
 	time.sleep(0.4)
 
 	# move and click
-	moveAndClick(moveX, moveY)
+	moveAndClick(x, y)
 
 	# wait
 	time.sleep(0.4)
 
-def clickMyClub(x, y):
-	# wait
-	time.sleep(10)
-
+def clickMyClub(x, y, isDualMonitor):
 	# initial region
 	moveX, moveY = x, y
 	if isDualMonitor:
@@ -39,10 +28,10 @@ def clickMyClub(x, y):
 	myClub = None
 	while(None == myClub):
 		myClub = pyautogui.locateOnScreen('screen-MyClub.png', region=(moveX, moveY, 77, 42), grayscale=True)
-		time.sleep(2)
+		time.sleep(2.5)
 		if(None == myClub):
 			myClub = pyautogui.locateOnScreen('screen-MyClub.png')
-		time.sleep(2)
+		time.sleep(2.5)
 	print('clickMyClub =', myClub)
 
 	# define position
@@ -55,58 +44,58 @@ def clickMyClub(x, y):
 	# wait
 	time.sleep(5)
 
-def clickPlayer(x, y):
-	# initial position
-	moveX,moveY  = x, y
+def clickPlayer(x, y, isDualMonitor):
+	# initial region
+	moveX, moveY = x, y
 	if isDualMonitor:
 		moveX += 1920
-	print('clickPlayer =', moveX, moveY)
 
 	# move
 	pyautogui.moveTo(moveX, moveY, duration=0.15)
+
+	# find Player
+	player = None
+	while(None == player):
+		player = pyautogui.locateOnScreen('screen-Player.png', region=(moveX, moveY, 72, 59), grayscale=True)
+		time.sleep(2.5)
+		if(None == player):
+			player = pyautogui.locateOnScreen('screen-Player.png')
+		time.sleep(2.5)
+	print('Player =', player)
+
+	# define position
+	moveX = player[0] + player[2]/2
+	moveY = player[1] + player[3]/2
+
+	# move and click
+	moveAndClick(moveX, moveY)
+
+	# wait
+	time.sleep(5)
+
+def clickSkillTable(y, isDualMonitor):
+	# define position
+	x = 600
+	if isDualMonitor:
+		x += 1920
+
+	# wait
+	time.sleep(4)
+
+	# move and click
+	moveAndClick(x, y)
+	print('SkilTable =', x, y)
 
 	# wait
 	time.sleep(1)
 
-	# find player
-	player = pyautogui.locateOnScreen('screen-player.png', region=(moveX, moveY, 105, 66), grayscale=True)
-	if None == player:
-		player = pyautogui.locateOnScreen('screen-player.png')
-		if None == player:
-			print('1st 2nd player is None')
-		else:
-			print('2nd player location =', player)
-			moveX = player[0] + player[2]/2
-			moveY = player[1] + player[3]/2
-	else:
-		print('1st player location with region=', player)
-		moveX = player[0] + player[2]/2
-		moveY = player[1] + player[3]/2
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
-	# wait
-	time.sleep(3)
-
-def clickSkillTable(x, y):
-	# define position
-	moveX, moveY = x, y
-	if isDualMonitor:
-		moveX += 1920
-	print('clickSkillTable =', moveX, moveY)
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
-def clickSince(x, y):
+def clickSince(x, y, isDualMonitor):
 	# initial position
-	moveX,moveY  = x, y
 	if isDualMonitor:
-		moveX += 1920
+		x += 1920
 
 	# move
-	pyautogui.moveTo(moveX, moveY, duration=0.15)
+	pyautogui.moveTo(x, y, duration=0.15)
 
 	# wait
 	time.sleep(2)
@@ -114,34 +103,32 @@ def clickSince(x, y):
 	# find Since
 	since = None
 	while(None == since):
-		since = pyautogui.locateOnScreen('screen-Since.png', region=(moveX, moveY, 168, 25), grayscale=True)
+		since = pyautogui.locateOnScreen('screen-Since.png', region=(x, y, 168, 25), grayscale=True)
 		time.sleep(1.5)
 		if(None == since):
 			since = pyautogui.locateOnScreen('screen-Since.png')
 		time.sleep(1.5)
-	moveX = since[0] + since[2]/2
-	moveY = since[1] + since[3]/2
+	x = since[0] + since[2]/2
+	y = since[1] + since[3]/2
 	print('clickSince =', since)
 
 	# move and click
-	moveAndClick(moveX, moveY)
+	moveAndClick(x, y)
 
 	# wait
 	time.sleep(3)
 
-def clickCopy(x, y):
+def clickCopy(x, y, isDualMonitor):
 	# define position
-	moveX = x
 	if isDualMonitor:
-		moveX += 1920
-	moveY = y
-	print('clickCopy =', moveX, moveY)
+		x += 1920
+	print('clickCopy =', x, y)
 
 	# wait
 	time.sleep(1)
 
 	# move and click
-	moveAndClick(moveX, moveY)
+	moveAndClick(x, y)
 
 def moveAndClick(moveX, moveY):
 	pyautogui.moveTo(moveX, moveY, duration=0.2)
@@ -150,9 +137,6 @@ def moveAndClick(moveX, moveY):
 def moveScroll(y):
 	# wait
 	time.sleep(0.09)
-	
+
 	# move scroll
 	pyautogui.scroll(y)
-
-	# wait
-	time.sleep(0.09)
