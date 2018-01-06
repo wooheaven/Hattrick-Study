@@ -1,20 +1,5 @@
 import pyautogui, time
 
-def clickEmpty(y, isDualMonitor):
-	# define position
-	x = 300
-	if isDualMonitor:
-		x += 1920
-
-	# wait
-	time.sleep(0.4)
-
-	# move and click
-	moveAndClick(x, y)
-
-	# wait
-	time.sleep(0.4)
-
 def clickMyClub(x, y, isDualMonitor):
 	# initial region
 	moveX, moveY = x, y
@@ -65,7 +50,7 @@ def clickPlayer(x, y, isDualMonitor):
 
 	# define position
 	moveX = player[0] + player[2]/2
-	moveY = player[1] + player[3]/2
+	moveY = player[1] + player[3]/2 + 4
 
 	# move and click
 	moveAndClick(moveX, moveY)
