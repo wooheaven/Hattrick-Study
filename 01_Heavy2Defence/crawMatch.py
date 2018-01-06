@@ -1,38 +1,33 @@
 import pyautogui, time
-screenX, screenY = pyautogui.size()
-if 1920 == screenX and 1080 == screenY:
-	isDualMonitor = False
-	print('use 1 monitor =', screenX, 'x', screenY, 'isDualMonitor=', isDualMonitor)
-else:
-	isDualMonitor = True
-	print('use 2 monitor =', screenX, 'x', screenY, 'isDualMonitor=', isDualMonitor)
 
-def clickEmpty(y):
-	# define position
-	moveX = 360
+def clickMyClub(x, y, isDualMonitor):
+	# initial region
+	moveX, moveY = x, y
 	if isDualMonitor:
 		moveX += 1920
-	moveY = screenY * y
 
-	# wait
-	time.sleep(0.3)
+	# move
+	pyautogui.moveTo(moveX, moveY, duration=0.15)
 
-	# move and click
-	moveAndClick(moveX, moveY)
+	# find myClub
+	myClub = None
+	while(None == myClub):
+		myClub = pyautogui.locateOnScreen('screen-MyClub.png', region=(moveX, moveY, 77, 42), grayscale=True)
+		time.sleep(2.5)
+		if(None == myClub):
+			myClub = pyautogui.locateOnScreen('screen-MyClub.png')
+		time.sleep(2.5)
+	print('clickMyClub =', myClub)
 
-	# wait
-	time.sleep(0.4)
-
-def clickMyClub(y):
 	# define position
-	moveX = screenX / 140 * 90
-	moveY = screenY * y
+	moveX = myClub[0] + myClub[2]/2
+	moveY = myClub[1] + myClub[3]/2
 
 	# move and click
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(2.5)
+	time.sleep(5)
 
 def clickMatch(y):
 	# define position

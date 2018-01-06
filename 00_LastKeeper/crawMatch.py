@@ -1,62 +1,73 @@
 import pyautogui, time
 
-def clickEmpty(y):
-	# define position
-	moveX = 356
+def clickMyClub(x, y, isDualMonitor):
+	# initial region
+	moveX, moveY = x, y
 	if isDualMonitor:
 		moveX += 1920
-	moveY = screenY * y
 
-	# wait
-	time.sleep(0.4)
+	# move
+	pyautogui.moveTo(moveX, moveY, duration=0.15)
+
+	# find myClub
+	myClub = None
+	while(None == myClub):
+		myClub = pyautogui.locateOnScreen('screen-MyClub.png', region=(moveX, moveY, 77, 42), grayscale=True)
+		time.sleep(2.5)
+		if(None == myClub):
+			myClub = pyautogui.locateOnScreen('screen-MyClub.png')
+		time.sleep(2.5)
+	print('clickMyClub =', myClub)
+
+	# define position
+	moveX = myClub[0] + myClub[2]/2
+	moveY = myClub[1] + myClub[3]/2
 
 	# move and click
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(0.5)
+	time.sleep(5)
 
-def clickMyClub(y):
-	# define position
-	moveX = 550
+def clickMatch(x, y, isDualMonitor):
+	# initial region
+	moveX, moveY = x, y
 	if isDualMonitor:
 		moveX += 1920
-	moveY = screenY * y
+
+	# move
+	pyautogui.moveTo(moveX, moveY, duration=0.15)
+
+	# find Player
+	player = None
+	while(None == player):
+		player = pyautogui.locateOnScreen('screen-Player.png', region=(moveX, moveY, 72, 59), grayscale=True)
+		time.sleep(2.5)
+		if(None == player):
+			player = pyautogui.locateOnScreen('screen-Player.png')
+		time.sleep(2.5)
+	print('Player =', player)
+
+	# define position
+	moveX = player[0] + player[2]/2
+	moveY = player[1] + player[3]/2 + 23
 
 	# move and click
 	moveAndClick(moveX, moveY)
 
 	# wait
-	time.sleep(2.2)
+	time.sleep(5)
 
-def clickMatch(y):
+def clickLastMatch(x, y, isDualMonitor):
 	# define position
-	moveX = 418
 	if isDualMonitor:
-		moveX += 1920
-	moveY = screenY * y
-
-	# wait
-	time.sleep(0.4)
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
-	# wait
-	time.sleep(6)
-
-def clickLastMatch(y):
-	# define position
-	moveX = 795
-	if isDualMonitor:
-		moveX += 1920
-	moveY = screenY * y
+		x += 1920
 
 	# wait
 	time.sleep(0.8)
 
 	# move and click
-	moveAndClick(moveX, moveY)
+	moveAndClick(x, y)
 
 	# wait
 	time.sleep(7)
