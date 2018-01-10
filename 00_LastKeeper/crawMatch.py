@@ -1,119 +1,15 @@
 import pyautogui, time
 
-def clickMyClub(x, y, isDualMonitor):
-	# initial region
-	moveX, moveY = x, y
-	if isDualMonitor:
-		moveX += 1920
-
-	# move
-	pyautogui.moveTo(moveX, moveY, duration=0.15)
-
-	# find myClub
-	myClub = None
-	while(None == myClub):
-		myClub = pyautogui.locateOnScreen('screen-MyClub.png', region=(moveX, moveY, 77, 42), grayscale=True)
-		time.sleep(2.5)
-		if(None == myClub):
-			myClub = pyautogui.locateOnScreen('screen-MyClub.png')
-		time.sleep(2.5)
-	print('clickMyClub =', myClub)
-
-	# define position
-	moveX = myClub[0] + myClub[2]/2
-	moveY = myClub[1] + myClub[3]/2
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
-	# wait
-	time.sleep(5)
-
-def clickMatch(x, y, isDualMonitor):
-	# initial region
-	moveX, moveY = x, y
-	if isDualMonitor:
-		moveX += 1920
-
-	# move
-	pyautogui.moveTo(moveX, moveY, duration=0.15)
-
-	# find Player
-	player = None
-	while(None == player):
-		player = pyautogui.locateOnScreen('screen-Player.png', region=(moveX, moveY, 72, 59), grayscale=True)
-		time.sleep(2.5)
-		if(None == player):
-			player = pyautogui.locateOnScreen('screen-Player.png')
-		time.sleep(2.5)
-	print('Player =', player)
-
-	# define position
-	moveX = player[0] + player[2]/2
-	moveY = player[1] + player[3]/2 + 23
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
-	# wait
-	time.sleep(5)
-
-def clickLastMatch(x, y, isDualMonitor):
-	# define position
-	if isDualMonitor:
-		x += 1920
-
-	# wait
-	time.sleep(0.8)
-
-	# move and click
-	moveAndClick(x, y)
-
-	# wait
-	time.sleep(7)
-
-def clickFirefoxFile():
-	# define position
-	moveX = 91
-	if isDualMonitor:
-		moveX += 1920
-	moveY = 15
-
-	# wait
-	time.sleep(1)
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
-	# wait
-	time.sleep(0.3)
-
-def clickSavePageAs():
-	# define position
-	moveX = 91
-	if isDualMonitor:
-		moveX += 1920
-	moveY = screenY / 100 * 12
-
-	# wait
-	time.sleep(0.3)
-
-	# move and click
-	moveAndClick(moveX, moveY)
-
-	# wait
-	time.sleep(0.3)
-
 def typeFileName():
 	# wait
-	time.sleep(0.4)
+	time.sleep(0.5)
 
 	pyautogui.typewrite('match', interval=0.05)
 
 	# wait
 	time.sleep(0.3)
 
-def clickRwoo(x,y):
+def clickRwoo(x,y, isDualMonitor):
 	# define position
 	moveX = x
 	if isDualMonitor:
@@ -130,7 +26,7 @@ def clickRwoo(x,y):
 	# wait
 	time.sleep(0.3)
 
-def click02_workspace(x,y):
+def click02_workspace(x,y, isDualMonitor):
 	# define position
 	moveX = x
 	if isDualMonitor:
@@ -147,7 +43,7 @@ def click02_workspace(x,y):
 	# wait
 	time.sleep(0.3)
 
-def click02_Hattrick(x,y):
+def click02_Hattrick(x,y, isDualMonitor):
 	# define position
 	moveX = x
 	if isDualMonitor:
@@ -164,7 +60,7 @@ def click02_Hattrick(x,y):
 	# wait
 	time.sleep(0.3)
 
-def clickHattrickStudy(x,y):
+def clickHattrickStudy(x,y, isDualMonitor):
 	# define position
 	moveX = x
 	if isDualMonitor:
@@ -181,7 +77,7 @@ def clickHattrickStudy(x,y):
 	# wait
 	time.sleep(0.3)
 
-def click00_LastKeeper(x,y):
+def click00_LastKeeper(x,y, isDualMonitor):
 	# define position
 	moveX = x
 	if isDualMonitor:
@@ -257,8 +153,11 @@ def clickSave(x,y):
 	# wait
 	time.sleep(1)
 
-def moveAndClick(moveX, moveY):
-	pyautogui.moveTo(moveX, moveY, duration=0.15)
+def moveAndClick(x, y, isDualMonitor):
+	if isDualMonitor:
+		x += 1920
+
+	pyautogui.moveTo(x, y, duration=0.15)
 	pyautogui.click()
 
 def moveScroll(y):
