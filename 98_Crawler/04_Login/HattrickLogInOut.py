@@ -71,7 +71,7 @@ def clickHattrickLogin(x, y, isDualMonitor):
 	pyautogui.click()
 	
 	# wait
-	time.sleep(5)
+	time.sleep(6)
 
 def clickFacebookLogout(x, y, isDualMonitor):
 	# find locateOnScreen
