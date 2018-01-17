@@ -1,47 +1,50 @@
 import pyautogui, time
 
 def typeFileName():
-	# wait
-	time.sleep(0.5)
+    # wait
+    time.sleep(0.5)
 
-	pyautogui.typewrite('match', interval=0.05)
+    pyautogui.typewrite('match', interval=0.05)
 
-	# wait
-	time.sleep(0.3)
+    # wait
+    time.sleep(0.4)
 
 def clickLastMonthOrDay():
-	# wait
-	time.sleep(0.3)
+    # wait
+    time.sleep(0.3)
 
-	# move to last month
-	for i in range(10):
-		pyautogui.press('down')
-		time.sleep(0.2)
-	pyautogui.press('enter')
+    # move to last month
+    for i in range(10):
+        pyautogui.press('down')
+        time.sleep(0.2)
+    pyautogui.press('enter')
 
-	# wait
-	time.sleep(0.2)
+    # wait
+    time.sleep(0.2)
 
 def clickSave(x,y):
-	# define position
-	if isDualMonitor:
-		x += 1920
+    # define position
+    if isDualMonitor:
+        x += 1920
 
-	# wait
-	time.sleep(0.3)
+    # wait
+    time.sleep(0.3)
 
-	# move and click
-	moveAndClick(x, y)
+    # move and click
+    moveAndClick(x, y)
 
-	# wait
-	time.sleep(1)
+    # wait
+    time.sleep(1)
 
 def moveAndClick(x, y, isDualMonitor):
-	moveAndClicks(x, y, isDualMonitor, 1)
+    moveAndClicks(x, y, isDualMonitor, 1)
 
 def moveAndClicks(x, y, isDualMonitor, clicks):
-	if isDualMonitor:
-		x += 1920
+    if isDualMonitor:
+        x += 1920
 
-	pyautogui.moveTo(x, y, duration=0.10)
-	pyautogui.click(clicks=clicks, interval=0.10)
+    pyautogui.moveTo(x, y, duration=0.10)
+    pyautogui.click(clicks=clicks, interval=0.10)
+
+    # wait
+    time.sleep(0.5)
