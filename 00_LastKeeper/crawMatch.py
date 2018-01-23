@@ -2,9 +2,9 @@ import pyautogui, time
 
 def typeFileName():
     # wait
-    time.sleep(0.5)
+    time.sleep(1)
 
-    pyautogui.typewrite('match', interval=0.05)
+    pyautogui.typewrite('match', interval=0.10)
 
     # wait
     time.sleep(0.4)
