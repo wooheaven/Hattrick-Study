@@ -116,4 +116,4 @@ def clickHattrickLogout(x, y, isDualMonitor):
 	pyautogui.click()
 
 	# wait
-	time.sleep(8.4)
+	time.sleep(3)
