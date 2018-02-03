@@ -215,11 +215,11 @@ def hasMyPlayer(matchList, playerNumList):
     for playerNum in playerNumList:
         for line in matchList:
             col = line.split(",")
-            print("playerNum =", playerNum, "matchPlayerNum =", col[1])
             if col[1] == str(playerNum):
+                print("playerNum =", playerNum, "matchPlayerNum =", col[1])
                 result = True
                 break
-            else:
-                continue
+        else:
+            continue
         break
-        return result
+    return result

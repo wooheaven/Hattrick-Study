@@ -160,15 +160,15 @@ def renameNumber(inputList, folder):
         data[str(tuple[1])]=str(tuple[0])
     #print(data)
     #print(data.keys())
-    
+
     outputList = list();
     for line in inputList:
         col = line.split(",")
 
         #print(col[1] in data.keys())
         if col[1] in data.keys():
-            col[1] = data[col[1]]            
-        
+            col[1] = data[col[1]]
+
         newLine = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
         outputList.append(newLine)
     return outputList
@@ -209,3 +209,17 @@ def sortByPO(inputList):
     inputList, outputList = pickUpByKeyword(inputList, outputList, "FW")
 
     return outputList
+
+def hasMyPlayer(matchList, playerNumList):
+    result = False
+    for playerNum in playerNumList:
+        for line in matchList:
+            col = line.split(",")
+            if col[1] == str(playerNum):
+                print("playerNum =", playerNum, "matchPlayerNum =", col[1])
+                result = True
+                break
+        else:
+            continue
+        break
+    return result
