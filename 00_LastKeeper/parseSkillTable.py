@@ -53,7 +53,7 @@ def removeFirstColumn(inputList):
     for line in inputList:
         col = line.split(",")
         tmpStr = ""
-        
+
         for i in range(1,len(col)):
             tmpStr += col[i] + ","
         tmpStr = tmpStr[:-1]
@@ -71,11 +71,11 @@ def dividePlayerAndPlayerID(inputList):
             for i in range(1, len(col)):
                 tmpStr += "," + col[i]
             outputList.append(tmpStr)
-        else : 
+        else :
             tmpStr = col[2].replace(" [playerid=", ",", 1)
             endIndex = tmpStr.find("]")
             col[2] = tmpStr[:endIndex]
-            
+
             tmpStr = col[0]
             for i in range(1, len(col)):
                 tmpStr += "," + col[i]
@@ -87,7 +87,7 @@ from dateutil.relativedelta import relativedelta
 import re
 
 class SeasonWeekDay:
-    
+
     def __init__(self, timeStr):
         self.seasonInt = 0
         self.weekInt = 0
@@ -105,7 +105,7 @@ class SeasonWeekDay:
 
     def display(self):
         outStr = ''
-        if self.dayInt > 0 or self.weekInt > 0 or self.seasonInt > 0:
+        if (self.dayInt >= 0 or self.weekInt > 0 or self.seasonInt > 0):
             if hasattr(self, 'seasonInt') and self.seasonInt > 0:
                 outStr += str(self.seasonInt) + '시즌 '
             if hasattr(self, 'weekInt') and self.weekInt > 0:
@@ -113,21 +113,18 @@ class SeasonWeekDay:
             if hasattr(self, 'dayInt'):
                 outStr += str(self.dayInt) + '일'
         return outStr
-    
-    def modify(self, diffDayInt):
-        self.dayInt -= diffDayInt
-        if None != self.weekInt:
-            if self.weekInt > 0 and self.dayInt < 0:
-                self.weekInt -= 1
-                self.dayInt += 7
-        else:
-            if None != self.seasonInt:
-                if self.seasonInt > 0 and self.dayInt < 0:
-                    self.seasonInt -= 1
-                    self.weekInt = 15
-                    self.dayInt += 7
 
-def modifySince(inputList, targetStr, nowStr):   
+    def modify(self, diffDayInt):
+        if (diffDayInt > 0):
+            self.dayInt -= diffDayInt
+        if (self.dayInt < 0):
+            self.dayInt += 7
+            self.weekInt -= 1
+        if (self.weekInt < 0):
+            self.weekInt += 16
+            self.seasonInt -= 1
+
+def modifySince(inputList, targetStr, nowStr):
     outputList = list();
     for line in inputList:
         col = line.split(",")
@@ -135,11 +132,11 @@ def modifySince(inputList, targetStr, nowStr):
             col[7] = col[7].replace(" 시즌", "시즌", 1).replace("시즌 ", "시즌", 1).replace("시즌 ", "시즌", 1)
             col[7] = col[7].replace(" 주", "주", 1).replace("주 ", "주", 1).replace("주 ", "주", 1)
             col[7] = col[7].replace(" 일", "일", 1)
-            
+
             targetDay = datetime.strptime(targetStr, '%Y/%m/%d').date()
             nowDay = datetime.strptime(nowStr, '%Y/%m/%d').date()
             diffDay = relativedelta(nowDay, targetDay)
-            
+
             #print('col[0]', col[7], sep='\t')
             modifySinceStr = SeasonWeekDay(col[7])
             #print('before modify', modifySinceStr.display(), sep='\t')
