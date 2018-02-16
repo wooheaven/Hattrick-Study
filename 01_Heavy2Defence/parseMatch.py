@@ -23,54 +23,52 @@ def filterColumn(inputList):
     return outputList
 
 def renamePO(inputList):
+    # PO(Position) 이 KP, WB, CD, W, IM, FW, -1(교체) 만 matchList에 남기기
     outputList = list();
     for line in inputList:
+        enabled = False
         col = line.split(",")
-        if (col[0] == "0" or col[0] == "114" or col[0] == "118" or col[0] == "119") : col[0] = ""
-        if col[0] == "100" : col[0] = "KP"
-        if ( col[0] == "101" or col[0] == "105" ) : col[0] = "WB"
-        if ( col[0] == "102" or col[0] == "103" or col[0] == "104" ) : col[0] = "CD"
-        if ( col[0] == "106" or col[0] == "110" ) : col[0] = "W"
-        if ( col[0] == "107" or col[0] == "108" or col[0] == "109" ) : col[0] = "IM"
-        if ( col[0] == "111" or col[0] == "112" or col[0] == "113" ) : col[0] = "FW"
-        
-        if len(col[0]) > 0:
+
+        if ( col[0] == "100" ): 
+            col[0] = "KP"
+            enabled = True
+        if ( col[0] == "101" or col[0] == "105" ):
+            col[0] = "WB"
+            enabled = True
+        if ( col[0] == "102" or col[0] == "103" or col[0] == "104" ):
+            col[0] = "CD"
+            enabled = True
+        if ( col[0] == "106" or col[0] == "110" ): 
+            col[0] = "W"
+            enabled = True
+        if ( col[0] == "107" or col[0] == "108" or col[0] == "109" ):
+            col[0] = "IM"
+            enabled = True
+        if ( col[0] == "111" or col[0] == "112" or col[0] == "113" ): 
+            col[0] = "FW"
+            enabled = True
+        if ( col[0] == "-1" ):
+            enabled = True
+
+        if enabled:
             newLine = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
             outputList.append(newLine)
 
-    oldPo=""
-    oldNum=""
-    oldStartMin=""
-    oldEndMin=""
+    # PO(Position) 이 -1(교체)인 선수의 matchList order 변경하기
+    for i in range(len(outputList)):
+        col = outputList[i].split(",")
+        if (i < len(outputList)-1 and col[0] == "-1"):
+            nextCol = outputList[i+1].split(",")
+            if (col[3] == nextCol[4]):
+                outputList[i]   = nextCol[0] + "," + nextCol[1] + "," + nextCol[2] + "," + nextCol[3] + "," + nextCol[4]
+                outputList[i+1] = col[0]     + "," + col[1]     + "," + col[2]     + "," + col[3]     + "," + col[4]
+
     for i in range(0, len(outputList)):
         col = outputList[i].split(",")
-        if col[0] == "-1" and col[3] == oldEndMin:
-            col[0] = oldPo
-            outputList[i] = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
-        oldPo = col[0]
-        oldNum = col[1]
-        oldStartMin = col[3]
-        oldEndMin = col[4]
-
-    countOfPo={}
-    for i in range(0, len(outputList)):
-        col = outputList[i].split(",")
-        if col[0] in countOfPo:
-            countOfPo[col[0]] += 1
-        else:
-            countOfPo[col[0]] = 1
-
-    if countOfPo['WB'] == 1 and countOfPo['-1'] == 1:
-        for i in range(0, len(outputList)):
-            print(i, outputList[i], sep='\t')
-        print(countOfPo)
-        for i in range(0, len(outputList)):
-            col = outputList[i].split(",")
-            if col[0] == "-1":
-                col[0] = "WB"
-                outputList[i] = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
-        for i in range(0, len(outputList)):
-            print(i, outputList[i], sep='\t')
+        if (col[0] != "-1" and int(col[4]) < 90): # 교체되어 나간 선수인 경우
+            nextCol = outputList[i+1].split(",")
+            if (nextCol[0] == "-1" and nextCol[2] == "-1.0" and int(nextCol[3]) > 0 and nextCol[3] == col[4]): #위의 선수와 교체되어 들어온 선수인 경우
+                outputList[i+1] = col[0] + "," + nextCol[1] + "," + nextCol[2] + "," + nextCol[3] + "," + nextCol[4]
 
     return outputList
 
@@ -87,40 +85,6 @@ def renameMin(inputList):
         newLine = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
         outputList.append(newLine)
     return outputList
-
-def changedPlayer(inputList):
-    tmpList = list();
-    oldPO = ""
-    oldFromMin = ""
-    oldToMin = ""
-    for line in inputList:
-        col = line.split(",")
-        if ( oldPO != "CO" and col[0] == "-1" and ( oldFromMin == col[4] or oldToMin == col[3] ) ) :
-            col[0] = oldPO
-        else :
-            oldPO = col[0]
-            oldFromMin = col[3]
-            oldToMin = col[4]
-        newLine = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
-        tmpList.append(newLine)
-    outputList = list();
-    oldPO = ""
-    oldFromMin = ""
-    oldToMin = ""
-    for line in reversed(tmpList):
-        col = line.split(",")
-        if ( oldPO != "CO" and col[0] == "-1" and ( oldFromMin == col[4] or oldToMin == col[3] ) ) :
-            col[0] = oldPO
-        else :
-            oldPO = col[0]
-            oldFromMin = col[3]
-            oldToMin = col[4]
-        newLine = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
-        outputList.append(newLine)
-    lastList = list();
-    for line in reversed(outputList):
-        lastList.append(line)
-    return lastList
 
 def selectPlayer(SelectString, WhereString):
     outputList = list();
@@ -174,11 +138,7 @@ def renameNumber(inputList, folder):
     return outputList
 
 def sortByPO(inputList):
-    inputList.sort(key = lambda x: ( x.split(",")[0], -int(x.split(",")[3]), int(x.split(",")[4])))
-
     outputList = list();
-    outputList.append("po,num,rt,sMin,eMin")
-
     inputList, outputList = pickUpByKeyword(inputList, outputList, "KP")
     inputList, outputList = pickUpByKeyword(inputList, outputList, "WB")
     inputList, outputList = pickUpByKeyword(inputList, outputList, "CD")
@@ -189,13 +149,13 @@ def sortByPO(inputList):
     return outputList
 
 def pickUpByKeyword(inputList, outputList, keyword):
-    newInputList = list();
-    for line in inputList:
-        col = line.split(",")
+    newInputList = list()
+    for i in range(len(inputList)):
+        col = inputList[i].split(",")
         if col[0] == keyword:
-            outputList.append(line)
-        else :
-            newInputList.append(line)
+            outputList.append(col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4])
+        else:
+            newInputList.append(inputList[i])
     return newInputList, outputList
 
 def removeRows(inputList):
