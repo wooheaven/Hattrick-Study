@@ -86,12 +86,12 @@ def renameMin(inputList):
         outputList.append(newLine)
     return outputList
 
-def selectPlayer(SelectString, WhereString):
+def selectPlayer(SelectString, WhereString, dbname):
     outputList = list();
     sql = ""
     conn = None
     try:
-        conn = psycopg2.connect("dbname='mydatabase2' user='myuser' host='localhost' port='65432' password='123qwe'")
+        conn = psycopg2.connect("dbname='" + dbname + "' user='myuser' host='localhost' port='65432' password='123qwe'")
         cur = conn.cursor()
         sql = SelectString + "\nFROM player" + WhereString + "\n"
         print(sql)
@@ -110,7 +110,7 @@ def selectPlayer(SelectString, WhereString):
             conn.close()
     return outputList
 
-def renameNumber(inputList, folder):
+def renameNumber(inputList, folder, dbname):
     data={}
     SelectString = ""
     SelectString += "\n" + "SELECT "
@@ -119,7 +119,7 @@ def renameNumber(inputList, folder):
     WhereString += "\n" + "WHERE "
     WhereString += "\n" + "    date = '" + folder.replace('/','-') + "' "
     WhereString += "\n" + "    order by num "
-    numPlayerIDtupleList = selectPlayer(SelectString, WhereString)
+    numPlayerIDtupleList = selectPlayer(SelectString, WhereString, dbname)
     for tuple in numPlayerIDtupleList:
         data[str(tuple[1])]=str(tuple[0])
     #print(data)
