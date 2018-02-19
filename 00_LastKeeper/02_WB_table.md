@@ -1,5 +1,5 @@
 WB Wed      : 08 + 14
-WB Temp     : 55
+WB Temp     : 61
 
 WB Sun      : 06 + 52
 
