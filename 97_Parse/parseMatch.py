@@ -54,10 +54,11 @@ def renamePO(inputList):
             newLine = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
             outputList.append(newLine)
 
+    # 계획에 의한 교체인 경우
     # PO(Position) 이 -1(교체)인 선수의 matchList order 변경하기
     for i in range(len(outputList)):
         col = outputList[i].split(",")
-        if (i < len(outputList)-1 and col[0] == "-1"):
+        if (i < len(outputList)-1 and col[0] == "-1" and int(col[3]) > 0):
             nextCol = outputList[i+1].split(",")
             if (col[3] == nextCol[4]):
                 outputList[i]   = nextCol[0] + "," + nextCol[1] + "," + nextCol[2] + "," + nextCol[3] + "," + nextCol[4]
@@ -67,8 +68,16 @@ def renamePO(inputList):
         col = outputList[i].split(",")
         if (col[0] != "-1" and int(col[4]) < 90): # 교체되어 나간 선수인 경우
             nextCol = outputList[i+1].split(",")
-            if (nextCol[0] == "-1" and nextCol[2] == "-1.0" and int(nextCol[3]) > 0 and nextCol[3] == col[4]): #위의 선수와 교체되어 들어온 선수인 경우
-                outputList[i+1] = col[0] + "," + nextCol[1] + "," + nextCol[2] + "," + nextCol[3] + "," + nextCol[4]
+            if (nextCol[0] == "-1" and nextCol[2] == "-1.0" and int(nextCol[3]) > 0 and nextCol[3] == col[4]): # 위의 선수와 교체되어 들어온 선수인 경우
+                outputList[i+1] = col[0]     + "," + nextCol[1] + "," + nextCol[2] + "," + nextCol[3] + "," + nextCol[4]
+
+    # 부상에 의한 교체인 경우
+    for i in range(len(outputList)):
+        col = outputList[i].split(",")
+        if (i < len(outputList)-1 and col[0] == "-1" and col[3] == "-1" and int(col[4]) < 90): # Starting 선수롤 출전했으나 부상으로 90분을 뛰지 못하고 교체된 선수
+            nextCol = outputList[i+1].split(",")
+            if (col[4] == nextCol[3]): # 위의 선수와 교체되어 들어온 선수인 경우
+                outputList[i]   = nextCol[0] + "," + col[1]     + "," + col[2]     + "," + col[3]     + "," + col[4]
 
     return outputList
 
