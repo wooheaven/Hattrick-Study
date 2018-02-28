@@ -22,7 +22,7 @@ def filterColumn(inputList):
         outputList.append(newLine)
     return outputList
 
-def renamePO(inputList):
+def renamePO(inputList, dbname):
     # PO(Position) 이 KP, WB, CD, W, IM, FW, -1(교체) 만 matchList에 남기기
     outputList = list();
     for line in inputList:
@@ -48,57 +48,36 @@ def renamePO(inputList):
             col[0] = "FW"
             enabled = True
         if ( col[0] == "-1" ):
+            col[0] = selectPOByPlayerID(col[1], dbname)
             enabled = True
 
         if enabled:
             newLine = col[0] + "," + col[1] + "," + col[2] + "," + col[3] + "," + col[4]
             outputList.append(newLine)
 
-    # 계획에 의한 교체인 경우
-    # PO(Position) 이 -1(교체)인 선수의 matchList order 변경하기
-    # -1,432215232,-1.0,80,91
-    # 112,429263824,5.5,-1,80
-    # -----------------------
-    # 112,429263824,5.5,-1,80
-    # -1,432215232,-1.0,80,91
-    for i in range(len(outputList)):
-        col = outputList[i].split(",")
-        if (i < len(outputList)-1 and col[0] == "-1" and int(col[3]) > 0):
-            nextCol = outputList[i+1].split(",")
-            if (col[3] == nextCol[4]):
-                outputList[i]   = nextCol[0] + "," + nextCol[1] + "," + nextCol[2] + "," + nextCol[3] + "," + nextCol[4]
-                outputList[i+1] = col[0]     + "," + col[1]     + "," + col[2]     + "," + col[3]     + "," + col[4]
-
-    for i in range(0, len(outputList)):
-        col = outputList[i].split(",")
-        if (col[0] != "-1" and int(col[4]) < 90): # 교체되어 나간 선수인 경우
-            nextCol = outputList[i+1].split(",")
-            if (nextCol[0] == "-1" and nextCol[2] == "-1.0" and int(nextCol[3]) > 0 and nextCol[3] == col[4]): # 위의 선수와 교체되어 들어온 선수인 경우
-                outputList[i+1] = col[0]     + "," + nextCol[1] + "," + nextCol[2] + "," + nextCol[3] + "," + nextCol[4]
-
-    # 부상에 의한 교체인 경우
-    # PO(Position) 이 -1(교쳬)인 선수의 matchList order 변경하기
-    # 103,431740152,3.5,23,91
-    # -1,429263814,-1.0,-1,23
-    # -----------------------
-    # -1,429263814,-1.0,-1,23
-    # 103,431740152,3.5,23,91
-    for i in range(len(outputList)):
-        col = outputList[i].split(",")
-        if (0 < i and col[0] == "-1" and int(col[3]) == -1):
-            preCol = outputList[i-1].split(",")
-            if (col[4] == preCol[3]):
-                outputList[i-1] = col[0]     + "," + col[1]     + "," + col[2]     + "," + col[3]     + "," + col[4]
-                outputList[i]   = preCol[0]  + "," + preCol[1]  + "," + preCol[2]  + "," + preCol[3]  + "," + preCol[4]
-
-    for i in range(len(outputList)):
-        col = outputList[i].split(",")
-        if (i < len(outputList)-1 and col[0] == "-1" and int(col[3]) == -1 and int(col[4]) < 90): # Starting 선수롤 출전했으나 부상으로 90분을 뛰지 못하고 교체된 선수
-            nextCol = outputList[i+1].split(",")
-            if (col[4] == nextCol[3]): # 위의 선수와 교체되어 들어온 선수인 경우
-                outputList[i]   = nextCol[0] + "," + col[1]     + "," + col[2]     + "," + col[3]     + "," + col[4]
-
     return outputList
+
+def selectPOByPlayerID(playerId, dbname):
+    outputList = list();
+    conn = None
+    try:
+        conn = psycopg2.connect("dbname='" + dbname + "' user='myuser' host='localhost' port='65432' password='123qwe'")
+        cur = conn.cursor()
+        sql = "SELECT po FROM player WHERE playerid = '" + playerId + "' ORDER BY date DESC LIMIT 1"
+        print(sql)
+        cur.execute(sql)
+        row = cur.fetchone()
+        while row is not None:
+            #print(row)
+            outputList.append(row)
+            row = cur.fetchone()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        print(sql)
+    finally:
+        if conn is not None:
+            conn.close()
+    return outputList[0][0]
 
 def renameMin(inputList):
     outputList = list();
