@@ -1,8 +1,8 @@
 W Wed      : 03 + 05
-W Rotation :
+W Rotation : 50
 
 W Sun      : 07 + 49
-W Rotation :      50
+W Rotation :      51
 
 date num min/rt |    03   |    05   |    07   |    49   |    50   |
 ----------------+---------+---------+---------+---------+---------|
