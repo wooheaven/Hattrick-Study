@@ -8,5 +8,6 @@ class TestHattrickMatch(TestCase):
     """
     def test_findMatchList(self):
         instance = ht_match.HattrickMatch()
-        result = instance.findMatchList('2018-04-25/match.html')
-        print(result)
+        result = instance.findMatchList('2018-04-25/match.html', 'mydatabase')
+        for match in result:
+            print(match)
