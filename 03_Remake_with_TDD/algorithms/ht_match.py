@@ -47,6 +47,15 @@ class HattrickMatch():
                     player_dict[index]['PositionID'] = \
                         self.selectPOWherePlayerID(player_dict[index]['PlayerId'], db_name)
                     continue
+
+            # change FromMin
+            for index in range(0, len(player_dict)):
+                from_min = player_dict[index]['FromMin']
+                to_min = player_dict[index]['ToMin']
+                if (from_min == -1):
+                    player_dict[index]['FromMin'] = 0
+                if (91 <= to_min  <= 94):
+                    player_dict[index]['FromMin'] = 90
         return player_dict
 
     def selectPOWherePlayerID(self, player_id, db_name):
