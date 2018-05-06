@@ -4,6 +4,28 @@ import psycopg2
 from bs4 import BeautifulSoup
 
 class HattrickMatch():
+    def isHome(self, filePath, db_name):
+        soup = None
+        with open(filePath, 'r') as file:
+            soup = BeautifulSoup(file.read(), "html.parser")
+
+        div_id = "ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_timelineEventPanel"
+        input_id = "ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_playerRatingsHome"
+        valueString = soup \
+            .find_all("div", id=div_id)[0] \
+            .find_all("input", id=input_id)[0] \
+            .get('value')
+        player_dict_list = json.loads(valueString)
+
+        kp_player_id = None
+        for index in range(len(player_dict_list)):
+            if (player_dict_list[index]['PositionID'] == 100):
+                kp_player_id = player_dict_list[index]['PlayerId']
+
+        kp_player_count = 0
+        kp_player_count = self.selectCountOfWherePlayerID(kp_player_id, db_name)
+        return (kp_player_count > 0)
+
     def findMatchList(self, filePath, db_name):
         soup = None
         with open(filePath, 'r') as file:
@@ -117,6 +139,22 @@ class HattrickMatch():
             conn = psycopg2.connect(\
                 'dbname=' + db_name + ' user=myuser host=localhost port=65432 password=123qwe')
             sql = 'SELECT num FROM player WHERE playerid =' + str(PlayerId) + ' LIMIT 1'
+            cur = conn.cursor()
+            cur.execute(sql)
+            row = cur.fetchone()
+        except (Exception, psycopg2.DatabaseError) as errors:
+            print(errors)
+        finally:
+            if conn is not None:
+                conn.close()
+        return row[0]
+
+    def selectCountOfWherePlayerID(self, PlayerId, db_name):
+        conn = None
+        try:
+            conn = psycopg2.connect( \
+                'dbname=' + db_name + ' user=myuser host=localhost port=65432 password=123qwe')
+            sql = 'SELECT COUNT(playerid) FROM player WHERE playerid =' + str(PlayerId)
             cur = conn.cursor()
             cur.execute(sql)
             row = cur.fetchone()
