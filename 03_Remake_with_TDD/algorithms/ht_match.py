@@ -21,18 +21,26 @@ class HattrickMatch():
         for index in range(len(player_dict_list)):
             if (player_dict_list[index]['PositionID'] == 100):
                 kp_player_id = player_dict_list[index]['PlayerId']
+                break
 
         kp_player_count = 0
         kp_player_count = self.selectCountOfWherePlayerID(kp_player_id, db_name)
         return (kp_player_count > 0)
 
     def findMatchList(self, filePath, db_name):
+        isHome = None
+        isHome = self.isHome(filePath, db_name)
+
         soup = None
         with open(filePath, 'r') as file:
             soup = BeautifulSoup(file.read(), "html.parser")
 
         div_id = "ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_timelineEventPanel"
-        input_id = "ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_playerRatingsHome"
+        if (isHome):
+            input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_playerRatingsHome'
+        else:
+            input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_playerRatingsAway'
+
         valueString = soup \
             .find_all("div", id=div_id)[0] \
             .find_all("input", id=input_id)[0] \
