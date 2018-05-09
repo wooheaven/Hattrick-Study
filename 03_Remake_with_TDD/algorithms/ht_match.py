@@ -15,12 +15,12 @@ class HattrickMatch():
             .find_all("div", id=div_id)[0] \
             .find_all("input", id=input_id)[0] \
             .get('value')
-        player_dict_list = json.loads(valueString)
+        match_dict_list = json.loads(valueString)
 
         kp_player_id = None
-        for index in range(len(player_dict_list)):
-            if (player_dict_list[index]['PositionID'] == 100):
-                kp_player_id = player_dict_list[index]['PlayerId']
+        for index in range(len(match_dict_list)):
+            if (match_dict_list[index]['PositionID'] == 100):
+                kp_player_id = match_dict_list[index]['PlayerId']
                 break
 
         kp_player_count = 0
@@ -45,64 +45,64 @@ class HattrickMatch():
             .find_all("div", id=div_id)[0] \
             .find_all("input", id=input_id)[0] \
             .get('value')
-        player_dict_list = json.loads(valueString)
+        match_dict_list = json.loads(valueString)
 
         # remove unUsedDictKeys
-        for index in range(len(player_dict_list)):
-            player_dict_list[index].pop('PositionBehaviour', None)
-            player_dict_list[index].pop('InjuryLevel', None)
-            player_dict_list[index].pop('Stamina', None)
-            player_dict_list[index].pop('Cards', None)
-            player_dict_list[index].pop('IsCaptain', None)
-            player_dict_list[index].pop('IsKicker', None)
+        for index in range(len(match_dict_list)):
+            match_dict_list[index].pop('PositionBehaviour', None)
+            match_dict_list[index].pop('InjuryLevel', None)
+            match_dict_list[index].pop('Stamina', None)
+            match_dict_list[index].pop('Cards', None)
+            match_dict_list[index].pop('IsCaptain', None)
+            match_dict_list[index].pop('IsKicker', None)
 
         # remove PositionID 0, 114, 117, 118, 120
         removeList = list()
-        for index in range(0, len(player_dict_list)):
-            position_id = player_dict_list[index]['PositionID']
+        for index in range(0, len(match_dict_list)):
+            position_id = match_dict_list[index]['PositionID']
             if (position_id == 0 or position_id == 114 or position_id == 117 or position_id == 118 or position_id == 120):
                 removeList.append(index)
         for index in reversed(removeList):
-            player_dict_list.pop(index)
+            match_dict_list.pop(index)
 
         # change PositionID
-        for index in range(0, len(player_dict_list)):
-            position_id = player_dict_list[index]['PositionID']
+        for index in range(0, len(match_dict_list)):
+            position_id = match_dict_list[index]['PositionID']
             if (position_id == 100):
-                player_dict_list[index]['PositionID'] = 'KP'
+                match_dict_list[index]['PositionID'] = 'KP'
                 continue
             if (position_id == 101 or position_id == 105):
-                player_dict_list[index]['PositionID'] = 'WB'
+                match_dict_list[index]['PositionID'] = 'WB'
                 continue
             if (position_id == 102 or position_id == 103 or position_id == 104):
-                player_dict_list[index]['PositionID'] = 'CD'
+                match_dict_list[index]['PositionID'] = 'CD'
                 continue
             if (position_id == 106 or position_id == 110):
-                player_dict_list[index]['PositionID'] = 'W'
+                match_dict_list[index]['PositionID'] = 'W'
                 continue
             if (position_id == 107 or position_id == 108 or position_id == 109):
-                player_dict_list[index]['PositionID'] = 'IM'
+                match_dict_list[index]['PositionID'] = 'IM'
                 continue
             if (position_id == 111 or position_id == 112 or position_id == 113):
-                player_dict_list[index]['PositionID'] = 'FW'
+                match_dict_list[index]['PositionID'] = 'FW'
                 continue
             if (position_id == -1):
-                player_dict_list[index]['PositionID'] = \
-                    self.selectPOWherePlayerID(player_dict_list[index]['PlayerId'], db_name)
+                match_dict_list[index]['PositionID'] = \
+                    self.selectPOWherePlayerID(match_dict_list[index]['PlayerId'], db_name)
                 continue
 
         # change FromMin
-        for index in range(0, len(player_dict_list)):
-            from_min = player_dict_list[index]['FromMin']
-            to_min = player_dict_list[index]['ToMin']
+        for index in range(0, len(match_dict_list)):
+            from_min = match_dict_list[index]['FromMin']
+            to_min = match_dict_list[index]['ToMin']
             if (from_min == -1):
-                player_dict_list[index]['FromMin'] = 0
+                match_dict_list[index]['FromMin'] = 0
             if (91 <= to_min  <= 94):
-                player_dict_list[index]['FromMin'] = 90
+                match_dict_list[index]['ToMin'] = 90
 
         # find PlayerNum
-        for index in range(0, len(player_dict_list)):
-            player_dict_list[index]['PlayerNum'] = self.selectPlayerNumWherePlayerId(player_dict_list[index]['PlayerId'], db_name)
+        for index in range(0, len(match_dict_list)):
+            match_dict_list[index]['PlayerNum'] = self.selectPlayerNumWherePlayerId(match_dict_list[index]['PlayerId'], db_name)
 
         # sort by PositionID
         def PositionID_key_sort_func(single_player):
@@ -120,9 +120,9 @@ class HattrickMatch():
                 return (6, single_player['FromMin'], -single_player['ToMin'])
             else:
                 return (7, single_player['FromMin'], -single_player['ToMin'])
-        player_dict_list.sort(key=PositionID_key_sort_func)
+        match_dict_list.sort(key=PositionID_key_sort_func)
 
-        return player_dict_list
+        return match_dict_list
 
     def selectPOWherePlayerID(self, player_id, db_name):
         conn = None
@@ -172,3 +172,25 @@ class HattrickMatch():
             if conn is not None:
                 conn.close()
         return row[0]
+
+    def matchDictListToMatchStrList(self, match_dict_list):
+        match_str_list = ['po,num,rt,sMin,eMin']
+        po_str = ''
+        num_str = ''
+        rt_str = ''
+        sMin = ''
+        eMin = ''
+        str_line = ''
+        for index in range(len(match_dict_list)):
+            po_str = str(match_dict_list[index]['PositionID'])
+            num_str = str(match_dict_list[index]['PlayerNum'])
+            rt_str = str(match_dict_list[index]['Stars'])
+            sMin = str(match_dict_list[index]['FromMin'])
+            eMin = str(match_dict_list[index]['ToMin'])
+            str_line = po_str
+            str_line += ',' + num_str
+            str_line += ',' + rt_str
+            str_line += ',' + sMin
+            str_line += ',' + eMin
+            match_str_list.append(str_line)
+        return match_str_list
