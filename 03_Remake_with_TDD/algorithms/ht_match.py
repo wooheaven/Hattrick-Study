@@ -37,8 +37,10 @@ class HattrickMatch():
 
         div_id = "ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_timelineEventPanel"
         if (isHome):
+            print('Home')
             input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_playerRatingsHome'
         else:
+            print('Away')
             input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_playerRatingsAway'
 
         valueString = soup \
@@ -60,7 +62,13 @@ class HattrickMatch():
         removeList = list()
         for index in range(0, len(match_dict_list)):
             position_id = match_dict_list[index]['PositionID']
-            if (position_id == 0 or position_id == 114 or position_id == 117 or position_id == 118 or position_id == 120):
+            if (position_id == 0
+                    or position_id == 114
+                    or position_id == 115
+                    or position_id == 117
+                    or position_id == 118
+                    or position_id == 119
+                    or position_id == 120):
                 removeList.append(index)
         for index in reversed(removeList):
             match_dict_list.pop(index)
@@ -87,8 +95,9 @@ class HattrickMatch():
                 match_dict_list[index]['PositionID'] = 'FW'
                 continue
             if (position_id == -1):
+                date_str = filePath[:10]
                 match_dict_list[index]['PositionID'] = \
-                    self.selectPOWherePlayerID(match_dict_list[index]['PlayerId'], db_name)
+                    self.selectPOWherePlayerID(match_dict_list[index]['PlayerId'], date_str, db_name)
                 continue
 
         # change FromMin
@@ -126,18 +135,18 @@ class HattrickMatch():
         for index in range(len(match_dict_list)):
             starts = match_dict_list[index]['Stars']
             if (starts == -1.0):
-                date = filePath[:10]
+                date_str = filePath[:10]
                 playerid = match_dict_list[index]['PlayerId']
-                match_dict_list[index]['Stars'] = self.selectRTWhereDateAndPlayerId(date, playerid, db_name)
+                match_dict_list[index]['Stars'] = self.selectRTWhereDateAndPlayerId(date_str, playerid, db_name)
 
         return match_dict_list
 
-    def selectPOWherePlayerID(self, player_id, db_name):
+    def selectPOWherePlayerID(self, player_id, date_str, db_name):
         conn = None
         try:
             conn = psycopg2.connect(\
                 'dbname=' + db_name + ' user=myuser host=localhost port=65432 password=123qwe')
-            sql = 'SELECT po FROM player WHERE playerid =' + str(player_id) + ' LIMIT 1'
+            sql = 'SELECT po FROM player WHERE playerid =' + str(player_id) + ' AND date=\'' + date_str + '\''
             cur = conn.cursor()
             cur.execute(sql)
             row = cur.fetchone()
@@ -203,12 +212,12 @@ class HattrickMatch():
             match_str_list.append(str_line)
         return match_str_list
 
-    def selectRTWhereDateAndPlayerId(self, date, playerid, db_name):
+    def selectRTWhereDateAndPlayerId(self, date_str, playerid, db_name):
         conn = None
         try:
             conn = psycopg2.connect( \
                 'dbname=' + db_name + ' user=myuser host=localhost port=65432 password=123qwe')
-            sql = 'SELECT rt FROM player WHERE playerid =' + str(playerid) + ' AND date =\'' + date + '\''
+            sql = 'SELECT rt FROM player WHERE playerid =' + str(playerid) + ' AND date =\'' + date_str + '\''
             cur = conn.cursor()
             cur.execute(sql)
             row = cur.fetchone()

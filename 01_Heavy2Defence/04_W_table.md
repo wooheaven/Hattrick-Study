@@ -1,10 +1,14 @@
 W Wed      : 03 + 63
-W Rotation :      07
+W Rotation : 07
 
-W Sun      : 05 + 58
-W Rotation :      54
+W Sun      : 13 + 15
+W Rotation : 07
 
-date num min/rt |    03   |    05   |    07   |    54   |    58   |    63   |
+07 : Defensive Winger
+13 : Defensive Winger
+15 : Defensive Winger
+
+date num min/rt |    05   |    07   |    13   |    15   |    63   |
 ----------------+---------+---------+---------+---------+---------+---------
 2018-04-11      |  90/4.0 |  90/4.0 |         |         |         |        
 2018-04-15      |         |         |  90/4.0 |  44/3.5 |         |        
