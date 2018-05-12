@@ -122,6 +122,14 @@ class HattrickMatch():
                 return (7, single_player['FromMin'], -single_player['ToMin'])
         match_dict_list.sort(key=PositionID_key_sort_func)
 
+        # find and update Stars = -1.0
+        for index in range(len(match_dict_list)):
+            starts = match_dict_list[index]['Stars']
+            if (starts == -1.0):
+                date = filePath[:10]
+                playerid = match_dict_list[index]['PlayerId']
+                match_dict_list[index]['Stars'] = self.selectRTWhereDateAndPlayerId(date, playerid, db_name)
+
         return match_dict_list
 
     def selectPOWherePlayerID(self, player_id, db_name):
@@ -194,3 +202,19 @@ class HattrickMatch():
             str_line += ',' + eMin
             match_str_list.append(str_line)
         return match_str_list
+
+    def selectRTWhereDateAndPlayerId(self, date, playerid, db_name):
+        conn = None
+        try:
+            conn = psycopg2.connect( \
+                'dbname=' + db_name + ' user=myuser host=localhost port=65432 password=123qwe')
+            sql = 'SELECT rt FROM player WHERE playerid =' + str(playerid) + ' AND date =\'' + date + '\''
+            cur = conn.cursor()
+            cur.execute(sql)
+            row = cur.fetchone()
+        except (Exception, psycopg2.DatabaseError) as errors:
+            print(errors)
+        finally:
+            if conn is not None:
+                conn.close()
+        return float(row[0])
