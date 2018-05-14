@@ -58,13 +58,14 @@ class HattrickMatch():
             match_dict_list[index].pop('IsCaptain', None)
             match_dict_list[index].pop('IsKicker', None)
 
-        # remove PositionID 0, 114, 117, 118, 120
+        # remove PositionID 0, 114, 116, 117, 118, 120
         removeList = list()
         for index in range(0, len(match_dict_list)):
             position_id = match_dict_list[index]['PositionID']
             if (position_id == 0
                     or position_id == 114
                     or position_id == 115
+                    or position_id == 116
                     or position_id == 117
                     or position_id == 118
                     or position_id == 119
