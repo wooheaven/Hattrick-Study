@@ -1,6 +1,6 @@
-FW Wed      : 18 + 55
+FW Wed      : 16 + 55
 
-FW Sun      : 16 + 31
+FW Sun      : 18 + 31
 FW Rotation :      48(FD)
 
 date num min/rt |    16   |    18   |    31   |    48   |    55   
