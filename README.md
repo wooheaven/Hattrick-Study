@@ -4,4 +4,3 @@
 | | | [KP](00_LastKeeper/01_KP_table.md) | | |
 | [WB](00_LastKeeper/02_WB_table.md) | | [CD](00_LastKeeper/03_CD_table.md) | | |
 | [W](00_LastKeeper/04_W_table.md) | | [IM](00_LastKeeper/05_IM_table.md) | | |
-| | | [FW](00_LastKeeper/06_FW_table.md) | | |
