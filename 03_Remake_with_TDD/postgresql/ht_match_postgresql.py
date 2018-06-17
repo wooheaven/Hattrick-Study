@@ -1,5 +1,6 @@
 import psycopg2
 
+
 class HattrickMatchPostgreSQL():
     def getMatchByPoNum(self, conn, po, numList):
         tupleList = list();
@@ -59,6 +60,39 @@ class HattrickMatchPostgreSQL():
             print(error)
         return tupleList
 
+    def getMatchByDate(self, date, conn):
+        tuple_list = []
+        query = ""
+        try:
+            cur = conn.cursor()
+            query += "SELECT                                    " + "\n"
+            query += "    po, num, rt :: VARCHAR(5), smin, emin " + "\n"
+            query += "FROM                                      " + "\n"
+            query += "    match                                 " + "\n"
+            query += "WHERE                                     " + "\n"
+            query += "    date ='" + date.replace('/', '-') + "'" + "\n"
+            query += "ORDER BY                                  " + "\n"
+            query += "    CASE                                  " + "\n"
+            query += "        WHEN po = 'KP' THEN 1             " + "\n"
+            query += "        WHEN po = 'WB' THEN 2             " + "\n"
+            query += "        WHEN po = 'CD' THEN 3             " + "\n"
+            query += "        WHEN po = 'W'  THEN 4             " + "\n"
+            query += "        WHEN po = 'IM' THEN 5             " + "\n"
+            query += "        WHEN po = 'FW' THEN 6             " + "\n"
+            query += "        ELSE 7                            " + "\n"
+            query += "    END,                                  " + "\n"
+            query += "    emin asc, smin desc                   " + "\n"
+            cur.execute(query)
+            row = cur.fetchone()
+            while row is not None:
+                tuple_list.append(row)
+                row = cur.fetchone()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(query)
+            print("Error Happend")
+            print(error)
+        return tuple_list
+
     def printMatchByPoNum(self, tupleList, numList):
         headStr = "date num min/rt |"
         for num in numList:
@@ -84,3 +118,10 @@ class HattrickMatchPostgreSQL():
             return "         |"
         else:
             return " " + str(column) + " |"
+
+    def printMatchByDate(self, tuple_list):
+        for tuple in tuple_list:
+            line_str = str(tuple[0])
+            for index in range(1, len(tuple)):
+                line_str += "\t" + str(tuple[index])
+            print(line_str)
