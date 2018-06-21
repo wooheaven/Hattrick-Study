@@ -2,63 +2,91 @@ import psycopg2
 
 
 class HattrickMatchPostgreSQL():
-    def getMatchByPoNum(self, conn, po, numList):
-        tupleList = list();
+
+    def update_rt_of_match(self, conn):
+        try:
+            cur = conn.cursor()
+            sql = ""
+            sql += "UPDATE match                              " + "\n"
+            sql += "SET rt = player.rt                        " + "\n"
+            sql += "FROM player                               " + "\n"
+            sql += "    WHERE                                 " + "\n"
+            sql += "        match.date = player.date          " + "\n"
+            sql += "            and player.date = player.last " + "\n"
+            sql += "            and match.po = player.po      " + "\n"
+            sql += "            and match.num = player.num    " + "\n"
+            sql += "            and match.rt != player.rt     "
+            cur.execute(sql)
+            conn.commit()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(sql)
+            print("Error Happend")
+            print(error)
+        finally:
+            if cur is not None:
+                cur.close()
+
+    def getMatchByPoNum(self, conn, po, num_list):
+        tuple_list = list()
         query = None
         try:
             cur = conn.cursor()
-            query =  """SELECT * """                                                        + "\n"
-            query += """FROM crosstab( """                                                  + "\n"
-            query += """    'SELECT """                                                     + "\n"
-            query += """        date, """                                                   + "\n"
-            query += """        num, """                                                    + "\n"
-            query += """        CASE """                                                    + "\n"
-            query += """            WHEN length(time_rt)=5 THEN ''  ''||''''||time_rt """   + "\n"
-            query += """            WHEN length(time_rt)=6 THEN '' ''||''''||time_rt """    + "\n"
-            query += """            WHEN length(time_rt)=7 THEN time_rt """                 + "\n"
-            query += """            ELSE ''error'' """                                      + "\n"
-            query += """        END AS time_rt """                                          + "\n"
-            query += """    FROM ( """                                                      + "\n"
-            query += """        SELECT """                                                  + "\n"
-            query += """            date :: VARCHAR(10), """                                + "\n"
-            query += """            num :: VARCHAR(2), """                                  + "\n"
-            query += """            emin-smin||''/''||rt :: VARCHAR(7) as time_rt """       + "\n"
-            query += """        FROM match """                                              + "\n"
-            query += """        WHERE """                                                   + "\n"
-            query += """            po = ''PO'' and current_date - 30 < date """            + "\n"
-            query += """        ORDER BY """                                                + "\n"
-            query += """            date, num """                                           + "\n"
-            query += """    ) AS a', """                                                    + "\n"
-            query += """    'SELECT m from unnest(''{numListStr}''::int[]) m' """           + "\n"
-            query += """) """                                                               + "\n"
-            query += """AS ( """                                                            + "\n"
-            query += """    "date num min/rt" VARCHAR(10), """                              + "\n"
-            query += """numColumnStr """                                                    + "\n"
-            query += """) """                                                               + "\n"
-            query += """ORDER BY 1 """                                                      + "\n"
+            query = ""
+            query += "SELECT *                                                      " + "\n"
+            query += "FROM crosstab(                                                " + "\n"
+            query += "    'SELECT                                                   " + "\n"
+            query += "        date,                                                 " + "\n"
+            query += "        num,                                                  " + "\n"
+            query += "        CASE                                                  " + "\n"
+            query += "            WHEN length(time_rt)=5 THEN ''  ''||''''||time_rt " + "\n"
+            query += "            WHEN length(time_rt)=6 THEN '' ''||''''||time_rt  " + "\n"
+            query += "            WHEN length(time_rt)=7 THEN time_rt               " + "\n"
+            query += "            ELSE ''error''                                    " + "\n"
+            query += "        END AS time_rt                                        " + "\n"
+            query += "    FROM (                                                    " + "\n"
+            query += "        SELECT                                                " + "\n"
+            query += "            date :: VARCHAR(10),                              " + "\n"
+            query += "            num :: VARCHAR(2),                                " + "\n"
+            query += "            emin-smin||''/''||rt :: VARCHAR(7) as time_rt     " + "\n"
+            query += "        FROM match                                            " + "\n"
+            query += "        WHERE                                                 " + "\n"
+            query += "            po = ''PO'' and current_date - 30 < date          " + "\n"
+            query += "        ORDER BY                                              " + "\n"
+            query += "            date, num                                         " + "\n"
+            query += "    ) AS a',                                                  " + "\n"
+            query += "    'SELECT m from unnest(''{numListStr}''::int[]) m'         " + "\n"
+            query += ")                                                             " + "\n"
+            query += "AS (                                                          " + "\n"
+            query += "    \"date num min/rt\" VARCHAR(10),                          " + "\n"
+            query += "    numColumnStr                                              " + "\n"
+            query += ")                                                             " + "\n"
+            query += "ORDER BY 1                                                    " + "\n"
 
             query = query.replace("PO", po, 1)
-            numListStr = str(numList[0])
-            for index in range(1, len(numList)):
-                numListStr += "," + str(numList[index])
-            query = query.replace("numListStr", numListStr, 1)
-            numColumnStr = ""
-            for index in range(len(numList)-1):
-                numColumnStr += "    \"   " + str(numList[index]) + "  \" VARCHAR(8)," + "\n"
-            numColumnStr += "    \"   " + str(numList[len(numList)-1]) + "  \" VARCHAR(8) "
-            query = query.replace("numColumnStr", numColumnStr, 1)
+            num_list_str = str(num_list[0])
+            for index in range(1, len(num_list)):
+                num_list_str += "," + str(num_list[index])
+            query = query.replace("numListStr", num_list_str, 1)
+            num_column_str = ""
+            for index in range(len(num_list) - 1):
+                num_column_str += "    \"   " + str(num_list[index]) + "  \" VARCHAR(8)," + "\n"
+            num_column_str += "    \"   " + str(num_list[len(num_list) - 1]) + "  \" VARCHAR(8) "
+            query = query.replace("numColumnStr", num_column_str, 1)
 
             # print(query)
             cur.execute(query)
             row = cur.fetchone()
             while row is not None:
-                tupleList.append(row)
+                tuple_list.append(row)
                 row = cur.fetchone()
         except (Exception, psycopg2.DatabaseError) as error:
             print(query)
             print("Error Happend")
             print(error)
-        return tupleList
+        finally:
+            if cur is not None:
+                cur.close()
+        return tuple_list
 
     def getMatchByDate(self, date, conn):
         tuple_list = []
@@ -91,27 +119,30 @@ class HattrickMatchPostgreSQL():
             print(query)
             print("Error Happend")
             print(error)
+        finally:
+            if cur is not None:
+                cur.close()
         return tuple_list
 
     def printMatchByPoNum(self, tupleList, numList):
-        headStr = "date num min/rt |"
+        head_str = "date num min/rt |"
         for num in numList:
             numStr = str(num)
             if len(numStr) == 1:
                numStr = "0" + numStr
-            headStr += "    " + numStr + "   |"
-        print(headStr)
+            head_str += "    " + numStr + "   |"
+        print(head_str)
 
-        rowLineStr = "----------------|"
+        row_line_str = "----------------|"
         for index in range(len(numList)):
-            rowLineStr += "---------|"
-        print(rowLineStr)
+            row_line_str += "---------|"
+        print(row_line_str)
 
-        for tuple in tupleList:
-            lineStr = str(tuple[0]) + "      |"
-            for index in range(1, len(tuple)):
-                lineStr += self.convertToStr(tuple[index])
-            print(lineStr)
+        for t in tupleList:
+            line_str = str(t[0]) + "      |"
+            for index in range(1, len(t)):
+                line_str += self.convertToStr(t[index])
+            print(line_str)
 
     def convertToStr(self, column):
         if column is None:
@@ -120,8 +151,8 @@ class HattrickMatchPostgreSQL():
             return " " + str(column) + " |"
 
     def printMatchByDate(self, tuple_list):
-        for tuple in tuple_list:
-            line_str = str(tuple[0])
-            for index in range(1, len(tuple)):
-                line_str += "\t" + str(tuple[index])
+        for t in tuple_list:
+            line_str = str(t[0])
+            for index in range(1, len(t)):
+                line_str += "\t" + str(t[index])
             print(line_str)
