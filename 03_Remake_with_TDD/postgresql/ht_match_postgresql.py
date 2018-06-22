@@ -3,6 +3,30 @@ import psycopg2
 
 class HattrickMatchPostgreSQL():
 
+    def insert_to_match(self, conn, time, row):
+        try:
+            cur = conn.cursor()
+            sql = ""
+            sql += "INSERT INTO match (                                                   " + "\n"
+            sql += "    SELECT                                                            " + "\n"
+            sql += "        to_date(%s, 'YYYY-MM-DD'), -- 01 date DATE          Date      " + "\n"
+            sql += "        %s,                        -- 02 po   VARCHAR(5)    Position  " + "\n"
+            sql += "        %s,                        -- 03 num  INT           Number    " + "\n"
+            sql += "        %s,                        -- 04 rt   NUMERIC(2, 1) Rating    " + "\n"
+            sql += "        %s,                        -- 05 sMin INT           Start Min " + "\n"
+            sql += "        %s                         -- 06 eMin INT           End Min   " + "\n"
+            sql += ")                                                                     " + "\n"
+            cur.execute(sql, (time, row[0], row[1], row[2], row[3], row[4]))
+            conn.commit()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print("Error Happend")
+            print(error)
+            print(sql)
+            print(row)
+        finally:
+            if cur is not None:
+                cur.close()
+
     def update_rt_of_match(self, conn):
         try:
             cur = conn.cursor()
