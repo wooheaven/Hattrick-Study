@@ -25,7 +25,22 @@ class HattrickPlayerPostgreSQL():
             tuple_list = cursor.fetchall()
             return tuple_list
         except (Exception, psycopg2.DatabaseError) as error:
-            print("Error Happend")
+            print("Error Happen")
+            print(query)
+            print(error)
+        finally:
+            if cursor.closed is False:
+                cursor.close()
+
+    def select_count_player(self, conn):
+        try:
+            cursor = conn.cursor()
+            query = "SELECT COUNT(*) FROM player"
+            cursor.execute(query)
+            row = cursor.fetchone()
+            return row[0]
+        except (Exception, psycopg2.DatabaseError) as error:
+            print("Error Happen")
             print(query)
             print(error)
         finally:
