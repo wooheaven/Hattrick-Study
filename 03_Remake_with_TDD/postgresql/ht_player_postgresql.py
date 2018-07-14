@@ -47,6 +47,59 @@ class HattrickPlayerPostgreSQL():
             if cursor.closed is False:
                 cursor.close()
 
+    def insert_player(self, conn, time, row):
+        try:
+            cursor = conn.cursor()
+            sql = ""
+            sql += "INSERT INTO player (                                                                    " + "\n"
+            sql += "    date,                                -- 2                                           " + "\n"
+            sql += "    num, nat, player, playerid, spacial, -- 3, 4, 5, 6, 7                               " + "\n"
+            sql += "    st, age, since, tsi, ls,             -- 8, 9,10,11,12                               " + "\n"
+            sql += "    xp, fo, stm, lo, mb,                 --13,14,15,16,17                               " + "\n"
+            sql += "    kp, df, pm, wi, ps,                  --18,19,20,21,22                               " + "\n"
+            sql += "    sc, sp, con,                         --23,24,25                                     " + "\n"
+            sql += "    last,                                --26                                           " + "\n"
+            sql += "    rt,                                  --27                                           " + "\n"
+            sql += "    po, wage, g,                         --28,29,30                                     " + "\n"
+            sql += "    kp_p, wb_p, cd_p, w_p, im_p,         --31,32,33,34,35                               " + "\n"
+            sql += "    fw_p                                 --36                                           " + "\n"
+            sql += ") (                                                                                     " + "\n"
+            sql += "    SELECT                                                                              " + "\n"
+            sql += "        to_date(%s, 'YYYY-MM-DD'),                                    -- 2              " + "\n"
+            sql += "        %s, %s, %s, %s, %s,                                           -- 3, 4, 5, 6, 7  " + "\n"
+            sql += "        %s, %s, %s, %s, %s,                                           -- 8, 9,10,11,12  " + "\n"
+            sql += "        %s, %s, %s, %s, %s,                                           --13,14,15,16,17  " + "\n"
+            sql += "        %s, %s, %s, %s, %s,                                           --18,19,20,21,22  " + "\n"
+            sql += "        %s, %s, %s,                                                   --23,24,25        " + "\n"
+            sql += "        to_date(coalesce(nullif(%s,''), '0001-01-01'), 'YYYY-MM-DD'), --26              " + "\n"
+            sql += "        cast(coalesce(nullif(%s,''),'0.0') as float),                 --27              " + "\n"
+            sql += "        %s, %s, %s,                                                   --28,29,30        " + "\n"
+            sql += "        %s, %s, %s, %s, %s,                                           --31,32,33,34,35  " + "\n"
+            sql += "        %s                                                            --36              " + "\n"
+            sql += ")                                                                                       " + "\n"
+            cursor.execute(sql, (time,
+                                 row[0], row[1], row[2], row[3], row[4],
+                                 row[5], row[6], row[7], row[8], row[9],
+                                 row[10], row[11], row[12], row[13], row[14],
+                                 row[15], row[16], row[17], row[18], row[19],
+                                 row[20], row[21], row[22],
+                                 row[23],
+                                 row[24],
+                                 row[25], row[26], row[27],
+                                 row[30], row[31], row[32], row[33], row[34],
+                                 row[35]
+                                 ))
+            conn.commit()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print("Error Happend")
+            print(error)
+            print(time)
+            print(row)
+            print(sql)
+        finally:
+            if cursor.closed is False:
+                cursor.close()
+
     def print(self, tuple_list):
         for t in tuple_list:
             for i in range(len(t) - 1):
