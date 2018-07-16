@@ -1,4 +1,5 @@
 import psycopg2
+from psycopg2.extensions import AsIs
 
 
 class HattrickPlayerPostgreSQL():
@@ -43,6 +44,26 @@ class HattrickPlayerPostgreSQL():
             print("Error Happen")
             print(query)
             print(error)
+        finally:
+            if cursor.closed is False:
+                cursor.close()
+
+    def backup_player(self, conn, target_table, backup_table):
+        try:
+            cursor = conn.cursor()
+            sql = ""
+            sql += "CREATE TABLE %(backup_table)s AS ( "
+            sql += "    SELECT * FROM %(target_table)s "
+            sql += "    ORDER BY date, num             "
+            sql += ")                                  "
+            cursor.execute(sql,
+                           {"backup_table": AsIs(backup_table),
+                            "target_table": AsIs(target_table)})
+            conn.commit()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print("Error Happend")
+            print(error)
+            print(sql)
         finally:
             if cursor.closed is False:
                 cursor.close()
