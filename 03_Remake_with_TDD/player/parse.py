@@ -49,6 +49,10 @@ class Parse():
                         3: 'PlayerStr',
                         4: 'Special',
                         5: 'Stat',
+                        30: 'KPPos',
+                        31: 'WBPos',
+                        32: 'CDPos',
+                        33: 'WPos',
                         34: 'IMPos',
                         35: 'FWPos'}
         self.df.rename(columns=column_names, inplace=True)
