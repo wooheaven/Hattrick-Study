@@ -50,6 +50,9 @@ class Parse():
                         4: 'Special',
                         5: 'Stat',
                         6: 'Age',
+                        23: 'Last',
+                        28: 'TC',
+                        29: 'PH',
                         30: 'KPPos',
                         31: 'WBPos',
                         32: 'CDPos',
@@ -74,6 +77,15 @@ class Parse():
         self.df['PlayerName'][0] = 'PlayerName'
         self.df['PlayerID'] = self.df['PlayerStr'].str.extract(r'\=(?P<digit>\d{9})')
         self.df['PlayerID'][0] = 'PlayerID'
+        self.df['Special'] = self.df['Special'].str.replace(' 더 많은 정보를 보려면 클릭', '')
+        self.df['Special'] = self.df['Special'].str.replace('예측할 수 없음', 'Unpredictable')
+        self.df['Special'] = self.df['Special'].str.replace('공 마술사', 'Technical')
+        self.df['Special'] = self.df['Special'].str.replace('헤딩', 'Head')
+        self.df['Special'] = self.df['Special'].str.replace('힘 있음', 'Powerful')
+        self.df['Special'] = self.df['Special'].str.replace('빠름', 'Quick')
+        self.df['Last'] = self.df['Last'].str.extract('(....-..-..)')
+        self.df['TC'] = self.df['TC'].str.replace('(\[playerid\=\d{9}\])', '')
+        self.df['PH'] = self.df['PH'].str.replace('(\[playerid\=\d{9}\])', '')
         self.df = self.df.replace(np.nan, '', regex=True)
 
         cols = self.df.columns.tolist()
