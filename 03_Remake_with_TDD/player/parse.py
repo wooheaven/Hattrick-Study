@@ -50,6 +50,7 @@ class Parse():
                         4: 'Special',
                         5: 'Stat',
                         6: 'Age',
+                        14: 'MB',
                         23: 'Last',
                         28: 'TC',
                         29: 'PH',
@@ -58,12 +59,13 @@ class Parse():
                         32: 'CDPos',
                         33: 'WPos',
                         34: 'IMPos',
-                        35: 'FWPos',
-                        36: 'FWd',
-                        37: 'FWtw',
-                        38: 'TDF',
+                        35: 'FWPos',    # FW
+                        36: 'FWd',      # FW
+                        37: 'FWtw',     # FW
+                        38: 'TDF',      # FW
                         39: 'BPo',
-                        40: 'BPoV'}
+                        40: 'BPoV'
+                        }
         self.df.rename(columns=column_names, inplace=True)
 
         self.df['Number'][0] = 'Number'
@@ -83,6 +85,7 @@ class Parse():
         self.df['Special'] = self.df['Special'].str.replace('헤딩', 'Head')
         self.df['Special'] = self.df['Special'].str.replace('힘 있음', 'Powerful')
         self.df['Special'] = self.df['Special'].str.replace('빠름', 'Quick')
+        self.df['MB'] = self.df['MB'].str.replace('✔', 'TRUE')
         self.df['Last'] = self.df['Last'].str.extract('(....-..-..)')
         self.df['TC'] = self.df['TC'].str.replace('(\[playerid\=\d{9}\])', '')
         self.df['PH'] = self.df['PH'].str.replace('(\[playerid\=\d{9}\])', '')
