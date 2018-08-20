@@ -16,3 +16,10 @@ class TestHattrickPlayerPostgreSQL(TestCase):
         ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
         ht_player_pg.backup_player(conn=conn, target_table='player', backup_table='player_tmp')
         conn.close()
+
+    def test_create_player(self):
+        conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
+        ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
+        ht_player_pg.drop_table(conn=conn, target_table='player_tmp2')
+        ht_player_pg.create_player(conn=conn, target_table='player_tmp2')
+        conn.close()

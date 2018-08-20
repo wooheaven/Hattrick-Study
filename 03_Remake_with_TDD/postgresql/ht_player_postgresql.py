@@ -4,11 +4,78 @@ from psycopg2.extensions import AsIs
 
 class HattrickPlayerPostgreSQL():
 
+    def drop_table(self, conn, target_table):
+        try:
+            cursor = conn.cursor()
+            query = "DROP TABLE IF EXISTS %(target_table)s"
+            cursor.execute(query, {"target_table": AsIs(target_table)})
+            conn.commit()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print("Error Happen")
+            print(query)
+            print(error)
+        finally:
+            if cursor.closed is False:
+                cursor.close()
+
+    def create_player(self, conn, target_table):
+        try:
+            cursor = conn.cursor()
+            query = ""
+            query += "CREATE TABLE %(target_table)s (                                    " + "\n"
+            query += "    id       SERIAL NOT NULL PRIMARY KEY, --01 Prevent Duplication " + "\n"
+            query += "    Date     DATE,                        --02                     " + "\n"
+            query += "    Num      INT,                         --03                     " + "\n"
+            query += "    Nat      VARCHAR(30),                 --04                     " + "\n"
+            query += "    Player   VARCHAR(30),                 --05                     " + "\n"
+            query += "    PlayerID BIGINT,                      --06                     " + "\n"
+            query += "    Spacial  VARCHAR(30),                 --07                     " + "\n"
+            query += "    st       VARCHAR(10),                 --08 Status Yellow, Red  " + "\n"
+            query += "    Age      VARCHAR(10),                 --09                     " + "\n"
+            query += "    Since    VARCHAR(30),                 --10                     " + "\n"
+            query += "    TSI      BIGINT,                      --11                     " + "\n"
+            query += "    LS       INT,                         --12                     " + "\n"
+            query += "    XP       INT,                         --13                     " + "\n"
+            query += "    Fo       INT,                         --14                     " + "\n"
+            query += "    Stm      INT,                         --15                     " + "\n"
+            query += "    Lo       INT,                         --16                     " + "\n"
+            query += "    MB       BOOLEAN,                     --17                     " + "\n"
+            query += "    KP       INT,                         --18                     " + "\n"
+            query += "    DF       INT,                         --19                     " + "\n"
+            query += "    PM       INT,                         --20                     " + "\n"
+            query += "    WI       INT,                         --21                     " + "\n"
+            query += "    PS       INT,                         --22                     " + "\n"
+            query += "    SC       INT,                         --23                     " + "\n"
+            query += "    SP       INT,                         --24                     " + "\n"
+            query += "    con      BIGINT,                      --25 Psico               " + "\n"
+            query += "    Last     DATE,                        --26                     " + "\n"
+            query += "    RT       NUMERIC(2, 1),               --27 Rating              " + "\n"
+            query += "    Po       VARCHAR(5),                  --28 Position            " + "\n"
+            query += "    Wage     BIGINT,                      --29                     " + "\n"
+            query += "    G        INT,                         --30                     " + "\n"
+            query += "    --TC  VARCHAR(1),                     --                       " + "\n"
+            query += "    --PH  VARCHAR(1),                     --                       " + "\n"
+            query += "    KP_P     NUMERIC(4, 2),               --31 KP Position         " + "\n"
+            query += "    WB_P     NUMERIC(4, 2),               --32 WB Position         " + "\n"
+            query += "    CD_P     NUMERIC(4, 2),               --33 CD Position         " + "\n"
+            query += "    W_P      NUMERIC(4, 2),               --34 W  Position         " + "\n"
+            query += "    IM_P     NUMERIC(4, 2),               --35 IM Position         " + "\n"
+            query += "    FW_P     NUMERIC(4, 2)                --36 FW Position         " + "\n"
+            query += ")                                                                  "
+            cursor.execute(query, {"target_table": AsIs(target_table)})
+            conn.commit()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print("Error Happen")
+            print(query)
+            print(error)
+        finally:
+            if cursor.closed is False:
+                cursor.close()
+
     def select_player(self, conn, time):
         try:
             cursor = conn.cursor()
             query = ""
-            query += ""
             query += "SELECT                                                                           " + "\n"
             query += "    date :: VARCHAR(10), num, player, spacial, st,                       --01 05 " + "\n"
             query += "    age, since, tsi, ls, xp,                                             --06 10 " + "\n"
