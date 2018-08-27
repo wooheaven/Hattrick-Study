@@ -60,9 +60,9 @@ class Parse():
                         33: 'WPos',
                         34: 'IMPos',
                         35: 'FWPos',    # FW
-                        36: 'FWd',      # FW
-                        37: 'FWtw',     # FW
-                        38: 'TDF',      # FW
+                        36: 'FWdPos',   # FW
+                        37: 'FWtwPos',  # FW
+                        38: 'TDFPos',   # FW
                         39: 'BPo',
                         40: 'BPoV'
                         }
@@ -72,11 +72,18 @@ class Parse():
         self.df['PlayerStr'][0] = 'PlayerStr'
         self.df['Special'][0] = 'Special'
         self.df['Stat'][0] = 'Stat'
+        self.df['KPPos'][0] = 'KPPos'
+        self.df['WBPos'][0] = 'WBPos'
+        self.df['CDPos'][0] = 'CDPos'
+        self.df['WPos'][0] = 'WPos'
         self.df['IMPos'][0] = 'IMPos'
         self.df['FWPos'][0] = 'FWPos'
+        self.df['FWdPos'][0] = 'FWdPos'
+        self.df['FWtwPos'][0] = 'FWtwPos'
+        self.df['TDFPos'][0] = 'TDFPos'
 
-        self.df['PlayerName'] = self.df['PlayerStr'].str.extract(r'([A-Z][a-z]*\D*[a-z] [A-Z][a-z]*[a-z])')
-        self.df['PlayerName'][0] = 'PlayerName'
+        self.df['Player'] = self.df['PlayerStr'].str.extract(r'([A-Z][a-z]*\D*[a-z] [A-Z][a-z]*[a-z])')
+        self.df['Player'][0] = 'Player'
         self.df['PlayerID'] = self.df['PlayerStr'].str.extract(r'\=(?P<digit>\d{9})')
         self.df['PlayerID'][0] = 'PlayerID'
         self.df['Special'] = self.df['Special'].str.replace(' 더 많은 정보를 보려면 클릭', '')
@@ -87,6 +94,7 @@ class Parse():
         self.df['Special'] = self.df['Special'].str.replace('빠름', 'Quick')
         self.df['MB'] = self.df['MB'].str.replace('✔', 'TRUE')
         self.df['Last'] = self.df['Last'].str.extract('(....-..-..)')
+        self.df['Last'][0] = 'Last'
         self.df['TC'] = self.df['TC'].str.replace('(\[playerid\=\d{9}\])', '')
         self.df['PH'] = self.df['PH'].str.replace('(\[playerid\=\d{9}\])', '')
         self.df = self.df.replace(np.nan, '', regex=True)
@@ -95,6 +103,10 @@ class Parse():
         cols = cols[0:2] + cols[-2:] + cols[3:-2]
 
         self.df = self.df[cols]
+
+        # 0 for rows and 1 for columns
+        self.df.drop('TC', axis=1, inplace=True)
+        self.df.drop('PH', axis=1, inplace=True)
 
     def print_df_cols(self):
         print(self.df.columns.tolist())

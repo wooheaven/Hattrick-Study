@@ -21,5 +21,5 @@ class TestHattrickPlayerPostgreSQL(TestCase):
         conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
         ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
         ht_player_pg.drop_table(conn=conn, target_table='player_tmp2')
-        ht_player_pg.create_player(conn=conn, target_table='player_tmp2')
+        ht_player_pg.create_player_new(conn=conn, target_table='player_tmp2')
         conn.close()
