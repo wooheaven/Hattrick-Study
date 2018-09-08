@@ -60,12 +60,12 @@ class HattrickPlayerPostgreSQL():
             query += "    CD_P     NUMERIC(4, 2),               --33 CD Position                     " + "\n"
             query += "    W_P      NUMERIC(4, 2),               --34 W  Position                     " + "\n"
             query += "    IM_P     NUMERIC(4, 2),               --35 IM Position                     " + "\n"
-            query += "    FW_P     NUMERIC(4, 2)                --36 FW Position                     " + "\n"
-            query += "    FWD_P    NUMERIC(4, 2)                --37 FW Defensive Position           " + "\n"
-            query += "    FWTW_P   NUMERIC(4, 2)                --38 FW Towards Wing Position        " + "\n"
-            query += "    TDF_P    NUMERIC(4, 2)                --39 Technical Defensive FW Position " + "\n"
-            query += "    B_P      NUMERIC(4, 2)                --40 Best Position                   " + "\n"
-            query += "    B_P_V    NUMERIC(4, 2)                --41 Best Position Value             " + "\n"
+            query += "    FW_P     NUMERIC(4, 2),               --36 FW Position                     " + "\n"
+            query += "    FWD_P    NUMERIC(4, 2),               --37 FW Defensive Position           " + "\n"
+            query += "    FWTW_P   NUMERIC(4, 2),               --38 FW Towards Wing Position        " + "\n"
+            query += "    TDF_P    NUMERIC(4, 2),               --39 Technical Defensive FW Position " + "\n"
+            query += "    B_P      VARCHAR(10),                 --40 Best Position                   " + "\n"
+            query += "    B_P_V    VARCHAR(10)                  --41 Best Position Value             " + "\n"
             query += ")                                                                              "
             cursor.execute(query, {"target_table": AsIs(target_table)})
             conn.commit()
@@ -131,7 +131,7 @@ class HattrickPlayerPostgreSQL():
             if cursor.closed is False:
                 cursor.close()
 
-    def select_player(self, conn, time):
+    def select_player(self, conn, table_name, time):
         try:
             cursor = conn.cursor()
             query = ""
@@ -143,7 +143,7 @@ class HattrickPlayerPostgreSQL():
             query += "    sp, con, last :: VARCHAR(10), rt :: VARCHAR(3), po,                  --21 25 " + "\n"
             query += "    wage, g, kp_p :: VARCHAR(5), wb_p :: VARCHAR(5), cd_p :: VARCHAR(5), --26 30 " + "\n"
             query += "    w_p :: VARCHAR(5), im_p :: VARCHAR(5), fw_p :: VARCHAR(5)            --31 35 " + "\n"
-            query += "FROM player                                                                      " + "\n"
+            query += "FROM " + table_name + "                                                          " + "\n"
             query += "WHERE                                                                            " + "\n"
             query += "    date = %s -- AND date = last                                                 " + "\n"
             query += "ORDER BY                                                                         " + "\n"
@@ -159,11 +159,11 @@ class HattrickPlayerPostgreSQL():
             if cursor.closed is False:
                 cursor.close()
 
-    def select_count_player(self, conn):
+    def select_count_player(self, conn, table_name):
         try:
             cursor = conn.cursor()
-            query = "SELECT COUNT(*) FROM player"
-            cursor.execute(query)
+            query = "SELECT COUNT(*) FROM %(table_name)s"
+            cursor.execute(query, {"table_name": AsIs(table_name)})
             row = cursor.fetchone()
             return row[0]
         except (Exception, psycopg2.DatabaseError) as error:
@@ -194,11 +194,11 @@ class HattrickPlayerPostgreSQL():
             if cursor.closed is False:
                 cursor.close()
 
-    def insert_player(self, conn, time, row):
+    def insert_player(self, conn, table_name, time, row):
         try:
             cursor = conn.cursor()
             sql = ""
-            sql += "INSERT INTO player (                                                                    " + "\n"
+            sql += "INSERT INTO " + table_name + " (                                                        " + "\n"
             sql += "    date,                                -- 2                                           " + "\n"
             sql += "    num, nat, player, playerid, spacial, -- 3, 4, 5, 6, 7                               " + "\n"
             sql += "    st, age, since, tsi, ls,             -- 8, 9,10,11,12                               " + "\n"
@@ -234,8 +234,8 @@ class HattrickPlayerPostgreSQL():
                                  row[24],
                                  row[25], row[26], row[27],
                                  row[30], row[31], row[32], row[33], row[34],
-                                 row[35]
-                                 ))
+                                 row[35])
+                          )
             conn.commit()
         except (Exception, psycopg2.DatabaseError) as error:
             print("Error Happend")
@@ -247,11 +247,11 @@ class HattrickPlayerPostgreSQL():
             if cursor.closed is False:
                 cursor.close()
 
-    def insert_player_new(self, conn, time, row):
+    def insert_player_new(self, conn, table_name, time, row):
         try:
             cursor = conn.cursor()
             sql = ""
-            sql += "INSERT INTO player (                                                                    " + "\n"
+            sql += "INSERT INTO " + table_name + " (                                                        " + "\n"
             sql += "    date,                                -- 2                                           " + "\n"
             sql += "    num, nat, player, playerid, spacial, -- 3, 4, 5, 6, 7                               " + "\n"
             sql += "    st, age, since, tsi, ls,             -- 8, 9,10,11,12                               " + "\n"
@@ -262,7 +262,7 @@ class HattrickPlayerPostgreSQL():
             sql += "    rt,                                  --27                                           " + "\n"
             sql += "    po, wage, g,                         --28,29,30                                     " + "\n"
             sql += "    kp_p, wb_p, cd_p, w_p, im_p,         --31,32,33,34,35                               " + "\n"
-            sql += "    fw_p, fwd_p, fwtw_p, tdf_p           --36,37,38,39                                  " + "\n"
+            sql += "    fw_p, fwd_p, fwtw_p, tdf_p,          --36,37,38,39                                  " + "\n"
             sql += "    b_p, b_p_v                           --40,41                                        " + "\n"
             sql += ") (                                                                                     " + "\n"
             sql += "    SELECT                                                                              " + "\n"
@@ -276,7 +276,7 @@ class HattrickPlayerPostgreSQL():
             sql += "        cast(coalesce(nullif(%s,''),'0.0') as float),                 --27              " + "\n"
             sql += "        %s, %s, %s,                                                   --28,29,30        " + "\n"
             sql += "        %s, %s, %s, %s, %s,                                           --31,32,33,34,35  " + "\n"
-            sql += "        %s, %s, %s, %s, %s,                                           --36,37,38,39     " + "\n"
+            sql += "        %s, %s, %s, %s,                                               --36,37,38,39     " + "\n"
             sql += "        %s, %s                                                        --40,41           " + "\n"
             sql += ")                                                                                       " + "\n"
             cursor.execute(sql, (time,
@@ -288,9 +288,9 @@ class HattrickPlayerPostgreSQL():
                                  row[23],
                                  row[24],
                                  row[25], row[26], row[27],
-                                 row[30], row[31], row[32], row[33], row[34],
-                                 row[35], row[36], row[37], row[38],
-                                 row[40], row[41]
+                                 row[28], row[29], row[30], row[31], row[32],
+                                 row[33], row[34], row[35], row[36],
+                                 row[37], row[38]
                                  ))
             conn.commit()
         except (Exception, psycopg2.DatabaseError) as error:
