@@ -59,10 +59,10 @@ class Parse():
                         32: 'CDPos',
                         33: 'WPos',
                         34: 'IMPos',
-                        35: 'FWPos',    # FW
-                        36: 'FWdPos',   # FW
-                        37: 'FWtwPos',  # FW
-                        38: 'TDFPos',   # FW
+                        35: 'FWPos',
+                        36: 'FWdPos',
+                        37: 'FWtwPos',
+                        38: 'TDFPos',
                         39: 'BPo',
                         40: 'BPoV'
                         }
@@ -92,7 +92,10 @@ class Parse():
         self.df['Special'] = self.df['Special'].str.replace('헤딩', 'Head')
         self.df['Special'] = self.df['Special'].str.replace('힘 있음', 'Powerful')
         self.df['Special'] = self.df['Special'].str.replace('빠름', 'Quick')
+
         self.df['MB'] = self.df['MB'].str.replace('✔', 'TRUE')
+        self.df['MB'] = self.df['MB'].apply(lambda x: x if len(str(x)) > 3 else 'FALSE')
+
         self.df['Last'] = self.df['Last'].str.extract('(....-..-..)')
         self.df['Last'][0] = 'Last'
         self.df['TC'] = self.df['TC'].str.replace('(\[playerid\=\d{9}\])', '')

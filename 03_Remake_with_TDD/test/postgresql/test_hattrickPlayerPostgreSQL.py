@@ -1,6 +1,7 @@
 from unittest import TestCase
 import psycopg2
 from postgresql import ht_player_postgresql
+import csv
 
 
 class TestHattrickPlayerPostgreSQL(TestCase):
@@ -20,6 +21,26 @@ class TestHattrickPlayerPostgreSQL(TestCase):
     def test_create_player(self):
         conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
         ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
-        ht_player_pg.drop_table(conn=conn, target_table='player_tmp2')
-        ht_player_pg.create_player_new(conn=conn, target_table='player_tmp2')
+        ht_player_pg.drop_table(conn=conn, target_table='player_new')
+        ht_player_pg.create_player_new(conn=conn, target_table='player_new')
+        conn.close()
+
+    def test_insert_player_new_from_new_csv(self):
+        conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
+        ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
+        with open('../2018/09/06/player.csv', 'r') as read_file:
+            reader = csv.reader(read_file, delimiter=',')
+            for row in reader:
+                if row[0] != "Number":
+                    ht_player_pg.insert_player_new(conn, 'player_new', '2018-09-06', row)
+        conn.close()
+
+    def test_insert_player_new_from_old_csv(self):
+        conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
+        ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
+        with open('../2018/09/05/player.csv', 'r') as read_file:
+            reader = csv.reader(read_file, delimiter=',')
+            for row in reader:
+                if row[0] != "Number":
+                    ht_player_pg.insert_player(conn, 'player_new', '2018-09-05', row)
         conn.close()
