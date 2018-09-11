@@ -147,7 +147,7 @@ class HattrickMatch():
         try:
             conn = psycopg2.connect(\
                 'dbname=' + db_name + ' user=myuser host=localhost port=65432 password=123qwe')
-            sql = 'SELECT po FROM player WHERE playerid =' + str(player_id) + ' AND date=\'' + date_str + '\''
+            sql = 'SELECT po FROM player_new WHERE playerid =' + str(player_id) + ' AND date=\'' + date_str + '\''
             cur = conn.cursor()
             cur.execute(sql)
             row = cur.fetchone()
@@ -164,7 +164,7 @@ class HattrickMatch():
         try:
             conn = psycopg2.connect(\
                 'dbname=' + db_name + ' user=myuser host=localhost port=65432 password=123qwe')
-            sql = 'SELECT num FROM player WHERE playerid =' + str(PlayerId) + ' LIMIT 1'
+            sql = 'SELECT num FROM player_new WHERE playerid =' + str(PlayerId) + ' LIMIT 1'
             cur = conn.cursor()
             cur.execute(sql)
             row = cur.fetchone()
@@ -180,7 +180,7 @@ class HattrickMatch():
         try:
             conn = psycopg2.connect( \
                 'dbname=' + db_name + ' user=myuser host=localhost port=65432 password=123qwe')
-            sql = 'SELECT COUNT(playerid) FROM player WHERE playerid =' + str(PlayerId)
+            sql = 'SELECT COUNT(playerid) FROM player_new WHERE playerid =' + str(PlayerId)
             cur = conn.cursor()
             cur.execute(sql)
             row = cur.fetchone()
@@ -218,7 +218,7 @@ class HattrickMatch():
         try:
             conn = psycopg2.connect( \
                 'dbname=' + db_name + ' user=myuser host=localhost port=65432 password=123qwe')
-            sql = 'SELECT rt FROM player WHERE playerid =' + str(playerid) + ' AND date =\'' + date_str + '\''
+            sql = 'SELECT rt FROM player_new WHERE playerid =' + str(playerid) + ' AND date =\'' + date_str + '\''
             cur = conn.cursor()
             cur.execute(sql)
             row = cur.fetchone()
