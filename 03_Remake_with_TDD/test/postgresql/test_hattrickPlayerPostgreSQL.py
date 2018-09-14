@@ -8,7 +8,7 @@ class TestHattrickPlayerPostgreSQL(TestCase):
     def test_select_player(self):
         conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
         ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
-        tuple_list = ht_player_pg.select_player(conn, '2018/06/27')
+        tuple_list = ht_player_pg.select_player(conn, 'player', '2018/06/27')
         ht_player_pg.print(tuple_list)
         conn.close()
 
@@ -43,4 +43,11 @@ class TestHattrickPlayerPostgreSQL(TestCase):
             for row in reader:
                 if row[0] != "Number":
                     ht_player_pg.insert_player(conn, 'player_new', '2018-09-05', row)
+        conn.close()
+
+    def test_select_fw(self):
+        conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
+        ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
+        tuple_list = ht_player_pg.select_fw(conn, 'player_new', '2018/09/12', [16, 31, 48, 55])
+        ht_player_pg.print(tuple_list)
         conn.close()

@@ -303,8 +303,35 @@ class HattrickPlayerPostgreSQL():
             if cursor.closed is False:
                 cursor.close()
 
-    def print(self, tuple_list):
+    def select_fw(self, conn, table_name, time, number_list):
+        try:
+            number_list_str = "("
+            for num in number_list:
+                number_list_str += str(num) + ","
+            number_list_str = number_list_str[:-1]
+            number_list_str += ")"
+            cursor = conn.cursor()
+            sql = ""
+            sql += "SELECT                                         \n"
+            sql += "    num, b_p, b_p_v, fw_p, fwd_p, fwtw_p, tdf_p\n"
+            sql += "FROM " + table_name + "                        \n"
+            sql += "WHERE                                          \n"
+            sql += "    num in " + number_list_str + "             \n"
+            sql += "    AND date = '" + time.replace('/', '-') + "'\n"
+            sql += "ORDER BY num                                     "
+            cursor.execute(sql)
+            tuple_list = cursor.fetchall()
+            return tuple_list
+        except (Exception, psycopg2.DatabaseError) as error:
+            print("Error Happen")
+            print(sql)
+            print(error)
+        finally:
+            if cursor.closed is False:
+                cursor.close()
+
+    def print(self, tuple_list, sep=','):
         for t in tuple_list:
             for i in range(len(t) - 1):
-                print(str(t[i]) + ',', end='', flush=True)
+                print(str(t[i]) + sep, end='', flush=True)
             print(str(t[-1]))
