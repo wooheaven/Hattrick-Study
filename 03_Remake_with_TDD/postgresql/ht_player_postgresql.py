@@ -187,12 +187,55 @@ class HattrickPlayerPostgreSQL():
                             "target_table": AsIs(target_table)})
             conn.commit()
         except (Exception, psycopg2.DatabaseError) as error:
-            print("Error Happend")
+            print("Error happened")
             print(error)
             print(sql)
         finally:
             if cursor.closed is False:
                 cursor.close()
+
+    def insert_player_from_select(self, conn, target_table, from_table):
+        try:
+            cursor = conn.cursor()
+            sql = ""
+            sql += "INSERT INTO %(target_table)s (                           " + "\n"
+            sql += "    date,                                -- 2            " + "\n"
+            sql += "    num, nat, player, playerid, spacial, -- 3, 4, 5, 6, 7" + "\n"
+            sql += "    st, age, since, tsi, ls,             -- 8, 9,10,11,12" + "\n"
+            sql += "    xp, fo, stm, lo, mb,                 --13,14,15,16,17" + "\n"
+            sql += "    kp, df, pm, wi, ps,                  --18,19,20,21,22" + "\n"
+            sql += "    sc, sp, con,                         --23,24,25      " + "\n"
+            sql += "    last,                                --26            " + "\n"
+            sql += "    rt,                                  --27            " + "\n"
+            sql += "    po, wage, g,                         --28,29,30      " + "\n"
+            sql += "    kp_p, wb_p, cd_p, w_p, im_p,         --31,32,33,34,35" + "\n"
+            # sql += "    fw_p )                               --36            " + "\n"
+            sql += "    fw_p, fwd_p, fwtw_p, tdf_p,          --36,37,38,39   " + "\n"
+            sql += "    b_p, b_p_v)                          --40,41         " + "\n"
+            sql += "(SELECT                                                  " + "\n"
+            sql += "    date,                                -- 2            " + "\n"
+            sql += "    num, nat, player, playerid, spacial, -- 3, 4, 5, 6, 7" + "\n"
+            sql += "    st, age, since, tsi, ls,             -- 8, 9,10,11,12" + "\n"
+            sql += "    xp, fo, stm, lo, mb,                 --13,14,15,16,17" + "\n"
+            sql += "    kp, df, pm, wi, ps,                  --18,19,20,21,22" + "\n"
+            sql += "    sc, sp, con,                         --23,24,25      " + "\n"
+            sql += "    last,                                --26            " + "\n"
+            sql += "    rt,                                  --27            " + "\n"
+            sql += "    po, wage, g,                         --28,29,30      " + "\n"
+            sql += "    kp_p, wb_p, cd_p, w_p, im_p,         --31,32,33,34,35" + "\n"
+            # sql += "    fw_p                                 --36            " + "\n"
+            sql += "    fw_p, fwd_p, fwtw_p, tdf_p,          --36,37,38,39   " + "\n"
+            sql += "    b_p, b_p_v                           --40,41         " + "\n"
+            sql += "FROM %(from_table)s                                      " + "\n"
+            sql += "ORDER BY date,num)                                       " + "\n"
+            cursor.execute(sql,
+                           {"from_table": AsIs(from_table),
+                            "target_table": AsIs(target_table)})
+            conn.commit()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print("Error happened")
+            print(error)
+            print(sql)
 
     def insert_player(self, conn, table_name, time, row):
         try:
@@ -238,7 +281,7 @@ class HattrickPlayerPostgreSQL():
                           )
             conn.commit()
         except (Exception, psycopg2.DatabaseError) as error:
-            print("Error Happend")
+            print("Error happened")
             print(error)
             print(time)
             print(row)
@@ -294,7 +337,7 @@ class HattrickPlayerPostgreSQL():
                                  ))
             conn.commit()
         except (Exception, psycopg2.DatabaseError) as error:
-            print("Error Happend")
+            print("Error happened")
             print(error)
             print(time)
             print(row)
