@@ -54,15 +54,15 @@ class HattrickMatchPostgreSQL():
         try:
             cur = conn.cursor()
             sql = ""
-            sql += "UPDATE match                              " + "\n"
-            sql += "SET rt = player.rt                        " + "\n"
-            sql += "FROM player                               " + "\n"
-            sql += "    WHERE                                 " + "\n"
-            sql += "        match.date = player.date          " + "\n"
-            sql += "            and player.date = player.last " + "\n"
-            sql += "            and match.po = player.po      " + "\n"
-            sql += "            and match.num = player.num    " + "\n"
-            sql += "            and match.rt != player.rt     "
+            sql += "UPDATE match                      " + "\n"
+            sql += "SET rt = p.rt                     " + "\n"
+            sql += "FROM player_new AS p              " + "\n"
+            sql += "    WHERE                         " + "\n"
+            sql += "        match.date = p.date       " + "\n"
+            sql += "            and p.date = p.last   " + "\n"
+            sql += "            and match.po = p.po   " + "\n"
+            sql += "            and match.num = p.num " + "\n"
+            sql += "            and match.rt != p.rt  "
             cur.execute(sql)
             conn.commit()
         except (Exception, psycopg2.DatabaseError) as error:
