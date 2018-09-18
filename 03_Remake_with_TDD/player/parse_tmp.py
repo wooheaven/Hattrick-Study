@@ -50,22 +50,43 @@ class Parse():
                         4: 'Special',
                         5: 'Stat',
                         6: 'Age',
+                        7: 'Since',
+                        8: 'TSI',
+                        9: 'LS',
+                        10: 'XP',
+                        11: 'Fo',
+                        12: 'Stm',
+                        13: 'Lo',
                         14: 'MB',
+                        15: 'KP',
+                        16: 'DF',
+                        17: 'PM',
+                        18: 'WI',
+                        19: 'PS',
+                        20: 'SC',
+                        21: 'SP',
+                        22: 'Psico',
                         23: 'Last',
-                        28: 'TC',
-                        29: 'PH',
-                        30: 'KPPos',
-                        31: 'WBPos',
-                        32: 'CDPos',
-                        33: 'WPos',
-                        34: 'IMPos',
-                        35: 'FWPos',
-                        36: 'FWdPos',
-                        37: 'FWtwPos',
-                        38: 'TDFPos',
-                        39: 'BPo',
-                        40: 'BPoV'
-                        }
+                        24: 'Rt',
+                        25: 'Pos',
+                        26: 'Wage',
+                        27: 'G',
+                        # 27: 'TC',
+                        # 28: 'PH',
+                        28: 'KPPos',
+                        29: 'WBdPos',
+                        30: 'WBPos',
+                        31: 'WBtmPos',
+                        32: 'WBoPos',
+                        33: 'CDPos',
+                        34: 'WPos',
+                        35: 'IMPos',
+                        36: 'FWPos',
+                        37: 'FWdPos',
+                        38: 'FWtwPos',
+                        39: 'TDFPos',
+                        40: 'BPo',
+                        41: 'BPoV'}
         self.df.rename(columns=column_names, inplace=True)
 
         self.df['Number'][0] = 'Number'
@@ -98,18 +119,12 @@ class Parse():
 
         self.df['Last'] = self.df['Last'].str.extract('(....-..-..)')
         self.df['Last'][0] = 'Last'
-        self.df['TC'] = self.df['TC'].str.replace('(\[playerid\=\d{9}\])', '')
-        self.df['PH'] = self.df['PH'].str.replace('(\[playerid\=\d{9}\])', '')
         self.df = self.df.replace(np.nan, '', regex=True)
 
         cols = self.df.columns.tolist()
         cols = cols[0:2] + cols[-2:] + cols[3:-2]
 
         self.df = self.df[cols]
-
-        # 0 for rows and 1 for columns
-        self.df.drop('TC', axis=1, inplace=True)
-        self.df.drop('PH', axis=1, inplace=True)
 
     def print_df_cols(self):
         print(self.df.columns.tolist())
