@@ -1,4 +1,4 @@
-Number,Nat,Player,PlayerID,Special,Stat,Age,Since,TSI,LS,XP,Fo,Stm,Lo,FALSE,KP,DF,PM,WI,PS,SC,SP,Psico,Last,Rt,Pos,Wage,G,KPPos,WBd,WBPos,WBtm,WBo,CDPos,WPos,IMPos,FWPos,FWdPos,FWtwPos,TDFPos,BPo,BPoV
+Number,Nat,Player,PlayerID,Special,Stat,Age,Since,TSI,LS,XP,Fo,Stm,Lo,FALSE,KP,DF,PM,WI,PS,SC,SP,Psico,Last,Rt,Pos,Wage,G,KPPos,WBdPos,WBPos,WBtmPos,WBoPos,CDPos,WPos,IMPos,FWPos,FWdPos,FWtwPos,TDFPos,BPo,BPoV
 2,Hanguk,Jee-Hoon Kim,428709461,,,22.85,3 시즌 15 주 2 일,45240,3,2,5,8,20,TRUE,14,5,1,1,1,2,8,1489,2018-09-12,6,KP,11930000,0,10.75,4.54,4.21,4.27,3.88,4.36,2.93,2.75,2.68,2.52,2.67,0,KP,10.75
 4,Hanguk,Ji-Woon Lee,427619236,,,23.14,4 시즌 7 주 2 일,1110,5,3,6,8,20,TRUE,1,7,4,3,5,2,7,710,,,,390000,26,4.31,7.09,6.79,6.92,6.5,7.08,5.81,5.76,4.73,5.25,4.63,0,CDtw,7.13
 6,Hanguk,Jae-Shin Cha,427619238,,Y×2,30.107,4 시즌 7 주 2 일,710,5,6,6,6,20,TRUE,1,7,3,6,3,1,10,731,2018-09-16,4,WB,360000,23,4.46,7.38,7.13,6.98,6.86,6.79,5.83,5.02,4.3,4.48,4.62,0,WBd,7.38

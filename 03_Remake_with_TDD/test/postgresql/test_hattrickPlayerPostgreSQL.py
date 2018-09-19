@@ -25,13 +25,13 @@ class TestHattrickPlayerPostgreSQL(TestCase):
         conn.close()
 
     def test_create_player(self):
-        conn = psycopg2.connect("dbname='mydatabase2' user='myuser' host='localhost' port='65432' password='123qwe'")
+        conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
         ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
-        ht_player_pg.drop_table(conn=conn, target_table='player_new')
-        ht_player_pg.create_player_new(conn=conn, target_table='player_new')
+        ht_player_pg.drop_table(conn=conn, target_table='player')
+        ht_player_pg.create_player(conn=conn, target_table='player')
         conn.close()
 
-    def test_insert_player_new_from_new_csv(self):
+    def test_insert_player_new_from_csv(self):
         conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
         ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
         with open('../2018/09/06/player.csv', 'r') as read_file:
@@ -41,14 +41,14 @@ class TestHattrickPlayerPostgreSQL(TestCase):
                     ht_player_pg.insert_player_new(conn, 'player_new', '2018-09-06', row)
         conn.close()
 
-    def test_insert_player_new_from_old_csv(self):
+    def test_insert_player_from_csv(self):
         conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
         ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
-        with open('../2018/09/05/player.csv', 'r') as read_file:
+        with open('../2018/09/18/player.csv', 'r') as read_file:
             reader = csv.reader(read_file, delimiter=',')
             for row in reader:
                 if row[0] != "Number":
-                    ht_player_pg.insert_player(conn, 'player_new', '2018-09-05', row)
+                    ht_player_pg.insert_player(conn, 'player', '2018-09-18', row)
         conn.close()
 
     def test_select_fw(self):
