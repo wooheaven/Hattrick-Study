@@ -214,10 +214,17 @@ class HattrickPlayerPostgreSQL():
             sql += "    last,                                --26            " + "\n"
             sql += "    rt,                                  --27            " + "\n"
             sql += "    po, wage, g,                         --28,29,30      " + "\n"
-            sql += "    kp_p, wb_p, cd_p, w_p, im_p,         --31,32,33,34,35" + "\n"
-            # sql += "    fw_p )                               --36            " + "\n"
-            sql += "    fw_p, fwd_p, fwtw_p, tdf_p,          --36,37,38,39   " + "\n"
-            sql += "    b_p, b_p_v)                          --40,41         " + "\n"
+
+            # sql += "    kp_p, wb_p, cd_p, w_p, im_p,         --31,32,33,34,35" + "\n"
+            # sql += "    fw_p, fwd_p, fwtw_p, tdf_p,          --36,37,38,39   " + "\n"
+            # sql += "    b_p, b_p_v)                          --40,41         " + "\n"
+
+            sql += "    kp_p,                                --31,             " + "\n"
+            sql += "    wbd_p, wb_p,  wbtm_p, wbo_p,         --32,33,34,35,    " + "\n"
+            sql += "    cd_p,  w_p,   im_p,                  --36,37,38,       " + "\n"
+            sql += "    fw_p,  fwd_p, fwtw_p, tdf_p,         --39,40,41,42,    " + "\n"
+            sql += "    b_p,   b_p_v)                        --43,44           " + "\n"
+
             sql += "(SELECT                                                  " + "\n"
             sql += "    date,                                -- 2            " + "\n"
             sql += "    num, nat, player, playerid, spacial, -- 3, 4, 5, 6, 7" + "\n"
@@ -228,10 +235,17 @@ class HattrickPlayerPostgreSQL():
             sql += "    last,                                --26            " + "\n"
             sql += "    rt,                                  --27            " + "\n"
             sql += "    po, wage, g,                         --28,29,30      " + "\n"
-            sql += "    kp_p, wb_p, cd_p, w_p, im_p,         --31,32,33,34,35" + "\n"
-            # sql += "    fw_p                                 --36            " + "\n"
-            sql += "    fw_p, fwd_p, fwtw_p, tdf_p,          --36,37,38,39   " + "\n"
-            sql += "    b_p, b_p_v                           --40,41         " + "\n"
+
+            # sql += "    kp_p, wb_p, cd_p, w_p, im_p,         --31,32,33,34,35" + "\n"
+            # sql += "    fw_p, fwd_p, fwtw_p, tdf_p,          --36,37,38,39   " + "\n"
+            # sql += "    b_p, b_p_v                           --40,41         " + "\n"
+
+            sql += "    kp_p,                                --31,           " + "\n"
+            sql += "    wbd_p, wb_p,  wbtm_p, wbo_p,         --32,33,34,35,  " + "\n"
+            sql += "    cd_p,  w_p,   im_p,                  --36,37,38,     " + "\n"
+            sql += "    fw_p,  fwd_p, fwtw_p, tdf_p,         --39,40,41,42,  " + "\n"
+            sql += "    b_p,   b_p_v                         --43,44         " + "\n"
+
             sql += "FROM %(from_table)s                                      " + "\n"
             sql += "ORDER BY date,num)                                       " + "\n"
             cursor.execute(sql,
