@@ -1,5 +1,5 @@
 import psycopg2
-
+from psycopg2.extensions import AsIs
 
 class HattrickMatchPostgreSQL():
 
@@ -50,20 +50,20 @@ class HattrickMatchPostgreSQL():
             if cur is not None:
                 cur.close()
 
-    def update_rt_of_match(self, conn):
+    def update_rt_of_match(self, conn, player_table_name):
         try:
             cur = conn.cursor()
             sql = ""
             sql += "UPDATE match                      " + "\n"
             sql += "SET rt = p.rt                     " + "\n"
-            sql += "FROM player_new AS p              " + "\n"
+            sql += "FROM %(player_table_name)s AS p   " + "\n"
             sql += "    WHERE                         " + "\n"
             sql += "        match.date = p.date       " + "\n"
             sql += "            and p.date = p.last   " + "\n"
             sql += "            and match.po = p.po   " + "\n"
             sql += "            and match.num = p.num " + "\n"
             sql += "            and match.rt != p.rt  "
-            cur.execute(sql)
+            cur.execute(sql, {"player_table_name" : AsIs(player_table_name)})
             conn.commit()
         except (Exception, psycopg2.DatabaseError) as error:
             print(sql)
