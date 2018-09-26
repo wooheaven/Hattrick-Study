@@ -3,8 +3,9 @@ import psycopg2
 
 from bs4 import BeautifulSoup
 
+
 class HattrickMatch():
-    def isHome(self, filePath, db_name):
+    def isHome(self, filePath, db_name, table_name):
         soup = None
         with open(filePath, 'r') as file:
             soup = BeautifulSoup(file.read(), "html.parser")
@@ -24,12 +25,12 @@ class HattrickMatch():
                 break
 
         kp_player_count = 0
-        kp_player_count = self.selectCountOfWherePlayerID(kp_player_id, db_name)
+        kp_player_count = self.selectCountOfWherePlayerID(kp_player_id, db_name, table_name)
         return (kp_player_count > 0)
 
-    def findMatchList(self, filePath, db_name):
+    def findMatchList(self, filePath, db_name, table_name):
         isHome = None
-        isHome = self.isHome(filePath, db_name)
+        isHome = self.isHome(filePath, db_name, table_name)
 
         soup = None
         with open(filePath, 'r') as file:
@@ -98,7 +99,7 @@ class HattrickMatch():
             if (position_id == -1):
                 date_str = filePath[:10]
                 match_dict_list[index]['PositionID'] = \
-                    self.selectPOWherePlayerID(match_dict_list[index]['PlayerId'], date_str, db_name)
+                    self.selectPOWherePlayerID(match_dict_list[index]['PlayerId'], date_str, db_name, table_name)
                 continue
 
         # change FromMin
@@ -112,7 +113,9 @@ class HattrickMatch():
 
         # find PlayerNum
         for index in range(0, len(match_dict_list)):
-            match_dict_list[index]['PlayerNum'] = self.selectPlayerNumWherePlayerId(match_dict_list[index]['PlayerId'], db_name)
+            match_dict_list[index]['PlayerNum'] = self.selectPlayerNumWherePlayerId(match_dict_list[index]['PlayerId'],
+                                                                                    db_name,
+                                                                                    table_name)
 
         # sort by PositionID
         def PositionID_key_sort_func(single_player):
@@ -138,16 +141,22 @@ class HattrickMatch():
             if (starts == -1.0):
                 date_str = filePath[:10]
                 playerid = match_dict_list[index]['PlayerId']
-                match_dict_list[index]['Stars'] = self.selectRTWhereDateAndPlayerId(date_str, playerid, db_name)
+                match_dict_list[index]['Stars'] = self.selectRTWhereDateAndPlayerId(date_str,
+                                                                                    playerid,
+                                                                                    db_name,
+                                                                                    table_name)
 
         return match_dict_list
 
-    def selectPOWherePlayerID(self, player_id, date_str, db_name):
+    def selectPOWherePlayerID(self, player_id, date_str, db_name, table_name):
         conn = None
         try:
             conn = psycopg2.connect(\
                 'dbname=' + db_name + ' user=myuser host=localhost port=65432 password=123qwe')
-            sql = 'SELECT po FROM player_new WHERE playerid =' + str(player_id) + ' AND date=\'' + date_str + '\''
+            sql = ''
+            sql += 'SELECT po '
+            sql += 'FROM ' + table_name + ' '
+            sql += 'WHERE playerid = ' + str(player_id) + ' AND date=\'' + date_str + '\''
             cur = conn.cursor()
             cur.execute(sql)
             row = cur.fetchone()
@@ -159,12 +168,12 @@ class HattrickMatch():
                 conn.close()
         return row[0]
 
-    def selectPlayerNumWherePlayerId(self, PlayerId, db_name):
+    def selectPlayerNumWherePlayerId(self, PlayerId, db_name, table_name):
         conn = None
         try:
             conn = psycopg2.connect(\
                 'dbname=' + db_name + ' user=myuser host=localhost port=65432 password=123qwe')
-            sql = 'SELECT num FROM player_new WHERE playerid =' + str(PlayerId) + ' LIMIT 1'
+            sql = 'SELECT num FROM ' + table_name + ' WHERE playerid =' + str(PlayerId) + ' LIMIT 1'
             cur = conn.cursor()
             cur.execute(sql)
             row = cur.fetchone()
@@ -175,12 +184,11 @@ class HattrickMatch():
                 conn.close()
         return row[0]
 
-    def selectCountOfWherePlayerID(self, PlayerId, db_name):
+    def selectCountOfWherePlayerID(self, PlayerId, db_name, table_name):
         conn = None
         try:
-            conn = psycopg2.connect( \
-                'dbname=' + db_name + ' user=myuser host=localhost port=65432 password=123qwe')
-            sql = 'SELECT COUNT(playerid) FROM player_new WHERE playerid =' + str(PlayerId)
+            conn = psycopg2.connect('dbname=' + db_name + ' user=myuser host=localhost port=65432 password=123qwe')
+            sql = 'SELECT COUNT(playerid) FROM ' + table_name + ' WHERE playerid =' + str(PlayerId)
             cur = conn.cursor()
             cur.execute(sql)
             row = cur.fetchone()
@@ -213,12 +221,12 @@ class HattrickMatch():
             match_str_list.append(str_line)
         return match_str_list
 
-    def selectRTWhereDateAndPlayerId(self, date_str, playerid, db_name):
+    def selectRTWhereDateAndPlayerId(self, date_str, playerid, db_name, table_name):
         conn = None
         try:
             conn = psycopg2.connect( \
                 'dbname=' + db_name + ' user=myuser host=localhost port=65432 password=123qwe')
-            sql = 'SELECT rt FROM player_new WHERE playerid =' + str(playerid) + ' AND date =\'' + date_str + '\''
+            sql = 'SELECT rt FROM ' + table_name + ' WHERE playerid =' + str(playerid) + ' AND date =\'' + date_str + '\''
             cur = conn.cursor()
             cur.execute(sql)
             row = cur.fetchone()
