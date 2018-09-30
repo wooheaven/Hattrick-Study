@@ -71,8 +71,6 @@ class Parse():
                         25: 'Pos',
                         26: 'Wage',
                         27: 'G',
-                        # 27: 'TC',
-                        # 28: 'PH',
                         28: 'KPPos',
                         29: 'WBdPos',
                         30: 'WBPos',
