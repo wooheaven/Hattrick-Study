@@ -18,7 +18,7 @@ class HattrickPlayerPostgreSQL():
             if cursor.closed is False:
                 cursor.close()
 
-    def create_player_new(self, conn, target_table):
+    def create_player_tmp(self, conn, target_table):
         try:
             cursor = conn.cursor()
             query = ""
@@ -52,21 +52,24 @@ class HattrickPlayerPostgreSQL():
             query += "    RT       NUMERIC(2, 1),               --27 Rating                          " + "\n"
             query += "    Po       VARCHAR(5),                  --28 Position                        " + "\n"
             query += "    Wage     BIGINT,                      --29                                 " + "\n"
-            query += "    G        INT,                         --30                                 " + "\n"
-            query += "    --TC  VARCHAR(1),                     --                                   " + "\n"
-            query += "    --PH  VARCHAR(1),                     --                                   " + "\n"
+            query += "    G        INT,                         --30 Goal                            " + "\n"
             query += "    KP_P     NUMERIC(4, 2),               --31 KP Position                     " + "\n"
-            query += "    WB_P     NUMERIC(4, 2),               --32 WB Position                     " + "\n"
-            query += "    CD_P     NUMERIC(4, 2),               --33 CD Position                     " + "\n"
-            query += "    W_P      NUMERIC(4, 2),               --34 W  Position                     " + "\n"
-            query += "    IM_P     NUMERIC(4, 2),               --35 IM Position                     " + "\n"
-            query += "    FW_P     NUMERIC(4, 2),               --36 FW Position                     " + "\n"
-            query += "    FWD_P    NUMERIC(4, 2),               --37 FW Defensive Position           " + "\n"
-            query += "    FWTW_P   NUMERIC(4, 2),               --38 FW Towards Wing Position        " + "\n"
-            query += "    TDF_P    NUMERIC(4, 2),               --39 Technical Defensive FW Position " + "\n"
-            query += "    B_P      VARCHAR(10),                 --40 Best Position                   " + "\n"
-            query += "    B_P_V    VARCHAR(10)                  --41 Best Position Value             " + "\n"
-            query += ")                                                                              "
+            query += "    WBd_P    NUMERIC(4, 2),               --32 WB Defensive Position           " + "\n"
+            query += "    WB_P     NUMERIC(4, 2),               --33 WB Position                     " + "\n"
+            query += "    WBtm_P   NUMERIC(4, 2),               --34 WB Towards Middle Position      " + "\n"
+            query += "    WBo_P    NUMERIC(4, 2),               --35 WB Offensive Position           " + "\n"
+            query += "    CD_P     NUMERIC(4, 2),               --36 CD Position                     " + "\n"
+            query += "    CDtw_P   NUMERIC(4, 2),               --37 CD Position                     " + "\n"
+            query += "    CDo_P    NUMERIC(4, 2),               --38 CD Position                     " + "\n"
+            query += "    W_P      NUMERIC(4, 2),               --39 W  Position                     " + "\n"
+            query += "    IM_P     NUMERIC(4, 2),               --40 IM Position                     " + "\n"
+            query += "    FW_P     NUMERIC(4, 2),               --41 FW Position                     " + "\n"
+            query += "    FWd_P    NUMERIC(4, 2),               --42 FW Defensive Position           " + "\n"
+            query += "    FWtw_P   NUMERIC(4, 2),               --43 FW Towards Wing Position        " + "\n"
+            query += "    TDF_P    NUMERIC(4, 2),               --44 Technical Defensive FW Position " + "\n"
+            query += "    B_P      VARCHAR(10),                 --45 Best Position                   " + "\n"
+            query += "    B_P_V    VARCHAR(10)                  --46 Best Position Value             " + "\n"
+            query += ") "
             cursor.execute(query, {"target_table": AsIs(target_table)})
             conn.commit()
         except (Exception, psycopg2.DatabaseError) as error:
@@ -318,51 +321,62 @@ class HattrickPlayerPostgreSQL():
             if cursor.closed is False:
                 cursor.close()
 
-    def insert_player_new(self, conn, table_name, time, row):
+    def insert_player_tmp(self, conn, table_name, time, row):
         try:
             cursor = conn.cursor()
             sql = ""
-            sql += "INSERT INTO " + table_name + " (                                                        " + "\n"
-            sql += "    date,                                -- 2                                           " + "\n"
-            sql += "    num, nat, player, playerid, spacial, -- 3, 4, 5, 6, 7                               " + "\n"
-            sql += "    st, age, since, tsi, ls,             -- 8, 9,10,11,12                               " + "\n"
-            sql += "    xp, fo, stm, lo, mb,                 --13,14,15,16,17                               " + "\n"
-            sql += "    kp, df, pm, wi, ps,                  --18,19,20,21,22                               " + "\n"
-            sql += "    sc, sp, con,                         --23,24,25                                     " + "\n"
-            sql += "    last,                                --26                                           " + "\n"
-            sql += "    rt,                                  --27                                           " + "\n"
-            sql += "    po, wage, g,                         --28,29,30                                     " + "\n"
-            sql += "    kp_p, wb_p, cd_p, w_p, im_p,         --31,32,33,34,35                               " + "\n"
-            sql += "    fw_p, fwd_p, fwtw_p, tdf_p,          --36,37,38,39                                  " + "\n"
-            sql += "    b_p, b_p_v                           --40,41                                        " + "\n"
+            sql += "INSERT INTO " + table_name + " (                                " + "\n"
+            sql += "    date,                                     -- 2,             " + "\n"
+            sql += "    num,   nat,    player, playerid, spacial, -- 3, 4, 5, 6, 7, " + "\n"
+            sql += "    st,    age,    since,  tsi,      ls,      -- 8, 9,10,11,12, " + "\n"
+            sql += "    xp,    fo,     stm,    lo,       mb,      --13,14,15,16,17, " + "\n"
+            sql += "    kp,    df,     pm,     wi,       ps,      --18,19,20,21,22, " + "\n"
+            sql += "    sc,    sp,     con,                       --23,24,25,       " + "\n"
+            sql += "    last,                                     --26,             " + "\n"
+            sql += "    rt,                                       --27,             " + "\n"
+            sql += "    po,    wage,   g,                         --28,29,30,       " + "\n"
+            sql += "    kp_p,                                     --31,             " + "\n"
+            sql += "    wbd_p, wb_p,   wbtm_p, wbo_p,             --32,33,34,35,    " + "\n"
+            sql += "    cd_p,  cdtw_p, cdo_p,                     --36,37,38,       " + "\n"
+            sql += "    w_p,                                      --39              " + "\n"
+            sql += "    im_p,                                     --40              " + "\n"
+            sql += "    fw_p,  fwd_p,  fwtw_p, tdf_p,             --41,42,43,44     " + "\n"
+            sql += "    b_p,   b_p_v                              --45,46           " + "\n"
             sql += ") (                                                                                     " + "\n"
             sql += "    SELECT                                                                              " + "\n"
-            sql += "        to_date(%s, 'YYYY-MM-DD'),                                    -- 2              " + "\n"
-            sql += "        %s, %s, %s, %s, %s,                                           -- 3, 4, 5, 6, 7  " + "\n"
-            sql += "        %s, %s, %s, %s, %s,                                           -- 8, 9,10,11,12  " + "\n"
-            sql += "        %s, %s, %s, %s, %s,                                           --13,14,15,16,17  " + "\n"
-            sql += "        %s, %s, %s, %s, %s,                                           --18,19,20,21,22  " + "\n"
-            sql += "        %s, %s, %s,                                                   --23,24,25        " + "\n"
-            sql += "        to_date(coalesce(nullif(%s,''), '0001-01-01'), 'YYYY-MM-DD'), --26              " + "\n"
-            sql += "        cast(coalesce(nullif(%s,''),'0.0') as float),                 --27              " + "\n"
-            sql += "        %s, %s, %s,                                                   --28,29,30        " + "\n"
-            sql += "        %s, %s, %s, %s, %s,                                           --31,32,33,34,35  " + "\n"
-            sql += "        %s, %s, %s, %s,                                               --36,37,38,39     " + "\n"
-            sql += "        %s, %s                                                        --40,41           " + "\n"
+            sql += "        to_date(%s, 'YYYY-MM-DD'),                                    -- 2,             " + "\n"
+            sql += "        %s, %s, %s, %s, %s,                                           -- 3, 4, 5, 6, 7, " + "\n"
+            sql += "        %s, %s, %s, %s, %s,                                           -- 8, 9,10,11,12, " + "\n"
+            sql += "        %s, %s, %s, %s, %s,                                           --13,14,15,16,17, " + "\n"
+            sql += "        %s, %s, %s, %s, %s,                                           --18,19,20,21,22, " + "\n"
+            sql += "        %s, %s, %s,                                                   --23,24,25,       " + "\n"
+            sql += "        to_date(coalesce(nullif(%s,''), '0001-01-01'), 'YYYY-MM-DD'), --26,             " + "\n"
+            sql += "        cast(coalesce(nullif(%s,''),'0.0') as float),                 --27,             " + "\n"
+            sql += "        %s, %s, %s,                                                   --28,29,30,       " + "\n"
+            sql += "        %s,                                                           --31,             " + "\n"
+            sql += "        %s, %s, %s, %s,                                               --32,33,34,35,    " + "\n"
+            sql += "        %s, %s, %s,                                                   --36,37,38,       " + "\n"
+            sql += "        %s,                                                           --39,             " + "\n"
+            sql += "        %s,                                                           --40,             " + "\n"
+            sql += "        %s, %s, %s, %s,                                               --41,42,43,44     " + "\n"
+            sql += "        %s, %s                                                        --45,46           " + "\n"
             sql += ")                                                                                       " + "\n"
             cursor.execute(sql, (time,
-                                 row[0], row[1], row[2], row[3], row[4],
-                                 row[5], row[6], row[7], row[8], row[9],
+                                 row[0],  row[1],  row[2],  row[3],  row[4],
+                                 row[5],  row[6],  row[7],  row[8],  row[9],
                                  row[10], row[11], row[12], row[13], row[14],
                                  row[15], row[16], row[17], row[18], row[19],
                                  row[20], row[21], row[22],
                                  row[23],
                                  row[24],
                                  row[25], row[26], row[27],
-                                 row[28], row[29], row[30], row[31], row[32],
-                                 row[33], row[34], row[35], row[36],
-                                 row[37], row[38]
-                                 ))
+                                 row[28],
+                                 row[29], row[30], row[31], row[32],
+                                 row[33], row[34], row[35],
+                                 row[36],
+                                 row[37],
+                                 row[38], row[39], row[40], row[41],
+                                 row[42], row[43]))
             conn.commit()
         except (Exception, psycopg2.DatabaseError) as error:
             print("Error happened")
