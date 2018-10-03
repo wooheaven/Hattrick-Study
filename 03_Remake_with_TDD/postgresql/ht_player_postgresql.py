@@ -144,19 +144,41 @@ class HattrickPlayerPostgreSQL():
         try:
             cursor = conn.cursor()
             query = ""
-            query += "SELECT                                                                           " + "\n"
-            query += "    date :: VARCHAR(10), num, player, spacial, st,                       --01 05 " + "\n"
-            query += "    age, since, tsi, ls, xp,                                             --06 10 " + "\n"
-            query += "    fo, stm, lo, mb, kp,                                                 --11 15 " + "\n"
-            query += "    df, pm, wi, ps, sc,                                                  --16 20 " + "\n"
-            query += "    sp, con, last :: VARCHAR(10), rt :: VARCHAR(3), po,                  --21 25 " + "\n"
-            query += "    wage, g, kp_p :: VARCHAR(5), wb_p :: VARCHAR(5), cd_p :: VARCHAR(5), --26 30 " + "\n"
-            query += "    w_p :: VARCHAR(5), im_p :: VARCHAR(5), fw_p :: VARCHAR(5)            --31 35 " + "\n"
-            query += "FROM " + table_name + "                                                          " + "\n"
-            query += "WHERE                                                                            " + "\n"
-            query += "    date = %s -- AND date = last                                                 " + "\n"
-            query += "ORDER BY                                                                         " + "\n"
-            query += "    num, date                                                                    "
+            query += "SELECT                                                                   " + "\n"
+            query += "    date :: VARCHAR(10), num, player, spacial, st,      --01 05          " + "\n"
+            query += "    age, since, tsi, ls, xp,                            --06 10          " + "\n"
+            query += "    fo, stm, lo, mb, kp,                                --11 15          " + "\n"
+            query += "    df, pm, wi, ps, sc,                                 --16 20          " + "\n"
+            query += "    sp, con, last :: VARCHAR(10), rt :: VARCHAR(3), po, --21,22,23,24,25 " + "\n"
+            query += "    wage, g,                                            --26,27          " + "\n"
+
+            query += "    kp_p :: VARCHAR(5),                                 --28,            " + "\n"
+
+            query += "    wbd_p  :: VARCHAR(5),                               --29,            " + "\n"
+            query += "    wb_p   :: VARCHAR(5),                               --30,            " + "\n"
+            query += "    wbtm_p :: VARCHAR(5),                               --31             " + "\n"
+
+            query += "    cd_p   :: VARCHAR(5),                               --32,            " + "\n"
+            query += "    cdtw_p :: VARCHAR(5),                               --33,            " + "\n"
+            query += "    cdo_p  :: VARCHAR(5),                               --34,            " + "\n"
+
+            query += "    w_p    :: VARCHAR(5),                               --35,            " + "\n"
+            query += "    im_p   :: VARCHAR(5),                               --36,            " + "\n"
+
+            query += "    fw_p   :: VARCHAR(5),                               --37             " + "\n"
+            query += "    fwd_p  :: VARCHAR(5),                               --38             " + "\n"
+            query += "    fwtw_p :: VARCHAR(5),                               --39             " + "\n"
+            query += "    tdf_p  :: VARCHAR(5),                               --40             " + "\n"
+
+            query += "    b_p    :: VARCHAR(8),                               --41             " + "\n"
+            query += "    b_p_v  :: VARCHAR(8)                                --42             " + "\n"
+
+            query += "FROM " + table_name + "                                                  " + "\n"
+            query += "WHERE                                                                    " + "\n"
+            query += "    date = %s                                                            " + "\n"
+            query += "ORDER BY                                                                 " + "\n"
+            query += "    num, date                                                            "
+
             cursor.execute(query, (time.replace('/', '-'),))
             tuple_list = cursor.fetchall()
             return tuple_list
@@ -388,7 +410,7 @@ class HattrickPlayerPostgreSQL():
             if cursor.closed is False:
                 cursor.close()
 
-    def select_fw(self, conn, table_name, time, number_list):
+    def select(self, conn, table_name, time, number_list, mode):
         try:
             number_list_str = "("
             for num in number_list:
@@ -398,39 +420,17 @@ class HattrickPlayerPostgreSQL():
             cursor = conn.cursor()
             sql = ""
             sql += "SELECT                                         \n"
-            sql += "    num, b_p, b_p_v, fw_p, fwd_p, fwtw_p, tdf_p\n"
+            if mode == "fw":
+                sql += "    num, b_p, b_p_v, fw_p, fwd_p, fwtw_p, tdf_p\n"
+            elif mode == "wb":
+                sql += "    num, b_p, b_p_v, wbd_p, wb_p, wbtm_p, wbo_p\n"
+            elif mode == "cd":
+                sql += "    num, b_p, b_p_v, cd_p, cdtw_p, cdo_p\n"
             sql += "FROM " + table_name + "                        \n"
             sql += "WHERE                                          \n"
             sql += "    num in " + number_list_str + "             \n"
             sql += "    AND date = '" + time.replace('/', '-') + "'\n"
             sql += "ORDER BY num                                     "
-            cursor.execute(sql)
-            tuple_list = cursor.fetchall()
-            return tuple_list
-        except (Exception, psycopg2.DatabaseError) as error:
-            print("Error Happen")
-            print(sql)
-            print(error)
-        finally:
-            if cursor.closed is False:
-                cursor.close()
-
-    def select_wb(self, conn, table_name, time, number_list):
-        try:
-            number_list_str = "("
-            for num in number_list:
-                number_list_str += str(num) + ","
-            number_list_str = number_list_str[:-1]
-            number_list_str += ")"
-            cursor = conn.cursor()
-            sql = ""
-            sql += "SELECT                                           \n"
-            sql += "    num, b_p, b_p_v, wbd_p, wb_p, wbtm_p, wbo_p  \n"
-            sql += "FROM " + table_name + "                          \n"
-            sql += "WHERE                                            \n"
-            sql += "    num in " + number_list_str + "               \n"
-            sql += "    AND date = '" + time.replace('/', '-') + "'  \n"
-            sql += "ORDER BY num                                       "
             cursor.execute(sql)
             tuple_list = cursor.fetchall()
             return tuple_list

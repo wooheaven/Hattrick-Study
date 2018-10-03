@@ -53,9 +53,9 @@ class TestHattrickPlayerPostgreSQL(TestCase):
                     ht_player_pg.insert_player(conn, 'player', '2018-09-18', row)
         conn.close()
 
-    def test_select_fw(self):
+    def test_select(self):
         conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
         ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
-        tuple_list = ht_player_pg.select_fw(conn, 'player_new', '2018/09/12', [16, 31, 48, 55])
+        tuple_list = ht_player_pg.select(conn, 'player_tmp', '2018/09/12', [16, 31, 48, 55], 'fw')
         ht_player_pg.print(tuple_list)
         conn.close()
