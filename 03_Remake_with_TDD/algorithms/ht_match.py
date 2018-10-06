@@ -174,10 +174,12 @@ class HattrickMatch():
             conn = psycopg2.connect(\
                 'dbname=' + db_name + ' user=myuser host=localhost port=65432 password=123qwe')
             sql = 'SELECT num FROM ' + table_name + ' WHERE playerid =' + str(PlayerId) + ' LIMIT 1'
+            print(sql)
             cur = conn.cursor()
             cur.execute(sql)
             row = cur.fetchone()
         except (Exception, psycopg2.DatabaseError) as errors:
+            print(sql)
             print(errors)
         finally:
             if conn is not None:
