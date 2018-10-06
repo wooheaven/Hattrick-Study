@@ -42,50 +42,49 @@ class Parse():
 
     def modify_line_list(self, filename):
         self.df = pd.read_html(filename, encoding="utf-8")[0]  # get the first parsed dataframe
+        self.df = self.df.drop(0, axis=1)
 
-        column_names = {0: 'Number',
-                        1: 'Nat',
-                        2: 'PlayerStr',
-                        3: 'Special',
-                        4: 'Stat',
-                        5: 'Age',
-                        6: 'Since',
-                        7: 'TSI',
-                        8: 'LS',
-                        9: 'XP',
-                        10: 'Fo',
-                        11: 'Stm',
-                        12: 'Lo',
-                        13: 'MB',
-                        14: 'KP',
-                        15: 'DF',
-                        16: 'PM',
-                        17: 'WI',
-                        18: 'PS',
-                        19: 'SC',
-                        20: 'SP',
-                        21: 'Psico',
-                        22: 'Last',
-                        23: 'Rt',
-                        24: 'Pos',
-                        25: 'Wage',
-                        26: 'G',
-                        27: 'KPPos',
-                        28: 'WBdPos',
-                        29: 'WBPos',
-                        30: 'WBtmPos',
-                        31: 'WBoPos',
-                        32: 'CDPos',
-                        33: 'CDtwPos',
-                        34: 'CDoPos',
-                        35: 'WPos',
-                        36: 'IMPos',
-                        37: 'FWPos',
-                        38: 'FWdPos',
-                        39: 'FWtwPos',
-                        40: 'TDFPos',
-                        41: 'BPo',
-                        42: 'BPoV'}
+        column_names = {1: 'Number',
+                        2: 'Nat',
+                        3: 'PlayerStr',
+                        4: 'Special',
+                        5: 'Stat',
+                        6: 'Age',
+                        7: 'Since',
+                        8: 'TSI',
+                        9: 'LS',
+                        10: 'XP',
+                        11: 'Fo',
+                        12: 'Stm',
+                        13: 'Lo',
+                        14: 'MB',
+                        15: 'KP',
+                        16: 'DF',
+                        17: 'PM',
+                        18: 'WI',
+                        19: 'PS',
+                        20: 'SC',
+                        21: 'SP',
+                        22: 'Psico',
+                        23: 'Last',
+                        24: 'Rt',
+                        25: 'Pos',
+                        26: 'Wage',
+                        27: 'G',
+                        28: 'KPPos',
+                        29: 'WBdPos',
+                        30: 'WBPos',
+                        31: 'WBtmPos',
+                        32: 'WBoPos',
+                        33: 'CDPos',
+                        34: 'WPos',
+                        35: 'IMPos',
+                        36: 'FWPos',
+                        37: 'FWdPos',
+                        38: 'FWtwPos',
+                        39: 'TDFPos',
+                        40: 'BPo',
+                        41: 'BPoV'}
         self.df.rename(columns=column_names, inplace=True)
 
         self.df['Number'][0] = 'Number'
@@ -93,19 +92,13 @@ class Parse():
         self.df['Special'][0] = 'Special'
         self.df['Stat'][0] = 'Stat'
         self.df['KPPos'][0] = 'KPPos'
-
         self.df['WBdPos'][0] = 'WBdPos'
         self.df['WBPos'][0] = 'WBPos'
         self.df['WBtmPos'][0] = 'WBtmPos'
         self.df['WBoPos'][0] = 'WBoPos'
-
         self.df['CDPos'][0] = 'CDPos'
-        self.df['CDtwPos'][0] = 'CDtwPos'
-        self.df['CDoPos'][0] = 'CDoPos'
-
         self.df['WPos'][0] = 'WPos'
         self.df['IMPos'][0] = 'IMPos'
-
         self.df['FWPos'][0] = 'FWPos'
         self.df['FWdPos'][0] = 'FWdPos'
         self.df['FWtwPos'][0] = 'FWtwPos'
@@ -131,6 +124,7 @@ class Parse():
 
         cols = self.df.columns.tolist()
         cols = cols[0:2] + cols[-2:] + cols[3:-2]
+
         self.df = self.df[cols]
 
     def print_df_cols(self):
