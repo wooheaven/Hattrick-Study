@@ -2,6 +2,7 @@ import re
 import pandas as pd
 import numpy as np
 
+# add W_Pos -> CD_Pos
 class Parse():
     def __init__(self):
         self.line_list = []
