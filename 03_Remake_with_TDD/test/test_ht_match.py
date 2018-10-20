@@ -33,8 +33,8 @@ class TestHattrickMatch(TestCase):
     """
     def test_away_findMatchList(self):
         instance = ht_match.HattrickMatch()
-        filePath = '2018/04/18/match.html'
-        result = instance.findMatchList(filePath, 'mydatabase', 'player')
+        filePath = '2018/10/17/match.html'
+        result = instance.findMatchList(filePath, 'mydatabase', 'player_tmp')
         print(filePath)
         for match in result:
             print(match)
