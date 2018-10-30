@@ -123,10 +123,10 @@ class HattrickPlayerPostgreSQL():
             query += "    CD_P     NUMERIC(4, 2),               --36 CD Position                     " + "\n"
             query += "    CDtw_P   NUMERIC(4, 2),               --37 CD Position                     " + "\n"
             query += "    CDo_P    NUMERIC(4, 2),               --38 CD Position                     " + "\n"
-            query += "    W_P      NUMERIC(4, 2),               --39 W  Position                     " + "\n"
-            query += "    Wd_P     NUMERIC(4, 2),               --40 W  Position                     " + "\n"
-            query += "    Wo_P     NUMERIC(4, 2),               --41 W  Position                     " + "\n"
-            query += "    Wtm_P    NUMERIC(4, 2),               --42 W  Position                     " + "\n"
+            query += "    Wd_P     NUMERIC(4, 2),               --39 W  Position                     " + "\n"
+            query += "    W_P      NUMERIC(4, 2),               --40 W  Position                     " + "\n"
+            query += "    Wtm_P    NUMERIC(4, 2),               --41 W  Position                     " + "\n"
+            query += "    Wo_P     NUMERIC(4, 2),               --42 W  Position                     " + "\n"
             query += "    IM_P     NUMERIC(4, 2),               --43 IM Position                     " + "\n"
             query += "    FW_P     NUMERIC(4, 2),               --44 FW Position                     " + "\n"
             query += "    FWd_P    NUMERIC(4, 2),               --45 FW Defensive Position           " + "\n"
@@ -210,17 +210,17 @@ class HattrickPlayerPostgreSQL():
             if cursor.closed is False:
                 cursor.close()
 
-    def backup_player(self, conn, target_table, backup_table):
+    def backup_player(self, conn, from_table, to_table):
         try:
             cursor = conn.cursor()
             sql = ""
-            sql += "CREATE TABLE %(backup_table)s AS ( "
-            sql += "    SELECT * FROM %(target_table)s "
+            sql += "CREATE TABLE %(to_table)s AS ( "
+            sql += "    SELECT * FROM %(from_table)s "
             sql += "    ORDER BY date, num             "
             sql += ")                                  "
             cursor.execute(sql,
-                           {"backup_table": AsIs(backup_table),
-                            "target_table": AsIs(target_table)})
+                           {"to_table": AsIs(to_table),
+                            "from_table": AsIs(from_table)})
             conn.commit()
         except (Exception, psycopg2.DatabaseError) as error:
             print("Error happened")
@@ -230,11 +230,11 @@ class HattrickPlayerPostgreSQL():
             if cursor.closed is False:
                 cursor.close()
 
-    def insert_player_from_select(self, conn, target_table, from_table):
+    def insert_player_from_select(self, conn, to_table, from_table):
         try:
             cursor = conn.cursor()
             sql = ""
-            sql += "INSERT INTO %(target_table)s (                           " + "\n"
+            sql += "INSERT INTO %(to_table)s (                               " + "\n"
             sql += "    date,                                -- 2            " + "\n"
             sql += "    num, nat, player, playerid, spacial, -- 3, 4, 5, 6, 7" + "\n"
             sql += "    st, age, since, tsi, ls,             -- 8, 9,10,11,12" + "\n"
@@ -244,17 +244,13 @@ class HattrickPlayerPostgreSQL():
             sql += "    last,                                --26            " + "\n"
             sql += "    rt,                                  --27            " + "\n"
             sql += "    po, wage, g,                         --28,29,30      " + "\n"
-
-            # sql += "    kp_p, wb_p, cd_p, w_p, im_p,         --31,32,33,34,35" + "\n"
-            # sql += "    fw_p, fwd_p, fwtw_p, tdf_p,          --36,37,38,39   " + "\n"
-            # sql += "    b_p, b_p_v)                          --40,41         " + "\n"
-
-            sql += "    kp_p,                                --31,             " + "\n"
-            sql += "    wbd_p, wb_p,  wbtm_p, wbo_p,         --32,33,34,35,    " + "\n"
-            sql += "    cd_p,  w_p,   im_p,                  --36,37,38,       " + "\n"
-            sql += "    fw_p,  fwd_p, fwtw_p, tdf_p,         --39,40,41,42,    " + "\n"
-            sql += "    b_p,   b_p_v)                        --43,44           " + "\n"
-
+            sql += "    kp_p,                                --31,           " + "\n"
+            sql += "    wbd_p, wb_p,   wbtm_p, wbo_p,        --32,33,34,35,  " + "\n"
+            sql += "    cd_p,  cdtw_p, cdo_p,                --36,37,38      " + "\n"
+            sql += "    w_p,                                 --39,           " + "\n"
+            sql += "    im_p,                                --40,           " + "\n"
+            sql += "    fw_p,  fwd_p, fwtw_p, tdf_p,         --41,42,43,44   " + "\n"
+            sql += "    b_p,   b_p_v)                        --45,46         " + "\n"
             sql += "(SELECT                                                  " + "\n"
             sql += "    date,                                -- 2            " + "\n"
             sql += "    num, nat, player, playerid, spacial, -- 3, 4, 5, 6, 7" + "\n"
@@ -265,22 +261,18 @@ class HattrickPlayerPostgreSQL():
             sql += "    last,                                --26            " + "\n"
             sql += "    rt,                                  --27            " + "\n"
             sql += "    po, wage, g,                         --28,29,30      " + "\n"
-
-            # sql += "    kp_p, wb_p, cd_p, w_p, im_p,         --31,32,33,34,35" + "\n"
-            # sql += "    fw_p, fwd_p, fwtw_p, tdf_p,          --36,37,38,39   " + "\n"
-            # sql += "    b_p, b_p_v                           --40,41         " + "\n"
-
             sql += "    kp_p,                                --31,           " + "\n"
             sql += "    wbd_p, wb_p,  wbtm_p, wbo_p,         --32,33,34,35,  " + "\n"
-            sql += "    cd_p,  w_p,   im_p,                  --36,37,38,     " + "\n"
-            sql += "    fw_p,  fwd_p, fwtw_p, tdf_p,         --39,40,41,42,  " + "\n"
-            sql += "    b_p,   b_p_v                         --43,44         " + "\n"
-
+            sql += "    cd_p,  cdtw_p, cdo_p,                --36,37,38      " + "\n"
+            sql += "    w_p,                                 --39,           " + "\n"
+            sql += "    im_p,                                --40,           " + "\n"
+            sql += "    fw_p,  fwd_p, fwtw_p, tdf_p,         --41,42,43,44   " + "\n"
+            sql += "    b_p,   b_p_v                         --45,46         " + "\n"
             sql += "FROM %(from_table)s                                      " + "\n"
             sql += "ORDER BY date,num)                                       " + "\n"
             cursor.execute(sql,
                            {"from_table": AsIs(from_table),
-                            "target_table": AsIs(target_table)})
+                            "to_table": AsIs(to_table)})
             conn.commit()
         except (Exception, psycopg2.DatabaseError) as error:
             print("Error happened")
@@ -304,7 +296,7 @@ class HattrickPlayerPostgreSQL():
             sql += "    kp_p,                                     --31,             " + "\n"
             sql += "    wbd_p, wb_p,   wbtm_p, wbo_p,             --32,33,34,35,    " + "\n"
             sql += "    cd_p,  cdtw_p, cdo_p,                     --36,37,38,       " + "\n"
-            sql += "    w_p,   wd_p,   wo_p,   wtm_p,             --39,40,41,42     " + "\n"
+            sql += "    wd_p,   w_p,   wtm_p,   wo_p,             --39,40,41,42     " + "\n"
             sql += "    im_p,                                     --43              " + "\n"
             sql += "    fw_p,  fwd_p,  fwtw_p, tdf_p,             --44,45,46,47     " + "\n"
             sql += "    b_p,   b_p_v                              --48,49           " + "\n"
