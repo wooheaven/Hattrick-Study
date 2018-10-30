@@ -13,8 +13,8 @@ class TestHattrickPlayerPostgreSQL(TestCase):
         conn.close()
 
     def test_backup_player(self):
-        conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
-        # conn = psycopg2.connect("dbname='mydatabase2' user='myuser' host='localhost' port='65432' password='123qwe'")
+        # conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
+        conn = psycopg2.connect("dbname='mydatabase2' user='myuser' host='localhost' port='65432' password='123qwe'")
         ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
         from_table_name = 'player_tmp'
         to_table_name = 'player_tmp_backup'
