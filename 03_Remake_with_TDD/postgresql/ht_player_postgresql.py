@@ -429,6 +429,8 @@ class HattrickPlayerPostgreSQL():
                 sql += "    num, b_p, b_p_v, wbd_p, wb_p, wbtm_p, wbo_p\n"
             elif mode == "cd":
                 sql += "    num, b_p, b_p_v, cd_p, cdtw_p, cdo_p\n"
+            elif mode == "w":
+                sql += "    num, b_p, b_p_v, wd_p, w_p, wtm_p, wo_p\n"
             sql += "FROM " + table_name + "                        \n"
             sql += "WHERE                                          \n"
             sql += "    num in " + number_list_str + "             \n"
