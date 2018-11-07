@@ -61,14 +61,20 @@ class HattrickPlayerPostgreSQL():
             query += "    CD_P     NUMERIC(4, 2),               --36 CD Position                     " + "\n"
             query += "    CDtw_P   NUMERIC(4, 2),               --37 CD Position                     " + "\n"
             query += "    CDo_P    NUMERIC(4, 2),               --38 CD Position                     " + "\n"
-            query += "    W_P      NUMERIC(4, 2),               --39 W  Position                     " + "\n"
-            query += "    IM_P     NUMERIC(4, 2),               --40 IM Position                     " + "\n"
-            query += "    FW_P     NUMERIC(4, 2),               --41 FW Position                     " + "\n"
-            query += "    FWd_P    NUMERIC(4, 2),               --42 FW Defensive Position           " + "\n"
-            query += "    FWtw_P   NUMERIC(4, 2),               --43 FW Towards Wing Position        " + "\n"
-            query += "    TDF_P    NUMERIC(4, 2),               --44 Technical Defensive FW Position " + "\n"
-            query += "    B_P      VARCHAR(10),                 --45 Best Position                   " + "\n"
-            query += "    B_P_V    VARCHAR(10)                  --46 Best Position Value             " + "\n"
+            query += "    Wd_P     NUMERIC(4, 2),               --39 W  Position                     " + "\n"
+            query += "    W_P      NUMERIC(4, 2),               --40 W  Position                     " + "\n"
+            query += "    Wtm_P    NUMERIC(4, 2),               --41 W  Position                     " + "\n"
+            query += "    Wo_P     NUMERIC(4, 2),               --42 W  Position                     " + "\n"
+            query += "    IMd_P    NUMERIC(4, 2),               --43 IM Position                     " + "\n"
+            query += "    IM_P     NUMERIC(4, 2),               --44 IM Position                     " + "\n"
+            query += "    IMtw_P   NUMERIC(4, 2),               --45 IM Position                     " + "\n"
+            query += "    IMo_P    NUMERIC(4, 2),               --46 IM Position                     " + "\n"
+            query += "    FW_P     NUMERIC(4, 2),               --47 FW Position                     " + "\n"
+            query += "    FWd_P    NUMERIC(4, 2),               --48 FW Defensive Position           " + "\n"
+            query += "    FWtw_P   NUMERIC(4, 2),               --49 FW Towards Wing Position        " + "\n"
+            query += "    TDF_P    NUMERIC(4, 2),               --50 Technical Defensive FW Position " + "\n"
+            query += "    B_P      VARCHAR(10),                 --51 Best Position                   " + "\n"
+            query += "    B_P_V    VARCHAR(10)                  --52 Best Position Value             " + "\n"
             query += ") "
             cursor.execute(query, {"target_table": AsIs(target_table)})
             conn.commit()
@@ -363,10 +369,10 @@ class HattrickPlayerPostgreSQL():
             sql += "    kp_p,                                     --31,             " + "\n"
             sql += "    wbd_p, wb_p,   wbtm_p, wbo_p,             --32,33,34,35,    " + "\n"
             sql += "    cd_p,  cdtw_p, cdo_p,                     --36,37,38,       " + "\n"
-            sql += "    w_p,                                      --39              " + "\n"
-            sql += "    im_p,                                     --40              " + "\n"
-            sql += "    fw_p,  fwd_p,  fwtw_p, tdf_p,             --41,42,43,44     " + "\n"
-            sql += "    b_p,   b_p_v                              --45,46           " + "\n"
+            sql += "    wd_p,  w_p,    wtm_p,   wo_p,             --39,40,41,42     " + "\n"
+            sql += "    imd_p, im_p,   imtw_p, imo_p,             --43,44,45,46     " + "\n"
+            sql += "    fw_p,  fwd_p,  fwtw_p, tdf_p,             --47,48,49,50     " + "\n"
+            sql += "    b_p,   b_p_v                              --51,52           " + "\n"
             sql += ") (                                                                                     " + "\n"
             sql += "    SELECT                                                                              " + "\n"
             sql += "        to_date(%s, 'YYYY-MM-DD'),                                    -- 2,             " + "\n"
@@ -381,10 +387,10 @@ class HattrickPlayerPostgreSQL():
             sql += "        %s,                                                           --31,             " + "\n"
             sql += "        %s, %s, %s, %s,                                               --32,33,34,35,    " + "\n"
             sql += "        %s, %s, %s,                                                   --36,37,38,       " + "\n"
-            sql += "        %s,                                                           --39,             " + "\n"
-            sql += "        %s,                                                           --40,             " + "\n"
-            sql += "        %s, %s, %s, %s,                                               --41,42,43,44     " + "\n"
-            sql += "        %s, %s                                                        --45,46           " + "\n"
+            sql += "        %s, %s, %s, %s,                                               --39,40,41,42     " + "\n"
+            sql += "        %s, %s, %s, %s,                                               --43,44,45,46     " + "\n"
+            sql += "        %s, %s, %s, %s,                                               --47,48,49,50     " + "\n"
+            sql += "        %s, %s                                                        --51,52           " + "\n"
             sql += ")                                                                                       " + "\n"
             cursor.execute(sql, (time,
                                  row[0],  row[1],  row[2],  row[3],  row[4],
@@ -398,10 +404,10 @@ class HattrickPlayerPostgreSQL():
                                  row[28],
                                  row[29], row[30], row[31], row[32],
                                  row[33], row[34], row[35],
-                                 row[36],
-                                 row[37],
-                                 row[38], row[39], row[40], row[41],
-                                 row[42], row[43]))
+                                 row[36], row[37], row[38], row[39],
+                                 row[40], row[41], row[42], row[43],
+                                 row[44], row[45], row[46], row[47],
+                                 row[48], row[49]))
             conn.commit()
         except (Exception, psycopg2.DatabaseError) as error:
             print("Error happened")
