@@ -2,7 +2,6 @@ import re
 import pandas as pd
 import numpy as np
 
-# add CD_Pos -> WB_Pos
 class Parse():
     def __init__(self):
         self.line_list = []
@@ -79,14 +78,20 @@ class Parse():
                         32: 'CDPos',
                         33: 'CDtwPos',
                         34: 'CDoPos',
-                        35: 'WPos',
-                        36: 'IMPos',
-                        37: 'FWPos',
-                        38: 'FWdPos',
-                        39: 'FWtwPos',
-                        40: 'TDFPos',
-                        41: 'BPo',
-                        42: 'BPoV'}
+                        35: 'WdPos',
+                        36: 'WPos',
+                        37: 'WtmPos',
+                        38: 'WoPos',
+                        39: 'IMdPos',
+                        40: 'IMPos',
+                        41: 'IMtwPos',
+                        42: 'IMoPos',
+                        43: 'FWPos',
+                        44: 'FWdPos',
+                        45: 'FWtwPos',
+                        46: 'TDFPos',
+                        47: 'BPo',
+                        48: 'BPoV'}
         self.df.rename(columns=column_names, inplace=True)
 
         self.df['Number'][0] = 'Number'
@@ -104,8 +109,15 @@ class Parse():
         self.df['CDtwPos'][0] = 'CDtwPos'
         self.df['CDoPos'][0] = 'CDoPos'
 
+        self.df['WdPos'][0] = 'WdPos'
         self.df['WPos'][0] = 'WPos'
+        self.df['WtmPos'][0] = 'WtmPos'
+        self.df['WoPos'][0] = 'WoPos'
+
+        self.df['IMdPos'][0] = 'IMdPos'
         self.df['IMPos'][0] = 'IMPos'
+        self.df['IMtwPos'][0] = 'IMtwPos'
+        self.df['IMoPos'][0] = 'IMoPos'
 
         self.df['FWPos'][0] = 'FWPos'
         self.df['FWdPos'][0] = 'FWdPos'
@@ -124,7 +136,7 @@ class Parse():
         self.df['Special'] = self.df['Special'].str.replace('빠름', 'Quick')
 
         self.df['MB'] = self.df['MB'].str.replace('✔', 'TRUE')
-        self.df['MB'] = self.df['MB'].apply(lambda x: x if len(str(x)) > 3 else 'FALSE')
+        self.df['MB'] = self.df['MB'].apply(lambda x: x if x == 'MB' or x == 'TRUE' else 'FALSE')
 
         self.df['Last'] = self.df['Last'].str.extract('(....-..-..)')
         self.df['Last'][0] = 'Last'
@@ -132,6 +144,7 @@ class Parse():
 
         cols = self.df.columns.tolist()
         cols = cols[0:2] + cols[-2:] + cols[3:-2]
+
         self.df = self.df[cols]
 
     def print_df_cols(self):
