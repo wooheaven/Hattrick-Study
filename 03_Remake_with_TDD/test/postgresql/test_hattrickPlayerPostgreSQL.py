@@ -26,8 +26,10 @@ class TestHattrickPlayerPostgreSQL(TestCase):
         conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
         # conn = psycopg2.connect("dbname='mydatabase2' user='myuser' host='localhost' port='65432' password='123qwe'")
         ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
-        from_table_name = 'player_tmp'
-        to_table_name = 'player'
+        from_table_name = 'player'
+        # from_table_name = 'player_tmp'
+        to_table_name = 'player_tmp'
+        # to_table_name = 'player'
         ht_player_pg.insert_player_from_select(conn, to_table=to_table_name, from_table=from_table_name)
         conn.close()
 
