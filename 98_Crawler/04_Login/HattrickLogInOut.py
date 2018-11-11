@@ -67,11 +67,9 @@ def clickHattrickLogin2(x, y, isDualMonitor):
 	time.sleep(0.7)
 
 	# Login
-	y += 90
-	pyautogui.moveTo(x, y, duration=0.25)
-	pyautogui.click()
-	
-	# wait
+	pyautogui.press('tab')
+	pyautogui.press('enter')
+
 	time.sleep(6)
 
 def clickHattrickLogin(x, y, isDualMonitor):
@@ -110,10 +108,9 @@ def clickHattrickLogin(x, y, isDualMonitor):
 	time.sleep(0.7)
 
 	# Login
-	y += 90
-	pyautogui.moveTo(x, y, duration=0.25)
-	pyautogui.click()
-	
+	pyautogui.press('tab')
+	pyautogui.press('enter')
+
 	# wait
 	time.sleep(6)
 
