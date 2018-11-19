@@ -1,35 +1,5 @@
 import pyautogui, time
 
-def clickFacebookLogin(x, y, isDualMonitor):
-	# initial region
-	if isDualMonitor:
-		x += 1920
-
-	# move
-	pyautogui.moveTo(x, y, duration=0.15)
-
-	# find faceBookLogin
-	faceBookLogin = pyautogui.locateOnScreen('screen-FacebookLogin.png', region=(x, y, 77, 33), grayscale=True)
-	if None == faceBookLogin:
-		faceBookLogin = pyautogui.locateOnScreen('screen-FacebookLogin.png')
-		if None == faceBookLogin:
-			print('1st 2nd faceBookLogin is None')
-		else:
-			print('2nd faceBookLogin location =', faceBookLogin)
-			x = faceBookLogin[0] + faceBookLogin[2]/2
-			y = faceBookLogin[1] + faceBookLogin[3]/2
-	else:
-		print('1st faceBookLogin location with region =', faceBookLogin)
-		x = faceBookLogin[0] + faceBookLogin[2]/2
-		y = faceBookLogin[1] + faceBookLogin[3]/2
-
-	# move and click
-	pyautogui.moveTo(x, y, duration=0.2)
-	pyautogui.click()
-
-	# wait
-	time.sleep(10)
-
 
 def clickHattrickLogin2(x, y, isDualMonitor):
 	# define position
