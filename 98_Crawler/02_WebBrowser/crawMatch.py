@@ -14,9 +14,9 @@ def clickLastMonthOrDay():
     time.sleep(0.3)
 
     # move to last month
-    for i in range(10):
+    for i in range(12):
         pyautogui.press('down')
-        time.sleep(0.2)
+        time.sleep(0.15)
     pyautogui.press('enter')
 
     # wait
