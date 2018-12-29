@@ -1,4 +1,7 @@
 import psycopg2
+import pandas as pd
+from tabulate import tabulate
+
 from psycopg2.extensions import AsIs
 
 
@@ -454,6 +457,94 @@ class HattrickPlayerPostgreSQL():
         finally:
             if cursor.closed is False:
                 cursor.close()
+
+    def select_last_2dates(self, conn, table_name):
+        try:
+            cursor = conn.cursor()
+            sql = "SELECT date FROM " + table_name + " GROUP BY date ORDER BY date DESC LIMIT 2"
+            cursor.execute(sql)
+            tuple_list = cursor.fetchall()
+            return tuple_list
+        except (Exception, psycopg2.DatabaseError) as error:
+            print("Error Happen")
+            print(sql)
+            print(error)
+        finally:
+            if cursor.closed is False:
+                cursor.close()
+
+    def select_num(self, conn, table_name, last_2dates):
+        try:
+            sql = "SELECT num FROM " + table_name + " WHERE num < 98 and date in ("
+            for tuple in last_2dates:
+                sql += "\'" + str(tuple[0]) + "\',"
+            sql = sql[0:-1]
+            sql += ") GROUP BY num ORDER BY num"
+            cursor = conn.cursor()
+            cursor.execute(sql)
+            tuple_list = cursor.fetchall()
+            return tuple_list
+        except (Exception, psycopg2.DatabaseError) as error:
+            print("Error Happen")
+            print(sql)
+            print(error)
+        finally:
+            if cursor.closed is False:
+                cursor.close()
+
+    def diff_player_last_2states(self, conn, table_name, nums, last_2dates):
+        try:
+            last_2dates_str = ""
+            for date in last_2dates:
+                last_2dates_str += "\'" + str(date[0]) + "\',"
+            last_2dates_str = last_2dates_str[0:-1]
+            for num in nums:
+                num = num[0]
+                sql = ""
+                sql += "SELECT "
+                sql += "    date,num,playerid, "
+                sql += "    age,tsi,ls,xp "
+                sql += "    fo,stm,lo,kp "
+                sql += "    df,pm,wi,ps,sc,sp,con,last,rt,po,kp_p,wbd_p,wb_p,wbtm_p,wbo_p,cd_p,cdtw_p,cdo_p,wd_p, "
+                sql += "    w_p,wtm_p,wo_p,imd_p,im_p,imtw_p,imo_p,fw_p,fwd_p,fwtw_p,tdf_p,b_p,b_p_v "
+                sql += "FROM "
+                sql += "    " + table_name + "\n"
+                sql += "WHERE "
+                sql += "    num = " + str(num) + " AND date IN (" + last_2dates_str + ") "
+                sql += "ORDER BY date "
+                df = pd.read_sql_query(sql, conn)
+                diff_dict = dict()
+
+                diff_dict['date'] = (df['date'][1] - df['date'][0]).days
+
+                df.num = df.num.astype('str')
+                diff_dict['num'] = df['num'][1] == df['num'][0]
+                if diff_dict['num']:
+                    diff_dict['num'] = ''
+
+                diff_dict['playerid'] = ''
+                diff_dict['age'] = ''
+
+                self.diff_row_to_row(df, diff_dict, ['tsi', 'ls', 'fo', 'stm', 'lo', 'df', 'pm', 'wi', 'ps', 'sc', 'sp', 'con', 'rt'])
+
+                diff_dict['last'] = ''
+                diff_dict['po'] = ''
+
+                df = df.append(pd.DataFrame([diff_dict]), ignore_index=True, sort=False)
+                with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000, 'display.colheader_justify','right'):
+                    print(tabulate(df, headers='keys', tablefmt='psql'))
+        except (Exception, psycopg2.DatabaseError) as error:
+            print("Error Happen")
+            print(error)
+            print(sql)
+
+    def diff_row_to_row(self, df, diff_dict, col_names):
+        for col_name in col_names:
+            value = int(df[col_name][1] - df[col_name][0])
+            if value > 0:
+                diff_dict[col_name] = value
+            else:
+                diff_dict[col_name] = ''
 
     def print(self, tuple_list, sep=','):
         for t in tuple_list:

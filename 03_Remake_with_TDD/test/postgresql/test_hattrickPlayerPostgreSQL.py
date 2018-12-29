@@ -71,3 +71,19 @@ class TestHattrickPlayerPostgreSQL(TestCase):
         tuple_list = ht_player_pg.select(conn, 'player_tmp', '2018/09/12', [16, 31, 48, 55], 'fw')
         ht_player_pg.print(tuple_list)
         conn.close()
+
+    def test_select_last_2dates(self):
+        conn = psycopg2.connect("dbname='mydatabase2' user='myuser' host='localhost' port='65432' password='123qwe'")
+        ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
+        last_2dates = ht_player_pg.select_last_2dates(conn, 'player_tmp')
+        ht_player_pg.print(last_2dates)
+        conn.close()
+
+    def test_diff_player_last_2states(self):
+        conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
+        # conn = psycopg2.connect("dbname='mydatabase2' user='myuser' host='localhost' port='65432' password='123qwe'")
+        ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
+        last_2dates = ht_player_pg.select_last_2dates(conn, 'player_tmp')
+        nums = ht_player_pg.select_num(conn, 'player_tmp', last_2dates)
+        ht_player_pg.diff_player_last_2states(conn, "player_tmp", nums, last_2dates)
+        conn.close()
