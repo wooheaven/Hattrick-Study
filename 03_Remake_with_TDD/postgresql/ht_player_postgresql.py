@@ -530,6 +530,28 @@ class HattrickPlayerPostgreSQL():
                 diff_dict['last'] = ''
                 diff_dict['po'] = ''
 
+                if df['po'][0] == 'KP':
+                    self.remove_column_wb(df)
+                    self.remove_column_cd(df)
+                    self.remove_column_w(df)
+                    self.remove_column_im(df)
+                    self.remove_column_fw(df)
+                    self.diff_row_to_row(df, diff_dict, ['kp_p'])
+                elif df['po'][0] == 'CD':
+                    self.remove_column_kp(df)
+                    self.remove_column_wb(df)
+                    self.remove_column_w(df)
+                    self.remove_column_im(df)
+                    self.remove_column_fw(df)
+                    self.diff_row_to_row(df, diff_dict, ['cd_p', 'cdtw_p', 'cdo_p'])
+
+                if df['po'][0] == df['b_p'][0][0:2] and df['po'][1] == df['b_p'][1][0:2] and df['po'][0] == df['po'][1]:
+                    del df['b_p']
+                    del df['b_p_v']
+                else:
+                    diff_dict['b_p'] = ''
+                    self.diff_row_to_row(df, diff_dict, ['b_p_v'])
+
                 df = df.append(pd.DataFrame([diff_dict]), ignore_index=True, sort=False)
                 with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000, 'display.colheader_justify','right'):
                     print(tabulate(df, headers='keys', tablefmt='psql'))
@@ -545,6 +567,28 @@ class HattrickPlayerPostgreSQL():
                 diff_dict[col_name] = value
             else:
                 diff_dict[col_name] = ''
+
+    def remove_column_kp(self, df):
+        self.remove_column_of_df(df, ['kp_p'])
+
+    def remove_column_wb(self, df):
+        self.remove_column_of_df(df, ['wbd_p', 'wb_p', 'wbtm_p', 'wbo_p'])
+
+    def remove_column_cd(self, df):
+        self.remove_column_of_df(df, ['cd_p', 'cdtw_p', 'cdo_p'])
+
+    def remove_column_w(self, df):
+        self.remove_column_of_df(df, ['wd_p', 'w_p', 'wtm_p', 'wo_p'])
+
+    def remove_column_im(self, df):
+        self.remove_column_of_df(df, ['imd_p', 'im_p', 'imtw_p', 'imo_p'])
+
+    def remove_column_fw(self, df):
+        self.remove_column_of_df(df, ['fw_p', 'fwd_p', 'fwtw_p', 'tdf_p'])
+
+    def remove_column_of_df(self, df, column_names_to_be_remove):
+        for col_name in column_names_to_be_remove:
+            del df[col_name]
 
     def print(self, tuple_list, sep=','):
         for t in tuple_list:
