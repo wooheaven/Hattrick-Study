@@ -525,11 +525,10 @@ class HattrickPlayerPostgreSQL():
                 diff_dict['playerid'] = ''
                 diff_dict['age'] = ''
 
-                self.diff_row_to_row(df, diff_dict, ['tsi', 'ls', 'fo', 'stm', 'lo', 'df', 'pm', 'wi', 'ps', 'sc', 'sp', 'con', 'rt'])
-
                 diff_dict['last'] = ''
                 diff_dict['po'] = ''
 
+                self.remove_column_basic(df, diff_dict)
                 if df['po'][0] == 'KP':
                     self.remove_column_wb(df)
                     self.remove_column_cd(df)
@@ -544,13 +543,50 @@ class HattrickPlayerPostgreSQL():
                     self.remove_column_im(df)
                     self.remove_column_fw(df)
                     self.diff_row_to_row(df, diff_dict, ['cd_p', 'cdtw_p', 'cdo_p'])
+                elif df['po'][0] == 'WB':
+                    self.remove_column_kp(df)
+                    self.remove_column_cd(df)
+                    self.remove_column_w(df)
+                    self.remove_column_im(df)
+                    self.remove_column_fw(df)
+                    self.diff_row_to_row(df, diff_dict, ['wbd_p', 'wb_p', 'wbtm_p', 'wbo_p'])
+                elif df['po'][0] == 'W':
+                    self.remove_column_kp(df)
+                    self.remove_column_wb(df)
+                    self.remove_column_cd(df)
+                    self.remove_column_im(df)
+                    self.remove_column_fw(df)
+                    self.diff_row_to_row(df, diff_dict, ['wd_p', 'w_p', 'wtm_p', 'wo_p'])
+                elif df['po'][0] == 'IM':
+                    self.remove_column_kp(df)
+                    self.remove_column_wb(df)
+                    self.remove_column_cd(df)
+                    self.remove_column_w(df)
+                    self.remove_column_fw(df)
+                    self.diff_row_to_row(df, diff_dict, ['imd_p', 'im_p', 'imtw_p', 'imo_p'])
+                elif df['po'][0] == 'FW':
+                    self.remove_column_kp(df)
+                    self.remove_column_wb(df)
+                    self.remove_column_cd(df)
+                    self.remove_column_w(df)
+                    self.remove_column_im(df)
+                    self.diff_row_to_row(df, diff_dict, ['fw_p', 'fwd_p', 'fwtw_p', 'tdf_p'])
+                elif df['po'][0] == '':
+                    self.remove_column_kp(df)
+                    self.remove_column_wb(df)
+                    self.remove_column_cd(df)
+                    self.remove_column_w(df)
+                    self.remove_column_im(df)
+                    self.remove_column_fw(df)
 
-                if df['po'][0] == df['b_p'][0][0:2] and df['po'][1] == df['b_p'][1][0:2] and df['po'][0] == df['po'][1]:
+                if df['b_p'][0][0:2] == df['b_p'][1][0:2] and df['b_p_v'][0] == df['b_p_v'][1]:
                     del df['b_p']
                     del df['b_p_v']
                 else:
                     diff_dict['b_p'] = ''
                     self.diff_row_to_row(df, diff_dict, ['b_p_v'])
+
+                self.remove_value_of_1st_row(df)
 
                 df = df.append(pd.DataFrame([diff_dict]), ignore_index=True, sort=False)
                 with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000, 'display.colheader_justify','right'):
@@ -560,13 +596,33 @@ class HattrickPlayerPostgreSQL():
             print(error)
             print(sql)
 
-    def diff_row_to_row(self, df, diff_dict, col_names):
+    def diff_row_to_row(self, df, diff_dict, col_names, type='float'):
         for col_name in col_names:
-            value = int(df[col_name][1] - df[col_name][0])
+            if type =='int':
+                df[col_name] = df[col_name].astype(int)
+            elif type == 'float':
+                df[col_name] = df[col_name].astype(float)
+            value = df[col_name][1] - df[col_name][0]
             if value > 0:
                 diff_dict[col_name] = value
             else:
                 diff_dict[col_name] = ''
+
+    def remove_column_basic(self, df, diff_dict):
+        for col in ['tsi', 'ls', 'fo', 'stm', 'lo', 'df', 'pm', 'wi', 'ps', 'sc', 'sp', 'con']:
+            df[col] = df[col].astype(int)
+            value = df[col][1] - df[col][0]
+            if value == 0:
+                del df[col]
+            else:
+                diff_dict[col] = value
+        for col in ['rt']:
+            df['rt'] = df['rt'].astype(float)
+            value = df[col][1] - df[col][0]
+            if value == 0:
+                del df[col]
+            else:
+                diff_dict[col] = value
 
     def remove_column_kp(self, df):
         self.remove_column_of_df(df, ['kp_p'])
@@ -589,6 +645,11 @@ class HattrickPlayerPostgreSQL():
     def remove_column_of_df(self, df, column_names_to_be_remove):
         for col_name in column_names_to_be_remove:
             del df[col_name]
+
+    def remove_value_of_1st_row(self, df):
+        for col in df.columns:
+            if str(df[col][0]) == str(df[col][1]):
+                df[col][1] = ''
 
     def print(self, tuple_list, sep=','):
         for t in tuple_list:
