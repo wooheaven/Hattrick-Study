@@ -502,10 +502,11 @@ class HattrickPlayerPostgreSQL():
                 num = num[0]
                 sql = ""
                 sql += "SELECT "
-                sql += "    date,num,playerid, "
-                sql += "    age,tsi,ls,xp "
-                sql += "    fo,stm,lo,kp "
-                sql += "    df,pm,wi,ps,sc,sp,con,last,rt,po,kp_p,wbd_p,wb_p,wbtm_p,wbo_p,cd_p,cdtw_p,cdo_p,wd_p, "
+                sql += "    date, num, playerid, "
+                sql += "    age, tsi, ls, xp, "
+                sql += "    fo, stm, lo, kp, "
+                sql += "    df, pm, wi, ps, sc, sp, con, last, rt, po, "
+                sql += "    kp_p, wbd_p, wb_p, wbtm_p, wbo_p, cd_p, cdtw_p, cdo_p, wd_p, "
                 sql += "    w_p,wtm_p,wo_p,imd_p,im_p,imtw_p,imo_p,fw_p,fwd_p,fwtw_p,tdf_p,b_p,b_p_v "
                 sql += "FROM "
                 sql += "    " + table_name + "\n"
@@ -609,7 +610,7 @@ class HattrickPlayerPostgreSQL():
                 diff_dict[col_name] = ''
 
     def remove_column_basic(self, df, diff_dict):
-        for col in ['tsi', 'ls', 'fo', 'stm', 'lo', 'df', 'pm', 'wi', 'ps', 'sc', 'sp', 'con']:
+        for col in ['tsi', 'ls', 'xp', 'fo', 'stm', 'lo', 'kp', 'df', 'pm', 'wi', 'ps', 'sc', 'sp', 'con']:
             df[col] = df[col].astype(int)
             value = df[col][1] - df[col][0]
             if value == 0:
