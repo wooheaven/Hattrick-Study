@@ -68,8 +68,7 @@ class TestHattrickPlayerPostgreSQL(TestCase):
     def test_select(self):
         conn = psycopg2.connect("dbname='mydatabase2' user='myuser' host='localhost' port='65432' password='123qwe'")
         ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
-        tuple_list = ht_player_pg.select(conn, 'player_tmp', '2018/09/12', [16, 31, 48, 55], 'fw')
-        ht_player_pg.print(tuple_list)
+        ht_player_pg.select(conn, 'player_tmp', '2018/09/12', [16, 31, 48, 55], 'fw')
         conn.close()
 
     def test_select_last_2dates(self):

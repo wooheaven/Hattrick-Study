@@ -429,7 +429,6 @@ class HattrickPlayerPostgreSQL():
                 number_list_str += str(num) + ","
             number_list_str = number_list_str[:-1]
             number_list_str += ")"
-            cursor = conn.cursor()
             sql = ""
             sql += "SELECT                                         \n"
             if mode == "fw":
@@ -447,16 +446,26 @@ class HattrickPlayerPostgreSQL():
             sql += "    num in " + number_list_str + "             \n"
             sql += "    AND date = '" + time.replace('/', '-') + "'\n"
             sql += "ORDER BY num                                     "
-            cursor.execute(sql)
-            tuple_list = cursor.fetchall()
-            return tuple_list
+            df = pd.read_sql_query(sql, conn)
+            include_cols = []
+            for col in df.columns:
+                if col not in ['num', 'b_p', 'b_p_v']:
+                    include_cols.append(col)
+            idxmax_list = []
+            max_list = []
+            for iloc_num in range(len(df)):
+                idxmax_list.append(df.iloc[iloc_num][include_cols].astype(float).idxmax())
+                max_list.append(df.iloc[iloc_num][include_cols].astype(float).max())
+            df['idxmax'] = pd.Series(idxmax_list)
+            df['max'] = pd.Series(max_list)
+
+            with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000,
+                                   'display.colheader_justify', 'right'):
+                print(tabulate(df, headers='keys', tablefmt='psql'))
         except (Exception, psycopg2.DatabaseError) as error:
             print("Error Happen")
             print(sql)
             print(error)
-        finally:
-            if cursor.closed is False:
-                cursor.close()
 
     def select_last_2dates(self, conn, table_name):
         try:
@@ -525,9 +534,12 @@ class HattrickPlayerPostgreSQL():
 
                 diff_dict['playerid'] = ''
                 diff_dict['age'] = ''
-
                 diff_dict['last'] = ''
                 diff_dict['po'] = ''
+                diff_dict['b_p'] = ''
+                diff_dict['b_p_v'] = ''
+                diff_dict['idxmax'] = ''
+                diff_dict['max'] = ''
 
                 self.remove_column_basic(df, diff_dict)
                 if df['po'][0] == 'KP':
@@ -580,17 +592,11 @@ class HattrickPlayerPostgreSQL():
                     self.remove_column_im(df)
                     self.remove_column_fw(df)
 
-                if df['b_p'][0][0:2] == df['b_p'][1][0:2] and df['b_p_v'][0] == df['b_p_v'][1]:
-                    del df['b_p']
-                    del df['b_p_v']
-                else:
-                    diff_dict['b_p'] = ''
-                    self.diff_row_to_row(df, diff_dict, ['b_p_v'])
-
-                self.remove_value_of_1st_row(df)
+                self.remove_duplicated_value_of_last_row(df)
 
                 df = df.append(pd.DataFrame([diff_dict]), ignore_index=True, sort=False)
-                with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000, 'display.colheader_justify','right'):
+                with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000,
+                                       'display.colheader_justify','right'):
                     print(tabulate(df, headers='keys', tablefmt='psql'))
         except (Exception, psycopg2.DatabaseError) as error:
             print("Error Happen")
@@ -608,6 +614,15 @@ class HattrickPlayerPostgreSQL():
                 diff_dict[col_name] = value
             else:
                 diff_dict[col_name] = ''
+        df_0_idxmax = df.iloc[0][col_names].astype(type).idxmax()
+        df_0_max = df.iloc[0][col_names].astype(type).max()
+        df_1_idxmax = df.iloc[1][col_names].astype(type).idxmax()
+        df_1_max = df.iloc[1][col_names].astype(type).max()
+
+        df['idxmax'] = pd.Series([df_0_idxmax, df_1_idxmax])
+        df['idxmax'].astype(str)
+        df['max'] = pd.Series([df_0_max, df_1_max])
+        df['max'].astype(str)
 
     def remove_column_basic(self, df, diff_dict):
         for col in ['tsi', 'ls', 'xp', 'fo', 'stm', 'lo', 'kp', 'df', 'pm', 'wi', 'ps', 'sc', 'sp', 'con']:
@@ -647,7 +662,7 @@ class HattrickPlayerPostgreSQL():
         for col_name in column_names_to_be_remove:
             del df[col_name]
 
-    def remove_value_of_1st_row(self, df):
+    def remove_duplicated_value_of_last_row(self, df):
         for col in df.columns:
             if str(df[col][0]) == str(df[col][1]):
                 df[col][1] = ''
