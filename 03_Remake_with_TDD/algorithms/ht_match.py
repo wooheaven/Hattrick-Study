@@ -12,6 +12,14 @@ class HattrickMatch():
 
         div_id = "ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_timelineEventPanel"
         input_id = "ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_playerRatingsHome"
+        tmp = soup.find_all("div", id=div_id)
+        if len(tmp) == 0:
+            div_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_sectorAvgPanel'
+            input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_playerRatingsHome'
+            tmp = soup.find_all("div", id=div_id)
+        if len(tmp) == 0:
+            raise NotImplementedError
+
         valueString = soup \
             .find_all("div", id=div_id)[0] \
             .find_all("input", id=input_id)[0] \
@@ -26,28 +34,28 @@ class HattrickMatch():
 
         kp_player_count = 0
         kp_player_count = self.selectCountOfWherePlayerID(kp_player_id, db_name, table_name)
-        return (kp_player_count > 0)
+        return (kp_player_count > 0), valueString
 
     def findMatchList(self, filePath, db_name, table_name):
         isHome = None
-        isHome = self.isHome(filePath, db_name, table_name)
+        isHome, valueString = self.isHome(filePath, db_name, table_name)
 
-        soup = None
-        with open(filePath, 'r') as file:
-            soup = BeautifulSoup(file.read(), "html.parser")
-
-        div_id = "ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_timelineEventPanel"
-        if (isHome):
-            print('Home')
-            input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_playerRatingsHome'
-        else:
-            print('Away')
-            input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_playerRatingsAway'
-
-        valueString = soup \
-            .find_all("div", id=div_id)[0] \
-            .find_all("input", id=input_id)[0] \
-            .get('value')
+        # soup = None
+        # with open(filePath, 'r') as file:
+        #     soup = BeautifulSoup(file.read(), "html.parser")
+        #
+        # div_id = "ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_timelineEventPanel"
+        # if (isHome):
+        #     print('Home')
+        #     input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_playerRatingsHome'
+        # else:
+        #     print('Away')
+        #     input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_playerRatingsAway'
+        #
+        # valueString = soup \
+        #     .find_all("div", id=div_id)[0] \
+        #     .find_all("input", id=input_id)[0] \
+        #     .get('value')
         match_dict_list = json.loads(valueString)
 
         # remove unUsedDictKeys

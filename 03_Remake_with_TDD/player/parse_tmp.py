@@ -129,6 +129,7 @@ class Parse():
         self.df['PlayerID'] = self.df['PlayerStr'].str.extract(r'\=(?P<digit>\d{9})')
         self.df['PlayerID'][0] = 'PlayerID'
         self.df['Special'] = self.df['Special'].str.replace(' 더 많은 정보를 보려면 클릭', '')
+        self.df['Special'] = self.df['Special'].str.replace(' Click to toggle more information', '')
         self.df['Special'] = self.df['Special'].str.replace('예측할 수 없음', 'Unpredictable')
         self.df['Special'] = self.df['Special'].str.replace('공 마술사', 'Technical')
         self.df['Special'] = self.df['Special'].str.replace('헤딩', 'Head')
