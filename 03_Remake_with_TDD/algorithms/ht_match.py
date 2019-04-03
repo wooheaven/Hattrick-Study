@@ -1,3 +1,4 @@
+import pandas as pd
 import json
 import psycopg2
 
@@ -34,28 +35,30 @@ class HattrickMatch():
 
         kp_player_count = 0
         kp_player_count = self.selectCountOfWherePlayerID(kp_player_id, db_name, table_name)
-        return (kp_player_count > 0), valueString
+        return (kp_player_count > 0)
 
     def findMatchList(self, filePath, db_name, table_name):
         isHome = None
-        isHome, valueString = self.isHome(filePath, db_name, table_name)
+        isHome = self.isHome(filePath, db_name, table_name)
 
-        # soup = None
-        # with open(filePath, 'r') as file:
-        #     soup = BeautifulSoup(file.read(), "html.parser")
-        #
-        # div_id = "ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_timelineEventPanel"
-        # if (isHome):
-        #     print('Home')
-        #     input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_playerRatingsHome'
-        # else:
-        #     print('Away')
-        #     input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_playerRatingsAway'
-        #
-        # valueString = soup \
-        #     .find_all("div", id=div_id)[0] \
-        #     .find_all("input", id=input_id)[0] \
-        #     .get('value')
+        soup = None
+        with open(filePath, 'r') as file:
+            soup = BeautifulSoup(file.read(), "html.parser")
+
+        div_id = "ctl00_ctl00_CPContent_CPMain_ucPostMatch_sectorAvgPanel"
+        if (isHome):
+            print('Home')
+            # input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_playerRatingsHome'
+            input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_playerRatingsHome'
+        else:
+            print('Away')
+            # input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_playerRatingsAway'
+            input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_playerRatingsAway'
+
+        valueString = soup \
+            .find_all("div", id=div_id)[0] \
+            .find_all("input", id=input_id)[0] \
+            .get('value')
         match_dict_list = json.loads(valueString)
 
         # remove unUsedDictKeys
@@ -177,21 +180,20 @@ class HattrickMatch():
         return row[0]
 
     def selectPlayerNumWherePlayerId(self, PlayerId, db_name, table_name):
-        conn = None
+        current_conn = None
         try:
-            conn = psycopg2.connect(\
+            current_conn = psycopg2.connect(\
                 'dbname=' + db_name + ' user=myuser host=localhost port=65432 password=123qwe')
-            sql = 'SELECT num FROM ' + table_name + ' WHERE playerid =' + str(PlayerId) + ' LIMIT 1'
-            cur = conn.cursor()
-            cur.execute(sql)
-            row = cur.fetchone()
+            current_sql = 'SELECT num FROM ' + table_name + ' WHERE playerid = ' + str(PlayerId) + ' LIMIT 1'
+            df = pd.read_sql(sql=current_sql, con=current_conn)
+            # print(df)
         except (Exception, psycopg2.DatabaseError) as errors:
-            print(sql)
+            print(current_sql)
             print(errors)
         finally:
-            if conn is not None:
-                conn.close()
-        return row[0]
+            if current_conn is not None:
+                current_conn.close()
+        return df['num'][0]
 
     def selectCountOfWherePlayerID(self, PlayerId, db_name, table_name):
         conn = None
