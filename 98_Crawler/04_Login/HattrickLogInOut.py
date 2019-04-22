@@ -7,7 +7,7 @@ def clickHattrickLogin2(x, y, isDualMonitor):
 		x += 1920
 
 	# move and click
-	pyautogui.moveTo(x, y, duration=0.2)
+	pyautogui.moveTo(x, y, duration=0.5)
 	pyautogui.click()
 
 	# wait
