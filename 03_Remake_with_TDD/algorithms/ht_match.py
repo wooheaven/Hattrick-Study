@@ -19,6 +19,7 @@ class HattrickMatch():
         return isHome
 
     def findMatchList(self, filePath, db_name, table_name):
+        match_dict = dict()
         with open(filePath, 'r') as file:
             for idx, line in enumerate(file.readlines()):
                 if "window.HT.ngMatch.data =" in line:
@@ -71,133 +72,12 @@ class HattrickMatch():
                 po = player['po']
                 self.update_po(playerId, po, match_player)
 
-        # soup = None
-        # with open(filePath, 'r') as file:
-        #     soup = BeautifulSoup(file.read(), "html.parser")
-        #
-        # div_id = "ctl00_ctl00_CPContent_CPMain_ucPostMatch_sectorAvgPanel"
-        # if (isHome):
-        #     print('Home')
-        #     # input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_playerRatingsHome'
-        #     input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_playerRatingsHome'
-        # else:
-        #     print('Away')
-        #     # input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_rptTimeline_ctl14_playerRatingsAway'
-        #     input_id = 'ctl00_ctl00_CPContent_CPMain_ucPostMatch_playerRatingsAway'
-        #
-        # valueString = soup \
-        #     .find_all("div", id=div_id)[0] \
-        #     .find_all("input", id=input_id)[0] \
-        #     .get('value')
-        # match_dict = json.loads(valueString)
-        #
-        # # remove unUsedDictKeys
-        # for index in range(len(match_dict)):
-        #     match_dict[index].pop('PositionBehaviour', None)
-        #     match_dict[index].pop('InjuryLevel', None)
-        #     match_dict[index].pop('Stamina', None)
-        #     match_dict[index].pop('Cards', None)
-        #     match_dict[index].pop('IsCaptain', None)
-        #     match_dict[index].pop('IsKicker', None)
-        #
-        # # remove PositionID 0, 114, 116, 117, 118, 120
-        # removeList = list()
-        # for index in range(0, len(match_dict)):
-        #     position_id = match_dict[index]['PositionID']
-        #     if (position_id == 0
-        #             or position_id == 114
-        #             or position_id == 115
-        #             or position_id == 116
-        #             or position_id == 117
-        #             or position_id == 118
-        #             or position_id == 119
-        #             or position_id == 120):
-        #         removeList.append(index)
-        # for index in reversed(removeList):
-        #     match_dict.pop(index)
-        #
-        # # change PositionID
-        # for index in range(0, len(match_dict)):
-        #     position_id = match_dict[index]['PositionID']
-        #     if (position_id == 100):
-        #         match_dict[index]['PositionID'] = 'KP'
-        #         continue
-        #     if (position_id == 101 or position_id == 105):
-        #         match_dict[index]['PositionID'] = 'WB'
-        #         continue
-        #     if (position_id == 102 or position_id == 103 or position_id == 104):
-        #         match_dict[index]['PositionID'] = 'CD'
-        #         continue
-        #     if (position_id == 106 or position_id == 110):
-        #         match_dict[index]['PositionID'] = 'W'
-        #         continue
-        #     if (position_id == 107 or position_id == 108 or position_id == 109):
-        #         match_dict[index]['PositionID'] = 'IM'
-        #         continue
-        #     if (position_id == 111 or position_id == 112 or position_id == 113):
-        #         match_dict[index]['PositionID'] = 'FW'
-        #         continue
-        #     if (position_id == -1):
-        #         date_str = filePath[:10]
-        #         match_dict[index]['PositionID'] = \
-        #             self.selectPOWherePlayerID(match_dict[index]['PlayerId'], date_str, db_name, table_name)
-        #         continue
-        #
-        # # change FromMin
-        # for index in range(0, len(match_dict)):
-        #     from_min = match_dict[index]['FromMin']
-        #     to_min = match_dict[index]['ToMin']
-        #     if (from_min == -1):
-        #         match_dict[index]['FromMin'] = 0
-        #     if (91 <= to_min  <= 94):
-        #         match_dict[index]['ToMin'] = 90
-        #
-        # # find PlayerNum
-        # for index in range(0, len(match_dict)):
-        #     match_dict[index]['PlayerNum'] = self.selectPlayerNumWherePlayerId(match_dict[index]['PlayerId'],
-        #                                                                             db_name,
-        #                                                                             table_name)
-        #
-        # # sort by PositionID
-        # def PositionID_key_sort_func(single_player):
-        #     if single_player['PositionID'] == 'KP':
-        #         return (1, single_player['FromMin'], -single_player['ToMin'])
-        #     elif single_player['PositionID'] == 'WB':
-        #         return (2, single_player['FromMin'], -single_player['ToMin'])
-        #     elif single_player['PositionID'] == 'CD':
-        #         return (3, single_player['FromMin'], -single_player['ToMin'])
-        #     elif single_player['PositionID'] == 'W':
-        #         return (4, single_player['FromMin'], -single_player['ToMin'])
-        #     elif single_player['PositionID'] == 'IM':
-        #         return (5, single_player['FromMin'], -single_player['ToMin'])
-        #     elif single_player['PositionID'] == 'FW':
-        #         return (6, single_player['FromMin'], -single_player['ToMin'])
-        #     else:
-        #         return (7, single_player['FromMin'], -single_player['ToMin'])
-        # match_dict.sort(key=PositionID_key_sort_func)
-        #
-        # # find and update Stars = -1.0
-        # for index in range(len(match_dict)):
-        #     starts = match_dict[index]['Stars']
-        #     if (starts == -1.0):
-        #         date_str = filePath[:10]
-        #         playerid = match_dict[index]['PlayerId']
-        #         match_dict[index]['Stars'] = self.selectRTWhereDateAndPlayerId(date_str,
-        #                                                                             playerid,
-        #                                                                             db_name,
-        #                                                                             table_name)
-        #
-        # return match_dict
         for idx,player in enumerate(match_player):
             if 'po_before' in player.keys():
                 if player['po_before'] == match_player[idx+1]['playerId']:
                     tmp_player = copy.deepcopy(player)
                     match_player[idx] = match_player[idx+1]
                     match_player[idx+1] = tmp_player
-        print('po,num,rt,sMin,eMin')
-        for player in match_player:
-            if 'po' in player.keys():
-                print(str(player['po'])+','+str(player['playerNumber'])+','+str(player['rt'])+','+str(player['sMin'])+','+str(player['eMin']))
         return match_player
 
     def set_sMin(self, playerId, sMin, match_player, start_player_num=-1):
@@ -238,6 +118,12 @@ class HattrickMatch():
             if playerId == player['playerId']:
                 player['po'] = po
                 break
+
+    def print_match_player(self, match_player):
+        print('po,num,rt,sMin,eMin')
+        for player in match_player:
+            if 'po' in player.keys():
+                print(str(player['po'])+','+str(player['playerNumber'])+','+str(player['rt'])+','+str(player['sMin'])+','+str(player['eMin']))
 
     def selectPOWherePlayerID(self, player_id, date_str, db_name, table_name):
         conn = None
