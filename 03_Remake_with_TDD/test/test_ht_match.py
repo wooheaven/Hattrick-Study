@@ -39,10 +39,9 @@ class TestHattrickMatch(TestCase):
     def test_home_findMatchList_2019_05_15_HD(self):
         instance = ht_match.HattrickMatch()
         filePath = '2019/05/15/match_HD.html'
-        result = instance.findMatchList(filePath, 'mydatabase2', 'player_tmp')
-        print(filePath)
-        for match in result:
-            print(match)
+        match_player = instance.findMatchList(filePath, 'mydatabase2', 'player_tmp')
+        instance.print_match_player(match_player)
+        instance.save_match_player(match_player)
 
     """
     Test Away matchList
