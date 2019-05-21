@@ -125,6 +125,13 @@ class HattrickMatch():
             if 'po' in player.keys():
                 print(str(player['po'])+','+str(player['playerNumber'])+','+str(player['rt'])+','+str(player['sMin'])+','+str(player['eMin']))
 
+    def save_match_player(self, file_path, match_player):
+        with open(file_path, 'w') as f:
+            f.write('po,num,rt,sMin,eMin\n')
+            for player in match_player:
+                if 'po' in player.keys():
+                    f.write(str(player['po'])+','+str(player['playerNumber'])+','+str(player['rt'])+','+str(player['sMin'])+','+str(player['eMin'])+'\n')
+
     def selectPOWherePlayerID(self, player_id, date_str, db_name, table_name):
         conn = None
         try:
