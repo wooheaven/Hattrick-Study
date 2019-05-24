@@ -4,8 +4,6 @@ import json
 import psycopg2
 import copy
 
-from bs4 import BeautifulSoup
-
 
 class HattrickMatch():
     def isHome(self, homeTeamId):
@@ -167,28 +165,6 @@ class HattrickMatch():
             if current_conn is not None:
                 current_conn.close()
         return df['num'][0]
-
-    def matchDictListToMatchStrList(self, match_dict_list):
-        match_str_list = ['po,num,rt,sMin,eMin']
-        po_str = ''
-        num_str = ''
-        rt_str = ''
-        sMin = ''
-        eMin = ''
-        str_line = ''
-        for index in range(len(match_dict_list)):
-            po_str = str(match_dict_list[index]['PositionID'])
-            num_str = str(match_dict_list[index]['PlayerNum'])
-            rt_str = str(match_dict_list[index]['Stars'])
-            sMin = str(match_dict_list[index]['FromMin'])
-            eMin = str(match_dict_list[index]['ToMin'])
-            str_line = po_str
-            str_line += ',' + num_str
-            str_line += ',' + rt_str
-            str_line += ',' + sMin
-            str_line += ',' + eMin
-            match_str_list.append(str_line)
-        return match_str_list
 
     def selectRTWhereDateAndPlayerId(self, date_str, playerid, db_name, table_name):
         conn = None

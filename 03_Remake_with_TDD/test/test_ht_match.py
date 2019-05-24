@@ -71,16 +71,6 @@ class TestHattrickMatch(TestCase):
             print(match)
 
     """
-    Test match_dict_list to match_str_list on mydatabase
-    """
-    def test_match_dict_list_to_match_str_list(self):
-        instance = ht_match.HattrickMatch()
-        filePath = '2018/04/18/match.html'
-        match_dict_list = instance.findMatchList(filePath, 'mydatabase')
-        match_str_list = instance.matchDictListToMatchStrList(match_dict_list)
-        for str_line in match_str_list:
-            print(str_line)
-    """
     Test Away matchList
     """
     def test_away_findMatchList(self):
@@ -106,25 +96,3 @@ class TestHattrickMatch(TestCase):
         print(filePath)
         for match in result:
             print(match)
-
-    """
-    Test match_dict_list to match_str_list on mydatabase
-    """
-    def test_match_dict_list_to_match_str_list(self):
-        instance = ht_match.HattrickMatch()
-        filePath = '2018/04/18/match.html'
-        match_dict_list = instance.findMatchList(filePath, 'mydatabase')
-        match_str_list = instance.matchDictListToMatchStrList(match_dict_list)
-        for str_line in match_str_list:
-            print(str_line)
-
-    """
-    Test match_dict_list to match_str_list on mydatabase2
-    """
-    def test_match_dict_list_to_match_str_list(self):
-        instance = ht_match.HattrickMatch()
-        filePath = '2018/05/09/match.html'
-        match_dict_list = instance.findMatchList(filePath, 'mydatabase2')
-        match_str_list = instance.matchDictListToMatchStrList(match_dict_list)
-        for str_line in match_str_list:
-            print(str_line)
