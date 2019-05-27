@@ -51,6 +51,13 @@ class HattrickMatch():
                     p = re.compile('\d+\d')
                     for start_player_str in p.findall(event['eventText']):
                         self.set_sMin(int(start_player_str), 0, match_player)
+                # 512 red card Player
+                elif 512 == event['eventType']:
+                    p = re.compile('player=\d+\d')
+                    for red_card_player_str_tmp in p.findall(event['eventText']):
+                        p = re.compile('\d+\d')
+                        for red_card_player_str in p.findall(red_card_player_str_tmp):
+                            self.set_eMin(int(red_card_player_str), int(event['matchMinute']), match_player)
                 # 351,352 changing lineup Player
                 elif 351 <= event['eventType'] <= 352:
                     start_player_num = int(event['subjectPlayerId'])
@@ -69,13 +76,20 @@ class HattrickMatch():
                 playerId = player['po_before']
                 po = player['po']
                 self.update_po(playerId, po, match_player)
-
         for idx,player in enumerate(match_player):
             if 'po_before' in player.keys():
                 if player['po_before'] == match_player[idx+1]['playerId']:
                     tmp_player = copy.deepcopy(player)
                     match_player[idx] = match_player[idx+1]
                     match_player[idx+1] = tmp_player
+        # update player's po whose po is -1
+        for player in match_player:
+            if 'po' in player.keys():
+                if player['po'] == -1:
+                    p = re.compile('\d\d\d\d-\d\d-\d\d')
+                    for date_str in p.findall(match_dict['matchDate']):
+                        po = self.selectPOWherePlayerID(player['playerId'], date_str, db_name, table_name)
+                        self.update_po(player['playerId'], po, match_player)
         return match_player
 
     def set_sMin(self, playerId, sMin, match_player, start_player_num=-1):
