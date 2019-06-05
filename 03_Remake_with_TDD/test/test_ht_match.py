@@ -36,38 +36,8 @@ class TestHattrickMatch(TestCase):
         for match in result:
             print(match)
 
-    def test_findMatchList_2019_05_26(self):
+    def test_findMatchList_2019_06_02(self):
         instance = ht_match.HattrickMatch()
-        filePath = '2019/05/26/match.html'
+        filePath = '2019/06/02/match.html'
         result = instance.findMatchList(filePath, 'mydatabase2', 'player_tmp')
         instance.print_match_player(result)
-
-    """
-    Test Away matchList
-    """
-    def test_away_findMatchList(self):
-        instance = ht_match.HattrickMatch()
-        filePath = '2018/10/17/match.html'
-        result = instance.findMatchList(filePath, 'mydatabase', 'player_tmp')
-        print(filePath)
-        for match in result:
-            print(match)
-
-    def test_findMatchList_2019_04_03(self):
-        instance = ht_match.HattrickMatch()
-        filePath = '2019/04/03/match.html'
-        result = instance.findMatchList(filePath, 'mydatabase', 'player_tmp')
-        print(filePath)
-        for match in result:
-            print(match)
-
-    """
-    Test Away matchList
-    """
-    def test_away_findMatchList(self):
-        instance = ht_match.HattrickMatch()
-        filePath = '2018/10/17/match.html'
-        result = instance.findMatchList(filePath, 'mydatabase', 'player_tmp')
-        print(filePath)
-        for match in result:
-            print(match)
