@@ -63,6 +63,7 @@ class HattrickMatch():
                     start_player_num = int(event['subjectPlayerId'])
                     self.set_eMin(start_player_num, event['matchMinute'], match_player)
                     self.set_sMin(int(event['objectPlayerId']), event['matchMinute'], match_player, start_player_num)
+            # 501 unearned win
             elif 501 == event['eventType']:
                  for player in match_player:
                      if 'sMin' in player.keys() and 'eMin' not in player.keys():
