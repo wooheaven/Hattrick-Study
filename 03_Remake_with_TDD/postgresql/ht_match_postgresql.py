@@ -1,7 +1,29 @@
 import psycopg2
 from psycopg2.extensions import AsIs
 
+
 class HattrickMatchPostgreSQL():
+    def create_match(self, conn, target_table):
+        try:
+            cursor = conn.cursor()
+            query = ""
+            query += "CREATE TABLE match (                   " + "\n"
+            query += "    Date DATE,          --01           " + "\n"
+            query += "    Po   VARCHAR(5),    --02 Position  " + "\n"
+            query += "    Num  INT,           --03 Number    " + "\n"
+            query += "    RT   NUMERIC(3, 1), --04 Rating    " + "\n"
+            query += "    sMin INT,           --05 Start Min " + "\n"
+            query += "    eMin INT            --06 End Min   " + "\n"
+            query += ") "
+            cursor.execute(query, {"target_table": AsIs(target_table)})
+            conn.commit()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print("Error Happen")
+            print(query)
+            print(error)
+        finally:
+            if cursor.closed is False:
+                cursor.close()
 
     def select_count_of_match(self, conn):
         try:
@@ -49,6 +71,39 @@ class HattrickMatchPostgreSQL():
         finally:
             if cur is not None:
                 cur.close()
+
+    def insert_to_match_from_select(self, conn, to_table, from_table):
+        try:
+            cursor = conn.cursor()
+            sql = ""
+            sql += "INSERT INTO %(to_table)s ( " + "\n"
+            sql += "    date, -- 1             " + "\n"
+            sql += "    po,   -- 2             " + "\n"
+            sql += "    num,  -- 3             " + "\n"
+            sql += "    rt,   -- 4             " + "\n"
+            sql += "    sMin, -- 5             " + "\n"
+            sql += "    eMin  -- 6             " + "\n"
+            sql += ")                          " + "\n"
+            sql += "(SELECT                    " + "\n"
+            sql += "    date, -- 1             " + "\n"
+            sql += "    po,   -- 2             " + "\n"
+            sql += "    num,  -- 3             " + "\n"
+            sql += "    rt,   -- 4             " + "\n"
+            sql += "    sMin, -- 5             " + "\n"
+            sql += "    eMin  -- 6             " + "\n"
+            sql += "FROM %(from_table)s        " + "\n"
+            sql += "ORDER BY date,num          " + "\n"
+            sql += ")"
+            cursor.execute(sql,
+                           {"from_table": AsIs(from_table),
+                            "to_table": AsIs(to_table)})
+            conn.commit()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print("Error happened")
+            print(error)
+            print(sql)
+
+
 
     def update_rt_of_match(self, conn, player_table_name):
         try:
