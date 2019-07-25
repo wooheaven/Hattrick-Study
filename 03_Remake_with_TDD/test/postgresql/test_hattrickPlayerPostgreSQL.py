@@ -16,8 +16,10 @@ class TestHattrickPlayerPostgreSQL(TestCase):
         # conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
         conn = psycopg2.connect("dbname='mydatabase2' user='myuser' host='localhost' port='65432' password='123qwe'")
         ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
-        from_table_name = 'player'
-        to_table_name = 'player_backup'
+        # from_table_name = 'player'
+        from_table_name = 'player_tmp'
+        # to_table_name = 'player_backup'
+        to_table_name = 'player_tmp_backup'
         ht_player_pg.drop_table(conn=conn, target_table=to_table_name)
         ht_player_pg.backup_player(conn=conn, from_table=from_table_name, to_table=to_table_name)
         conn.close()
@@ -26,10 +28,10 @@ class TestHattrickPlayerPostgreSQL(TestCase):
         # conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
         conn = psycopg2.connect("dbname='mydatabase2' user='myuser' host='localhost' port='65432' password='123qwe'")
         ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
-        from_table_name = 'player'
-        # from_table_name = 'player_tmp'
-        to_table_name = 'player_tmp'
-        # to_table_name = 'player'
+        # from_table_name = 'player'
+        from_table_name = 'player_tmp'
+        # to_table_name = 'player_tmp'
+        to_table_name = 'player'
         ht_player_pg.insert_player_from_select(conn, to_table=to_table_name, from_table=from_table_name)
         conn.close()
 
@@ -37,11 +39,11 @@ class TestHattrickPlayerPostgreSQL(TestCase):
         # conn = psycopg2.connect("dbname='mydatabase' user='myuser' host='localhost' port='65432' password='123qwe'")
         conn = psycopg2.connect("dbname='mydatabase2' user='myuser' host='localhost' port='65432' password='123qwe'")
         ht_player_pg = ht_player_postgresql.HattrickPlayerPostgreSQL()
-        # ht_player_table_name = 'player'
-        ht_player_table_name = 'player_tmp'
+        ht_player_table_name = 'player'
+        # ht_player_table_name = 'player_tmp'
         ht_player_pg.drop_table(conn=conn, target_table=ht_player_table_name)
-        # ht_player_pg.create_player(conn=conn, target_table=ht_player_table_name)
-        ht_player_pg.create_player_tmp(conn=conn, target_table=ht_player_table_name)
+        ht_player_pg.create_player(conn=conn, target_table=ht_player_table_name)
+        # ht_player_pg.create_player_tmp(conn=conn, target_table=ht_player_table_name)
         conn.close()
 
     def test_insert_player_from_csv(self):
